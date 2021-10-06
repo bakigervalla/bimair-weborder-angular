@@ -1,0 +1,168 @@
+2021-10-06T22:00:08.9911462+02:00  [FTL] Error whilst creating and seeding database (944fb156)
+System.AggregateException: One or more errors occurred. (Could not load file or assembly 'QuickApp, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.)
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'QuickApp, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'QuickApp, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly)
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(AssemblyName assemblyRef)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationsAssembly..ctor(ICurrentDbContext currentContext, IDbContextOptions options, IMigrationsIdGenerator idGenerator, IDiagnosticsLogger`1 logger)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite singletonCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite singletonCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass1_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngine.GetService(Type serviceType, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService[T](IServiceProvider provider)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetRelationalService[TService](IInfrastructure`1 databaseFacade)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.MigrateAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at DAL.DatabaseInitializer.SeedAsync() in E:\Program Files\Projects\BIMair-WebOrder\DAL\DatabaseInitializer.cs:line 43
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at QuickApp.Program.Main(String[] args) in e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\Program.cs:line 35
+2021-10-06T22:03:14.8481027+02:00  [FTL] Error whilst creating and seeding database (944fb156)
+System.AggregateException: One or more errors occurred. (Could not load file or assembly 'BIMair, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.)
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'BIMair, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'BIMair, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly)
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(AssemblyName assemblyRef)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationsAssembly..ctor(ICurrentDbContext currentContext, IDbContextOptions options, IMigrationsIdGenerator idGenerator, IDiagnosticsLogger`1 logger)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite singletonCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite singletonCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass1_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngine.GetService(Type serviceType, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService[T](IServiceProvider provider)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetRelationalService[TService](IInfrastructure`1 databaseFacade)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.MigrateAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at DAL.DatabaseInitializer.SeedAsync() in E:\Program Files\Projects\BIMair-WebOrder\DAL\DatabaseInitializer.cs:line 43
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at BIMair.Program.Main(String[] args) in e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\Program.cs:line 35
+2021-10-06T22:04:28.5268175+02:00  [FTL] Error whilst creating and seeding database (944fb156)
+System.AggregateException: One or more errors occurred. (Could not load file or assembly 'BIMair, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.)
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'BIMair, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'BIMair, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly)
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(AssemblyName assemblyRef)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationsAssembly..ctor(ICurrentDbContext currentContext, IDbContextOptions options, IMigrationsIdGenerator idGenerator, IDiagnosticsLogger`1 logger)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite singletonCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite singletonCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass1_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngine.GetService(Type serviceType, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService[T](IServiceProvider provider)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetRelationalService[TService](IInfrastructure`1 databaseFacade)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.MigrateAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at DAL.DatabaseInitializer.SeedAsync() in E:\Program Files\Projects\BIMair-WebOrder\DAL\DatabaseInitializer.cs:line 43
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at BIMair.Program.Main(String[] args) in e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\Program.cs:line 35
+2021-10-06T22:10:33.4712054+02:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2021-10-06T22:10:33.5345659+02:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2021-10-06T22:10:33.5422439+02:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2021-10-06T22:10:33.9399680+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-10-06T22:10:33.9426715+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-10-06T22:10:33.9452099+02:00  [INF] Content root path: "e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web" (b5d60022)
+2021-10-06T22:11:10.9271375+02:00  [ERR] Compiling @angular/core : es2015 as esm2015
+ (5acd4031)
+2021-10-06T22:11:11.0999460+02:00  [ERR] Compiling @angular/animations : es2015 as esm2015
+ (9c30a060)
+2021-10-06T22:11:17.3966384+02:00  [ERR] Compiling ngx-bootstrap/utils : es2015 as esm2015
+ (492f6370)
+2021-10-06T22:11:17.4165433+02:00  [ERR] Compiling @angular/common : es2015 as esm2015
+ (ebfa3907)
+2021-10-06T22:11:17.4358560+02:00  [ERR] Compiling @angular/animations/browser : es2015 as esm2015
+ (588153d4)
+2021-10-06T22:11:19.6551927+02:00  [ERR] Compiling ngx-bootstrap/positioning : es2015 as esm2015
+ (dcb442f5)
+2021-10-06T22:11:19.8998818+02:00  [ERR] Compiling @angular/platform-browser : es2015 as esm2015
+ (a01bc7a9)
+2021-10-06T22:11:20.5988216+02:00  [ERR] Compiling ngx-bootstrap/component-loader : es2015 as esm2015
+ (476fc570)
+2021-10-06T22:11:20.7685999+02:00  [ERR] Compiling @ngx-translate/core : es2015 as esm2015
+ (fb8db328)
+2021-10-06T22:11:21.4415611+02:00  [ERR] Compiling @angular/common/http : es2015 as esm2015
+ (934ad769)
+2021-10-06T22:11:21.6405989+02:00  [ERR] Compiling @angular/forms : es2015 as esm2015
+ (a5e7a4d2)
+2021-10-06T22:11:23.1101145+02:00  [ERR] Compiling @angular/platform-browser-dynamic : es2015 as esm2015
+ (00ea327c)
+2021-10-06T22:11:24.0026466+02:00  [ERR] Compiling @angular/platform-browser/animations : es2015 as esm2015
+ (8689353d)
+2021-10-06T22:11:25.1606746+02:00  [ERR] Compiling @swimlane/ngx-datatable : es2015 as esm2015
+ (de94b4fb)
+2021-10-06T22:11:25.4561837+02:00  [ERR] Compiling angular-oauth2-oidc : es2015 as esm2015
+ (cf00f9fd)
+2021-10-06T22:11:25.8015531+02:00  [ERR] Compiling ngx-toasta : es2015 as esm2015
+ (74510f6e)
+2021-10-06T22:11:26.9496540+02:00  [ERR] Compiling @ng-select/ng-select : es2015 as esm2015
+ (9cf45cc3)
+2021-10-06T22:11:27.9699480+02:00  [ERR] Compiling ngx-bootstrap/modal : es2015 as esm2015
+ (ca2802c3)
+2021-10-06T22:11:28.2328784+02:00  [ERR] Compiling ngx-bootstrap/tooltip : es2015 as esm2015
+ (1826e0e6)
+2021-10-06T22:11:29.2661575+02:00  [ERR] Compiling ngx-bootstrap/popover : es2015 as esm2015
+ (0740364c)
+2021-10-06T22:11:29.3198021+02:00  [ERR] Compiling ngx-bootstrap/dropdown : es2015 as esm2015
+ (a173ec35)
+2021-10-06T22:11:29.9973797+02:00  [ERR] Compiling ngx-bootstrap/carousel : es2015 as esm2015
+ (38bd2f63)
+2021-10-06T22:11:30.1302926+02:00  [ERR] Compiling ng2-charts : es2015 as esm2015
+ (24251a2c)
+2021-10-06T22:11:30.6818288+02:00  [ERR] Compiling @angular/router : es2015 as esm2015
+ (ede1c3a1)
+2021-10-06T22:12:05.7917321+02:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2021-10-06T22:12:05.8225753+02:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2021-10-06T22:12:05.8392638+02:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2021-10-06T22:12:06.1992020+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-10-06T22:12:06.2136199+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-10-06T22:12:06.2162806+02:00  [INF] Content root path: "e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web" (b5d60022)
+2021-10-06T22:21:28.4947929+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:41:25 - error TS2339: Property 'resetPassword' does not exist on type 'AccountService'.
+ (83b59530)
+2021-10-06T22:21:28.4998072+02:00  [ERR] 41     this.accountService.resetPassword(this.f?.email.value)
+ (bbaf86b7)
+2021-10-06T22:21:28.5034962+02:00  [ERR]                            ~~~~~~~~~~~~~
+ (303ac8a8)
+2021-10-06T22:21:44.7860746+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:41:25 - error TS2339: Property 'resetPassword' does not exist on type 'AccountService'.
+ (83b59530)
+2021-10-06T22:21:44.7890869+02:00  [ERR] 41     this.accountService.resetPassword(this.f?.email.value)
+ (bbaf86b7)
+2021-10-06T22:21:44.7926334+02:00  [ERR]                            ~~~~~~~~~~~~~
+ (303ac8a8)

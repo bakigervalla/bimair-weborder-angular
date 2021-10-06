@@ -1,0 +1,80 @@
+<div class="login-page">
+  <section class="h-100">
+    <div class="container h-100">
+      <div class="row justify-content-md-center h-100">
+        <div class="card-wrapper">
+          <div class="brand">
+            <img src="assets/images/BIMair-logo-blue.png" alt="logo">
+          </div>
+          <div class="card fat">
+            <div class="card-body">
+              <h4 class="card-title">Login</h4>
+              <form *ngIf="formResetToggle" class="login-validation" name="loginForm" #f="ngForm" novalidate
+                (ngSubmit)="f.form.valid ? login() :
+                          (!username.valid && showErrorAlert('Username is required', 'Please enter a valid username'));
+                          (!password.valid && showErrorAlert('Password is required', 'Please enter a valid password'))">
+                <div class="form-group">
+                  <label for="login-username">Username</label>
+                  <input type="text" id="login-username" name="username" placeholder="Enter username"
+                    autocomplete="username" class="form-control"
+                    [ngClass]="{'is-valid': f.submitted && username.valid, 'is-invalid' : f.submitted && !username.valid}"
+                    [(ngModel)]="userLogin.userName" #username="ngModel" required />
+                  <span class="invalid-feedback" *ngIf="f.submitted && !username.valid">
+                    Username is required
+                  </span>
+                </div>
+
+                <div class="form-group">
+                  <label for="login-password">
+                    Password
+                    <a [routerLink]="['/forgot']" class="float-right">
+                      Forgot Password?
+                    </a>
+                  </label>
+                  <div style="position:relative" id="eye-password-0">
+                    <input [inputFromParent] type="password" id="login-password" name="password"
+                      placeholder="Enter password" autocomplete="current-password" class="form-control"
+                      [ngClass]="{'is-valid': f.submitted && password.valid, 'is-invalid' : f.submitted && !password.valid}"
+                      [(ngModel)]="userLogin.password" #password="ngModel" required data-eye=""
+                      style="padding-right: 60px;" />
+                    <span class="invalid-feedback">
+                      Password is required
+                    </span>
+                    <i class="fa far fa-eye"
+                      style="position: absolute; right: 2px; top: 7px; padding: 2px 7px; font-size: 18px; color: #999; cursor: pointer;"
+                      toggle></i>
+                    <!--<div class="btn btn-primary btn-sm" style="position: absolute; right: 10px; top: 7px; padding: 2px 7px; font-size: 12px; cursor: pointer;" toggle>Show</div>-->
+                  </div>
+                  <div class="invalid-feedback">
+                    Password is required
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="custom-checkbox custom-control">
+                    <input type="checkbox" class="form-check-input" id="login-rememberme" name="rememberMe"
+                      [(ngModel)]="userLogin.rememberMe">
+                    <label class="form-check-label" for="login-rememberme">Remember me</label>
+                  </div>
+                </div>
+
+                <div class="form-group m-0">
+                  <button type="submit" class="btn btn-primary btn-block" [disabled]="isLoading">
+                    <i *ngIf="isLoading" class='fa fa-circle-o-notch fa-spin'></i> {{isLoading ? 'Logging in...' :
+                    'Login'}}
+                  </button>
+                </div>
+                <div class="mt-4 text-center">
+                  Don't have an account? <a [routerLink]="['/register']" class="card-link">Create One</a>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!--<div class="footer">
+            Copyright © 2021 — BIMair
+          </div>-->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

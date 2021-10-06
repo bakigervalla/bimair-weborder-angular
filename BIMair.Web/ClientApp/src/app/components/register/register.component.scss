@@ -1,0 +1,145 @@
+.boxshadow {
+  position: relative;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  padding: 10px;
+  background: white;
+}
+
+
+.boxshadow::after {
+  content: '';
+  position: absolute;
+  z-index: -1; /* hide shadow behind image */
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+  width: 70%;
+  left: 15%; /* one half of the remaining 30% */
+  height: 100px;
+  bottom: 0;
+}
+
+
+.cardshadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.last-control-group {
+  margin-bottom: -0.75rem;
+}
+
+
+.h-90 {
+  height: 90%;
+}
+
+
+@media (min-width: 768px) {
+  .login-container {
+    width: 700px;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .login-container {
+    width: 670px;
+  }
+}
+
+/* register */
+.row:not(:last-child) {
+  /*border-bottom: 1px solid #ccc;*/
+}
+
+.separator-hr {
+  margin: 0 5px;
+  border-top-style: dashed;
+}
+
+.edit-separator-hr {
+  margin: 10px 5px;
+  border-top-style: dashed;
+}
+
+.last-separator-hr {
+  margin-top: 5px;
+}
+
+.edit-last-separator-hr {
+  margin-top: 15px;
+}
+
+.password-separator-hr {
+  margin: 5px;
+  border-style: none;
+}
+
+
+/*.form-group {
+  margin-top: 0;
+  margin-bottom: 0;
+}*/
+
+input.form-control {
+  border-left-width: 5px;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+.password-well {
+  padding: 0.5rem;
+}
+
+.hint-sm {
+  display: block;
+}
+
+.form-check.user-enabled {
+  display: inline-block;
+}
+
+.unblock-user {
+  margin-left: 34px;
+}
+
+
+@media (min-width: 992px) {
+  .user-enabled {
+    margin-left: 40px;
+  }
+}
+
+
+.card {
+  border-color: transparent;
+  box-shadow: 0 4px 8px rgba(0,0,0,.05);
+}
+
+.card.fat {
+  padding: 10px;
+  border-top: 1px solid #f7F7f7;
+}
+
+.card .card-title {
+  margin-bottom: 30px;
+}
+
+.form-control {
+  border-width: 2.3px;
+}
+
+
+.btn-block {
+  width: 30%;
+}
+
+.btn-block i {
+  margin-right: 5px
+}
+
+.confirm-label {
+  line-height: 1.1;
+  padding-top: 2px;
+}
