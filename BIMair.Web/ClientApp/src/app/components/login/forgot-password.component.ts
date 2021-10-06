@@ -2,15 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, finalize } from 'rxjs/operators';
 
-// import { AccountService, AlertService } from '@app/_services';
 import { AlertService, MessageSeverity, DialogType } from '../../services/alert.service';
 import { AccountService } from '../../services/account.service';
 
-@Component({ templateUrl: 'forgot-password.component.html' })
+@Component({
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss'],
+})
 export class ForgotPasswordComponent implements OnInit {
-  form: FormGroup | undefined;
+  resetForm: FormGroup | undefined;
   loading = false;
   submitted = false;
+  formResetToggle = true;
 
   public resetSavedCallback: () => void;
 
@@ -21,19 +25,19 @@ export class ForgotPasswordComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+    this.resetForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.form.controls; }
+  get f() { return this.resetForm.controls; }
 
-  reset() {
+  resetPassword() {
     this.submitted = true;
 
-    if (this.form && this.form.invalid) {
-      this.form.markAllAsTouched();
+    if (this.resetForm && this.resetForm.invalid) {
+      this.resetForm.markAllAsTouched();
       return;
     }
 
@@ -63,12 +67,6 @@ export class ForgotPasswordComponent implements OnInit {
     this.alertService.showMessage(caption, message, MessageSeverity.error);
   }
 
-  forgot() {
-    this.loading = true;
-    this.alertService.startLoadingMessage('', 'Attempting forgot password reset...');
-  }
-
-
   mapLoginErrorMessage(error: string) {
 
     if (error === 'invalid_username_or_password') {
@@ -81,5 +79,4 @@ export class ForgotPasswordComponent implements OnInit {
 
     return error;
   }
-
 }

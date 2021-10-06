@@ -166,3 +166,395 @@ File name: 'BIMair, Culture=neutral, PublicKeyToken=null'
  (bbaf86b7)
 2021-10-06T22:21:44.7926334+02:00  [ERR]                            ~~~~~~~~~~~~~
  (303ac8a8)
+2021-10-06T22:27:20.4976828+02:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2021-10-06T22:27:20.5398706+02:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2021-10-06T22:27:20.5494433+02:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2021-10-06T22:27:20.8392520+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-10-06T22:27:20.8421255+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-10-06T22:27:20.8449369+02:00  [INF] Content root path: "e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web" (b5d60022)
+2021-10-06T22:33:00.3510249+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:3:16 - error TS2339: Property 'form' does not exist on type 'ForgotPasswordComponent'.
+ (ac170c89)
+2021-10-06T22:33:00.3547343+02:00  [ERR] 3   <form *ngIf="form" [formGroup]="f" (ngSubmit)="reset()">
+ (dd9505c0)
+2021-10-06T22:33:00.3575568+02:00  [ERR]                  ~~~~
+ (dc172d45)
+2021-10-06T22:33:00.3613880+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:33:00.3647673+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:33:00.3679368+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:33:00.3711354+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:33:10.9366651+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:3:16 - error TS2339: Property 'f' does not exist on type 'ForgotPasswordComponent'.
+ (3b06d9e1)
+2021-10-06T22:33:10.9406908+02:00  [ERR] 3   <form *ngIf="f" [formGroup]="f" (ngSubmit)="reset()">
+ (6bc44ba0)
+2021-10-06T22:33:10.9454214+02:00  [ERR]                  ~
+ (fa2e8233)
+2021-10-06T22:33:10.9517386+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:33:10.9552688+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:33:10.9591379+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:33:10.9634458+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:44:27.9303841+02:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2021-10-06T22:44:27.9666871+02:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2021-10-06T22:44:27.9743316+02:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2021-10-06T22:44:28.2774522+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-10-06T22:44:28.2798689+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-10-06T22:44:28.2822521+02:00  [INF] Content root path: "e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web" (b5d60022)
+2021-10-06T22:47:51.9727921+02:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2021-10-06T22:47:52.0209814+02:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2021-10-06T22:47:52.0282413+02:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2021-10-06T22:47:52.3226091+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-10-06T22:47:52.3253500+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-10-06T22:47:52.3276689+02:00  [INF] Content root path: "e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web" (b5d60022)
+2021-10-06T22:49:35.6682351+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:3:9 - error NG8002: Can't bind to 'formGroup' since it isn't a known property of 'form'.
+ (6b60e4fd)
+2021-10-06T22:49:35.6712236+02:00  [ERR] 3   <form [formGroup]="resetForm" (ngSubmit)="reset()">
+ (10c72dae)
+2021-10-06T22:49:35.6745046+02:00  [ERR]           ~~~~~~~~~~~~~~~~~~~~~~~
+ (13ea8bda)
+2021-10-06T22:49:35.6771117+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:49:35.6798236+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:49:35.6826340+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:49:35.6854409+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:49:35.6883576+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:7:42 - error TS2339: Property 'email' does not exist on type 'FormGroup'.
+ (8cc86390)
+2021-10-06T22:49:35.6913886+02:00  [ERR] 7       <div *ngIf="submitted && resetForm.email.errors" class="invalid-feedback">
+ (abe0f998)
+2021-10-06T22:49:35.6940271+02:00  [ERR]                                            ~~~~~
+ (6a087e49)
+2021-10-06T22:49:35.6969443+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:49:35.6996285+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:49:35.7024469+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:49:35.7052689+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:50:12.6836305+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:3:9 - error NG8002: Can't bind to 'formGroup' since it isn't a known property of 'form'.
+ (6b60e4fd)
+2021-10-06T22:50:12.6867538+02:00  [ERR] 3   <form [formGroup]="f" (ngSubmit)="reset()">
+ (b2a6942c)
+2021-10-06T22:50:12.6903105+02:00  [ERR]           ~~~~~~~~~~~~~~~
+ (f3a8d913)
+2021-10-06T22:50:12.6941436+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:50:12.6973737+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:50:12.7003669+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:50:12.7033109+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:50:12.7063672+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:7:42 - error TS2339: Property 'email' does not exist on type 'FormGroup'.
+ (8cc86390)
+2021-10-06T22:50:12.7095695+02:00  [ERR] 7       <div *ngIf="submitted && resetForm.email.errors" class="invalid-feedback">
+ (abe0f998)
+2021-10-06T22:50:12.7128877+02:00  [ERR]                                            ~~~~~
+ (6a087e49)
+2021-10-06T22:50:12.7157425+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:50:12.7188254+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:50:12.7216554+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:50:12.7244142+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:50:43.4099027+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:3:9 - error NG8002: Can't bind to 'formGroup' since it isn't a known property of 'form'.
+ (6b60e4fd)
+2021-10-06T22:50:43.4141704+02:00  [ERR] 3   <form [formGroup]="resetForm" (ngSubmit)="reset()">
+ (10c72dae)
+2021-10-06T22:50:43.4175315+02:00  [ERR]           ~~~~~~~~~~~~~~~~~~~~~~~
+ (13ea8bda)
+2021-10-06T22:50:43.4214545+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:50:43.4268287+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:50:43.4356120+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:50:43.4411085+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:50:43.4451553+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:7:42 - error TS2339: Property 'email' does not exist on type 'FormGroup'.
+ (8cc86390)
+2021-10-06T22:50:43.4485366+02:00  [ERR] 7       <div *ngIf="submitted && resetForm.email.errors" class="invalid-feedback">
+ (abe0f998)
+2021-10-06T22:50:43.4515853+02:00  [ERR]                                            ~~~~~
+ (6a087e49)
+2021-10-06T22:50:43.4553918+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:50:43.4586946+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:50:43.4620321+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:50:43.4656151+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:51:18.1215049+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:3:9 - error NG8002: Can't bind to 'formGroup' since it isn't a known property of 'form'.
+ (6b60e4fd)
+2021-10-06T22:51:18.1246614+02:00  [ERR] 3   <form [formGroup]="resetForm" (ngSubmit)="reset()">
+ (10c72dae)
+2021-10-06T22:51:18.1280214+02:00  [ERR]           ~~~~~~~~~~~~~~~~~~~~~~~
+ (13ea8bda)
+2021-10-06T22:51:18.1330459+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:51:18.1371866+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:51:18.1405560+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:51:18.1550517+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:51:18.1603873+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:7:42 - error TS2339: Property 'email' does not exist on type 'FormGroup'.
+ (8cc86390)
+2021-10-06T22:51:18.1666343+02:00  [ERR] 7       <div *ngIf="submitted && resetForm.email.errors" class="invalid-feedback">
+ (abe0f998)
+2021-10-06T22:51:18.1701295+02:00  [ERR]                                            ~~~~~
+ (6a087e49)
+2021-10-06T22:51:18.1738474+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:51:18.1773266+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:51:18.1823481+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:51:18.1856172+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:51:18.1885383+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:32:3 - error TS2393: Duplicate function implementation.
+ (bb349578)
+2021-10-06T22:51:18.1913657+02:00  [ERR] 32   reset() {
+ (b851b51c)
+2021-10-06T22:51:18.1941828+02:00  [ERR]      ~~~~~
+ (65dfc96a)
+2021-10-06T22:51:18.1974491+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:79:3 - error TS2393: Duplicate function implementation.
+ (253f0c67)
+2021-10-06T22:51:18.2004205+02:00  [ERR] 79   reset() {
+ (897351fa)
+2021-10-06T22:51:18.2032101+02:00  [ERR]      ~~~~~
+ (65dfc96a)
+2021-10-06T22:51:18.2060333+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:80:10 - error TS2339: Property 'formResetToggle' does not exist on type 'ForgotPasswordComponent'.
+ (e60bf84e)
+2021-10-06T22:51:18.2091283+02:00  [ERR] 80     this.formResetToggle = false;
+ (8f149baf)
+2021-10-06T22:51:18.2115168+02:00  [ERR]             ~~~~~~~~~~~~~~~
+ (20484b86)
+2021-10-06T22:51:18.2143472+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:83:12 - error TS2339: Property 'formResetToggle' does not exist on type 'ForgotPasswordComponent'.
+ (06145b42)
+2021-10-06T22:51:18.2175744+02:00  [ERR] 83       this.formResetToggle = true;
+ (0202fc77)
+2021-10-06T22:51:18.2205773+02:00  [ERR]               ~~~~~~~~~~~~~~~
+ (e001df0c)
+2021-10-06T22:51:31.0784882+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:3:9 - error NG8002: Can't bind to 'formGroup' since it isn't a known property of 'form'.
+ (6b60e4fd)
+2021-10-06T22:51:31.0815121+02:00  [ERR] 3   <form [formGroup]="resetForm" (ngSubmit)="reset()">
+ (10c72dae)
+2021-10-06T22:51:31.0843880+02:00  [ERR]           ~~~~~~~~~~~~~~~~~~~~~~~
+ (13ea8bda)
+2021-10-06T22:51:31.0870737+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:51:31.0900963+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:51:31.0937331+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:51:31.1008292+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:51:31.1040634+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:7:42 - error TS2339: Property 'email' does not exist on type 'FormGroup'.
+ (8cc86390)
+2021-10-06T22:51:31.1079622+02:00  [ERR] 7       <div *ngIf="submitted && resetForm.email.errors" class="invalid-feedback">
+ (abe0f998)
+2021-10-06T22:51:31.1126923+02:00  [ERR]                                            ~~~~~
+ (6a087e49)
+2021-10-06T22:51:31.1176793+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:51:31.1204541+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:51:31.1235768+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:51:31.1278250+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:51:31.1312054+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:33:3 - error TS2393: Duplicate function implementation.
+ (1c2fe321)
+2021-10-06T22:51:31.1338781+02:00  [ERR] 33   reset() {
+ (7351cc6b)
+2021-10-06T22:51:31.1367986+02:00  [ERR]      ~~~~~
+ (65dfc96a)
+2021-10-06T22:51:31.1405946+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:80:3 - error TS2393: Duplicate function implementation.
+ (d4dc31c3)
+2021-10-06T22:51:31.1437737+02:00  [ERR] 80   reset() {
+ (8f460920)
+2021-10-06T22:51:31.1464496+02:00  [ERR]      ~~~~~
+ (65dfc96a)
+2021-10-06T22:51:47.1225539+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:3:9 - error NG8002: Can't bind to 'formGroup' since it isn't a known property of 'form'.
+ (6b60e4fd)
+2021-10-06T22:51:47.1282519+02:00  [ERR] 3   <form [formGroup]="resetForm" (ngSubmit)="reset()">
+ (10c72dae)
+2021-10-06T22:51:47.1351650+02:00  [ERR]           ~~~~~~~~~~~~~~~~~~~~~~~
+ (13ea8bda)
+2021-10-06T22:51:47.1394113+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:51:47.1428873+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:51:47.1459768+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:51:47.1489106+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:51:47.1521220+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:7:42 - error TS2339: Property 'email' does not exist on type 'FormGroup'.
+ (8cc86390)
+2021-10-06T22:51:47.1556952+02:00  [ERR] 7       <div *ngIf="submitted && resetForm.email.errors" class="invalid-feedback">
+ (abe0f998)
+2021-10-06T22:51:47.1588663+02:00  [ERR]                                            ~~~~~
+ (6a087e49)
+2021-10-06T22:51:47.1617310+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:51:47.1645950+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:51:47.1681891+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:51:47.1719412+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:51:52.3500887+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:3:9 - error NG8002: Can't bind to 'formGroup' since it isn't a known property of 'form'.
+ (6b60e4fd)
+2021-10-06T22:51:52.3536602+02:00  [ERR] 3   <form [formGroup]="resetForm" (ngSubmit)="resetPassword()">
+ (9f1611d8)
+2021-10-06T22:51:52.3562553+02:00  [ERR]           ~~~~~~~~~~~~~~~~~~~~~~~
+ (13ea8bda)
+2021-10-06T22:51:52.3585707+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:51:52.3609353+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:51:52.3630193+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:51:52.3650267+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:51:52.3674984+02:00  [ERR] Error: src/app/components/login/forgot-password.component.html:7:42 - error TS2339: Property 'email' does not exist on type 'FormGroup'.
+ (8cc86390)
+2021-10-06T22:51:52.3700201+02:00  [ERR] 7       <div *ngIf="submitted && resetForm.email.errors" class="invalid-feedback">
+ (abe0f998)
+2021-10-06T22:51:52.3721684+02:00  [ERR]                                            ~~~~~
+ (6a087e49)
+2021-10-06T22:51:52.3748534+02:00  [ERR]   src/app/components/login/forgot-password.component.ts:9:27
+ (a4252258)
+2021-10-06T22:51:52.3774951+02:00  [ERR]     9 @Component({ templateUrl: 'forgot-password.component.html' })
+ (471fcd46)
+2021-10-06T22:51:52.3803658+02:00  [ERR]                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (fd47473a)
+2021-10-06T22:51:52.3831456+02:00  [ERR]     Error occurs in the template of component ForgotPasswordComponent.
+ (12a4e6be)
+2021-10-06T22:54:50.6520750+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/about.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (2d09ed00)
+2021-10-06T22:55:11.6671817+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T22:55:57.5993850+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T22:57:55.0682370+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T22:58:03.4621425+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:45:44 - error TS2339: Property 'f' does not exist on type 'ForgotPasswordComponent'.
+ (5abc413c)
+2021-10-06T22:58:03.4662821+02:00  [ERR] 45     this.accountService.resetPassword(this.f?.email.value)
+ (58eb2802)
+2021-10-06T22:58:03.4697207+02:00  [ERR]                                               ~
+ (6604cd10)
+2021-10-06T22:58:03.4729669+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T22:59:51.1153527+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:45:44 - error TS2339: Property 'f' does not exist on type 'ForgotPasswordComponent'.
+ (5abc413c)
+2021-10-06T22:59:51.1184841+02:00  [ERR] 45     this.accountService.resetPassword(this.f?.email.value)
+ (58eb2802)
+2021-10-06T22:59:51.1213955+02:00  [ERR]                                               ~
+ (6604cd10)
+2021-10-06T22:59:52.7125296+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:45:44 - error TS2339: Property 'f' does not exist on type 'ForgotPasswordComponent'.
+ (5abc413c)
+2021-10-06T22:59:52.7151621+02:00  [ERR] 45     this.accountService.resetPassword(this.f?.email.value)
+ (58eb2802)
+2021-10-06T22:59:52.7176534+02:00  [ERR]                                               ~
+ (6604cd10)
+2021-10-06T23:01:18.8535746+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:45:44 - error TS2339: Property 'f' does not exist on type 'ForgotPasswordComponent'.
+ (5abc413c)
+2021-10-06T23:01:18.8562733+02:00  [ERR] 45     this.accountService.resetPassword(this.f?.email.value)
+ (58eb2802)
+2021-10-06T23:01:18.8598440+02:00  [ERR]                                               ~
+ (6604cd10)
+2021-10-06T23:01:36.8940073+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:02:49.5939570+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:03:00.5765723+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:03:11.1898715+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:03:30.6139395+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:04:18.4440504+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:04:20.9385837+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:04:32.6576351+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:04:44.4195866+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:05:00.4186995+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:05:20.1295645+02:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2021-10-06T23:05:20.1626645+02:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2021-10-06T23:05:20.1693016+02:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2021-10-06T23:05:20.4592513+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-10-06T23:05:20.4617033+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-10-06T23:05:20.4647433+02:00  [INF] Content root path: "e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web" (b5d60022)
+2021-10-06T23:06:12.6420282+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:06:21.5828364+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:07:18.0693182+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:07:31.0958724+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:07:36.5552442+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:07:55.7683404+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:44:44 - error TS2339: Property 'f' does not exist on type 'ForgotPasswordComponent'.
+ (a5105c45)
+2021-10-06T23:07:55.7706385+02:00  [ERR] 44     this.accountService.resetPassword(this.f?.email.value)
+ (5e8b6ea8)
+2021-10-06T23:07:55.7732554+02:00  [ERR]                                               ~
+ (6604cd10)
+2021-10-06T23:07:55.7758517+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:08:30.3807296+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:44:44 - error TS2339: Property 'f' does not exist on type 'ForgotPasswordComponent'.
+ (a5105c45)
+2021-10-06T23:08:30.3835925+02:00  [ERR] 44     this.accountService.resetPassword(this.f?.email.value)
+ (5e8b6ea8)
+2021-10-06T23:08:30.3860290+02:00  [ERR]                                               ~
+ (6604cd10)
+2021-10-06T23:08:30.3885916+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:10:17.1367186+02:00  [ERR] Error: src/app/components/login/forgot-password.component.ts:44:39 - error TS2345: Argument of type 'AbstractControl' is not assignable to parameter of type 'string'.
+ (fd0b1a35)
+2021-10-06T23:10:17.1401607+02:00  [ERR] 44     this.accountService.resetPassword(this.resetForm?.controls.email)
+ (97ecf6a0)
+2021-10-06T23:10:17.1424061+02:00  [ERR]                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (4b39a9ea)
+2021-10-06T23:10:17.1451078+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:10:34.0474422+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:12:30.3445744+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:13:02.8000310+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:13:41.1991851+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:13:52.3949014+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:14:15.6441777+02:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2021-10-06T23:14:15.6714281+02:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2021-10-06T23:14:15.6865468+02:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2021-10-06T23:14:15.9911498+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-10-06T23:14:15.9932033+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-10-06T23:14:15.9951295+02:00  [INF] Content root path: "e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web" (b5d60022)
+2021-10-06T23:15:24.9813208+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)
+2021-10-06T23:16:07.8156955+02:00  [ERR] Error: Entry module not found: Error: Can't resolve 'e:/Program Files/Projects/BIMair-WebOrder/BIMair.Web/ClientApp/src/app/components/login/forgot-password.component.scss' in 'e:\Program Files\Projects\BIMair-WebOrder\BIMair.Web\ClientApp'
+ (d11eb675)

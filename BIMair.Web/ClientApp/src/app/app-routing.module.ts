@@ -46,7 +46,7 @@ export class LowerCaseUrlSerializer extends DefaultUrlSerializer {
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard], data: { title: 'Home' } },
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
-  { path: 'forgotpassword', component: ForgotPasswordComponent, data: { title: 'Forgot Password' } },
+  { path: 'resetpassword', component: ForgotPasswordComponent, data: { title: 'Reset Password' } },
   { path: 'register', component: RegisterComponent, data: { title: 'Register' } },
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard], data: { title: 'Customers' } },
   { path: 'products', component: ProductsComponent, canActivate: [AuthGuard], data: { title: 'Products' } },
