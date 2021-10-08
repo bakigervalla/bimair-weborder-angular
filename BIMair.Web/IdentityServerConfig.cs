@@ -88,6 +88,7 @@ namespace BIMair
                     //AccessTokenLifetime = 900, // Lifetime of access token in seconds.
                     //AbsoluteRefreshTokenLifetime = 7200,
                     //SlidingRefreshTokenLifetime = 900,
+                         //ClientSecrets = { new Secret("eb300de4-add9-42f4-a3ac-abd3c60f1919".Sha256()) },
                 },
 
                 new Client

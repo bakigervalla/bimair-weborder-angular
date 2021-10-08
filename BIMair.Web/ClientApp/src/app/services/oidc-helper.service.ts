@@ -30,10 +30,10 @@ export class OidcHelperService {
     }
 
 
-    loginWithPassword(userName: string, password: string) {
+    loginWithPassword(email: string, password: string) {
         const header = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
         const params = new HttpParams()
-            .append('username', userName)
+            .append('username', email)
             .append('password', password)
             .append('client_id', this.clientId)
             .append('grant_type', 'password')

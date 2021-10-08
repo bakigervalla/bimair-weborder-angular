@@ -1,31 +1,35 @@
-<div class="d-flex h-90">
-  <div class="login-container m-auto">
-    <div class="card fat">
-      <div class="card-body">
-        <h4 class="card-title">Register</h4>
-        <form name="userInfoForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
+<div class="container padding-bottom-3x mb-2 mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
 
-          (email.errors?.required && showErrorAlert('Email is required', 'Please enter an email address (maximum of 200 characters)'));
-          (email.errors?.pattern && showErrorAlert('Invalid Email', 'Please enter a valid email address'));
+      <h4 class="card-title">Create your account</h4>
+      <form class="card mt-4" name="userInfoForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
+      (email.errors?.required && showErrorAlert('Email is required', 'Please enter an email address (maximum of 200 characters)'));
+      (email.errors?.pattern && showErrorAlert('Invalid Email', 'Please enter a valid email address'));
 
-          (!newPassword.valid && showErrorAlert('New password is required', 'Please enter the new password (minimum of 6 characters)'));
+      (!newPassword.valid && showErrorAlert('New password is required', 'Please enter the new password (minimum of 6 characters)'));
 
-          (newPassword.valid && confirmPassword.errors?.required && showErrorAlert('Confirmation password is required', 'Please enter the confirmation password'));
-          (newPassword.valid && confirmPassword.errors?.appValidateEqual && showErrorAlert('Passwword mismatch', 'New password and confirmation password do not match'));
-          ">
+      (newPassword.valid && confirmPassword.errors?.required && showErrorAlert('Confirmation password is required', 'Please enter the confirmation password'));
+      (newPassword.valid && confirmPassword.errors?.appValidateEqual && showErrorAlert('Passwword mismatch', 'New password and confirmation password do not match'));
+      ">
 
-          <div class="form-group row">
-            <label class="col-form-label col-md-2" for="fullName-{{uniqueId}}">{{'users.editor.FullName' | translate}}</label>
-            <div class="col-lg-10">
-              <input type="text" attr.id="fullName-{{uniqueId}}" name="fullName" placeholder="Enter full name" class="form-control" [(ngModel)]="user.fullName" />
+        <div class="card-body">
+          <div class="form-group">
+            <label class="col-form-label col" for="fullName-{{uniqueId}}">{{'users.editor.FullName' | translate}}</label>
+            <div class="col-lg-12">
+              <input type="text" attr.id="fullName-{{uniqueId}}" name="fullName" placeholder="Enter full name"
+                class="form-control" [(ngModel)]="user.fullName" />
             </div>
           </div>
 
-          <div class="form-group row">
-            <label class="col-form-label col-md-2" for="email-{{uniqueId}}">{{'users.editor.Email' | translate}}</label>
-            <div class="col-lg-10">
-              <input type="text" attr.id="email-{{uniqueId}}" name="email" placeholder="Enter email address" class="form-control" [ngClass]="{'is-valid': f.submitted && email.valid, 'is-invalid' : f.submitted && !email.valid}"
-                     [(ngModel)]="user.email" #email="ngModel" required maxlength="200" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" />
+          <div class="form-group">
+            <label class="col-form-label col" for="email-{{uniqueId}}">{{'users.editor.Email' | translate}}</label>
+            <div class="col-lg-12">
+              <input type="text" attr.id="email-{{uniqueId}}" name="email" placeholder="Enter email address"
+                class="form-control"
+                [ngClass]="{'is-valid': f.submitted && email.valid, 'is-invalid' : f.submitted && !email.valid}"
+                [(ngModel)]="user.email" #email="ngModel" required maxlength="200"
+                pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" />
               <span *ngIf="showValidationErrors && f.submitted && email.errors?.required" class="invalid-feedback">
                 {{'users.editor.EmailRequired' | translate}}
               </span>
@@ -34,56 +38,53 @@
               </span>
             </div>
           </div>
-
-
-          <!--******************************************************************************************************-->
-
-          <div class="form-group row">
-            <label class="col-form-label col-lg-2" for="newPassword-{{uniqueId}}">{{'users.editor.Password' | translate}}</label>
-            <div class="col-lg-10">
-              <input type="password" attr.id="newPassword-{{uniqueId}}" name="newPassword" placeholder="Enter password" class="form-control"
-                     [ngClass]="{'is-valid': f.submitted && newPassword.valid, 'is-invalid' : f.submitted && !newPassword.valid}" [(ngModel)]="userEdit.newPassword" #newPassword="ngModel"
-                     required minlength="6" appValidateEqual="confirmPassword" reverse="true" />
+          <div class="form-group">
+            <label class="col-form-label col" for="newPassword-{{uniqueId}}">{{'users.editor.Password' | translate}}</label>
+            <div class="col-lg-12">
+              <input type="password" attr.id="newPassword-{{uniqueId}}" name="newPassword" placeholder="Enter password"
+                class="form-control"
+                [ngClass]="{'is-valid': f.submitted && newPassword.valid, 'is-invalid' : f.submitted && !newPassword.valid}"
+                [(ngModel)]="userEdit.newPassword" #newPassword="ngModel" required minlength="6"
+                appValidateEqual="confirmPassword" reverse="true" />
               <span *ngIf="showValidationErrors && f.submitted && !newPassword.valid" class="invalid-feedback">
                 {{'users.editor.NewPasswordRequired' | translate}}
               </span>
             </div>
           </div>
 
-          <div class="form-group row">
-            <label class="col-form-label col-lg-2 confirm-label" for="confirmPassword-{{uniqueId}}">{{'users.editor.ConfirmPassword' | translate}}</label>
-            <div class="col-lg-10">
-              <input type="password" attr.id="confirmPassword-{{uniqueId}}" name="confirmPassword" placeholder="Confirm password" class="form-control"
-                     [ngClass]="{'is-valid': f.submitted && confirmPassword.valid, 'is-invalid' : f.submitted && !confirmPassword.valid}" [(ngModel)]="userEdit.confirmPassword" #confirmPassword="ngModel"
-                     required appValidateEqual="newPassword" />
-              <span *ngIf="showValidationErrors && f.submitted && confirmPassword.errors?.required" class="invalid-feedback">
+          <div class="form-group">
+            <label class="col-form-label confirm-label col" for="confirmPassword-{{uniqueId}}">{{'users.editor.ConfirmPassword' | translate}}</label>
+            <div class="col-lg-12">
+              <input type="password" attr.id="confirmPassword-{{uniqueId}}" name="confirmPassword"
+                placeholder="Confirm password" class="form-control"
+                [ngClass]="{'is-valid': f.submitted && confirmPassword.valid, 'is-invalid' : f.submitted && !confirmPassword.valid}"
+                [(ngModel)]="userEdit.confirmPassword" #confirmPassword="ngModel" required
+                appValidateEqual="newPassword" />
+              <span *ngIf="showValidationErrors && f.submitted && confirmPassword.errors?.required"
+                class="invalid-feedback">
                 {{'users.editor.ConfirmationPasswordRequired' | translate}}
               </span>
-              <span *ngIf="showValidationErrors && f.submitted && confirmPassword.errors?.appValidateEqual && !confirmPassword.errors?.required" class="invalid-feedback">
+              <span
+                *ngIf="showValidationErrors && f.submitted && confirmPassword.errors?.appValidateEqual && !confirmPassword.errors?.required"
+                class="invalid-feedback">
                 {{'users.editor.PasswordMismatch' | translate}}
               </span>
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-lg-12">
-              <hr [class.edit-last-separator-hr] />
+          <div class="card-footer">
+            <div ngPreserveWhitespaces>
+              <div class="float-left">Already have an account? <a routerLink="/login">Login</a></div>
+              <button type="submit" class="btn btn-primary btn-block float-right" [disabled]="isSaving">
+                <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
+                {{isSaving ? ('users.editor.Saving' | translate) :
+                ('users.editor.Save' | translate)}}
+              </button>
             </div>
           </div>
+        </div>
+      </form>
 
-          <div class="form-group row">
-              <div class="col-sm-12">
-                <div ngPreserveWhitespaces>
-                  <div class="float-left">Already have an account? <a routerLink="/login">Login</a></div>
-                  <button type="submit" class="btn btn-primary btn-block float-right" [disabled]="isSaving">
-                    <i *ngIf="!isSaving" class='fa fa-save'></i><i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i> {{isSaving ? ('users.editor.Saving' | translate) : ('users.editor.Save' | translate)}}
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-</form>
-      </div>
     </div>
   </div>
 </div>

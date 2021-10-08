@@ -3,7 +3,7 @@
 // www.bimair.nl
 // =============================
 
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
 
 import { AlertService, MessageSeverity, DialogType } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
@@ -25,14 +25,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   modalClosedCallback: () => void;
   loginStatusSubscription: any;
 
-  @Input()
-  isModal = false;
-
-
   constructor(private alertService: AlertService, private authService: AuthService, private configurations: ConfigurationService) {
 
   }
-
 
   ngOnInit() {
 
@@ -58,7 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   getShouldRedirect() {
-    return !this.isModal && this.authService.isLoggedIn && !this.authService.isSessionExpired;
+    return this.authService.isLoggedIn && !this.authService.isSessionExpired;
   }
 
 
@@ -77,7 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.alertService.startLoadingMessage('', 'Attempting login...');
 
-    this.authService.loginWithPassword(this.userLogin.userName, this.userLogin.password, this.userLogin.rememberMe)
+    this.authService.loginWithPassword(this.userLogin.email, this.userLogin.password, this.userLogin.rememberMe)
       .subscribe(
         user => {
           setTimeout(() => {
@@ -85,16 +80,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.isLoading = false;
             this.reset();
 
-            if (!this.isModal) {
-              this.alertService.showMessage('Login', `Welcome ${user.userName}!`, MessageSeverity.success);
-            } else {
-              this.alertService.showMessage('Login', `Session for ${user.userName} restored!`, MessageSeverity.success);
-              setTimeout(() => {
-                this.alertService.showStickyMessage('Session Restored', 'Please try your last operation again', MessageSeverity.default);
-              }, 500);
+            this.alertService.showMessage('Login', `Welcome ${user.userName}!`, MessageSeverity.success);
 
-              this.closeModal();
-            }
           }, 500);
         },
         error => {

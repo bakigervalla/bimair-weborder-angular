@@ -4,13 +4,13 @@
 // =============================
 
 export class UserLogin {
-    constructor(userName?: string, password?: string, rememberMe?: boolean) {
-        this.userName = userName;
+    constructor(email?: string, password?: string, rememberMe?: boolean) {
+        this.email = email;
         this.password = password;
         this.rememberMe = rememberMe;
     }
 
-    userName: string;
+    email: string;
     password: string;
     rememberMe: boolean;
 }

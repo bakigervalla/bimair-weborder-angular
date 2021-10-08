@@ -106,7 +106,7 @@ export class ConfigurationService {
     public baseUrl = environment.baseUrl || Utilities.baseUrl();
     public tokenUrl = environment.tokenUrl || environment.baseUrl || Utilities.baseUrl();
     public loginUrl = environment.loginUrl;
-    public fallbackBaseUrl = 'https://BIMair.ebenmonney.com';
+    public fallbackBaseUrl = 'https://bimair.nl';
     // ***End of defaults***
 
     private _language: string = null;

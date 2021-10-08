@@ -3,27 +3,29 @@
 // www.bimair.nl
 // =============================
 
-using AutoMapper;
+using BIMair.Authorization;
+using BIMair.Helpers;
 using DAL;
 using DAL.Core;
 using DAL.Core.Interfaces;
 using DAL.Models;
 using IdentityServer4.AccessTokenValidation;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using BIMair.Authorization;
-using BIMair.Helpers;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AppPermissions = DAL.Core.ApplicationPermissions;
 
 namespace BIMair
@@ -75,20 +77,41 @@ namespace BIMair
 
 
             // Adds IdentityServer.
+            //services.AddIdentityServer()
+            //    // The AddDeveloperSigningCredential extension creates temporary key material for signing tokens.
+            //    // This might be useful to get started, but needs to be replaced by some persistent key material for production scenarios.
+            //    // See http://docs.identityserver.io/en/release/topics/crypto.html#refcrypto for more information.
+            //    .AddDeveloperSigningCredential()
+            //    .AddInMemoryPersistedGrants()
+            //    // To configure IdentityServer to use EntityFramework (EF) as the storage mechanism for configuration data (rather than using the in-memory implementations),
+            //    // see https://identityserver4.readthedocs.io/en/release/quickstarts/8_entity_framework.html
+            //    .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
+            //    .AddInMemoryApiScopes(IdentityServerConfig.GetApiScopes())
+            //    .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
+            //    .AddInMemoryClients(IdentityServerConfig.GetClients())
+            //    .AddAspNetIdentity<ApplicationUser>()
+            //    .AddProfileService<ProfileService>();
+
+
+            // Adds IdentityServer.
+            // configure identity server with in-memory stores, keys, clients and scopes
             services.AddIdentityServer()
-                // The AddDeveloperSigningCredential extension creates temporary key material for signing tokens.
-                // This might be useful to get started, but needs to be replaced by some persistent key material for production scenarios.
-                // See http://docs.identityserver.io/en/release/topics/crypto.html#refcrypto for more information.
                 .AddDeveloperSigningCredential()
-                .AddInMemoryPersistedGrants()
-                // To configure IdentityServer to use EntityFramework (EF) as the storage mechanism for configuration data (rather than using the in-memory implementations),
-                // see https://identityserver4.readthedocs.io/en/release/quickstarts/8_entity_framework.html
-                .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
-                .AddInMemoryApiScopes(IdentityServerConfig.GetApiScopes())
-                .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
-                .AddInMemoryClients(IdentityServerConfig.GetClients())
+                // this adds the config data from DB (clients, resources)
+                .AddConfigurationStore<ConfigurationDbContext>(options =>
+                    options.ConfigureDbContext = builder =>
+                    builder.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("BIMair.Web"))
+                )
+                .AddOperationalStore<PersistedGrantDbContext>(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                    builder.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("BIMair.Web"));
+                    options.EnableTokenCleanup = true;
+                    options.TokenCleanupInterval = 30;
+                })
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddProfileService<ProfileService>();
+
 
 
             var applicationUrl = Configuration["ApplicationUrl"].TrimEnd('/');
@@ -189,6 +212,8 @@ namespace BIMair
                 app.UseHsts();
             }
 
+            SeedIdentityServerData(app);
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -234,9 +259,53 @@ namespace BIMair
                     // see https://github.com/dotnet/aspnetcore/issues/29478
                     spa.UseAngularCliServer(npmScript: "start");
                     spa.Options.StartupTimeout = TimeSpan.FromSeconds(180); // Increase the timeout if angular app is taking longer to startup
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200"); // Use this instead to use the angular cli server
+                                                                            //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200"); // Use this instead to use the angular cli server
                 }
             });
+        }
+
+        private void SeedIdentityServerData(IApplicationBuilder app)
+        {
+            var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+
+            var configDbCtx = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+
+            if (!configDbCtx.IdentityResources.Any())
+            {
+                foreach (var r in IdentityServerConfig.GetIdentityResources())
+                {
+                    configDbCtx.IdentityResources.Add(r.ToEntity());
+                }
+                configDbCtx.SaveChanges();
+            }
+
+            if (!configDbCtx.ApiResources.Any())
+            {
+                foreach (var r in IdentityServerConfig.GetApiResources())
+                {
+                    configDbCtx.ApiResources.Add(r.ToEntity());
+                }
+                configDbCtx.SaveChanges();
+            }
+
+            if (!configDbCtx.ApiScopes.Any())
+            {
+                foreach (var s in IdentityServerConfig.GetApiScopes())
+                {
+                    configDbCtx.ApiScopes.Add(s.ToEntity());
+                }
+                configDbCtx.SaveChanges();
+            }
+
+            if (!configDbCtx.Clients.Any())
+            {
+                foreach (var c in IdentityServerConfig.GetClients())
+                {
+                    configDbCtx.Clients.Add(c.ToEntity());
+                }
+                configDbCtx.SaveChanges();
+            }
+
         }
     }
 }
