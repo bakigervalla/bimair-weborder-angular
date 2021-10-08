@@ -71,5 +71,10 @@ namespace BIMair.Helpers
                 }
             }
         }
+
+        public static string GetEmailTemplate(string templateName)
+        {
+            return ReadPhysicalFile($"Helpers/Templates/{templateName}.template");
+        }
     }
 }

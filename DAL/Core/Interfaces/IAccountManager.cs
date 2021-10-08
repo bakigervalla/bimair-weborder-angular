@@ -32,7 +32,9 @@ namespace DAL.Core.Interfaces
         Task<ApplicationUser> GetUserByUserNameAsync(string userName);
         Task<IList<string>> GetUserRolesAsync(ApplicationUser user);
         Task<List<(ApplicationUser User, string[] Roles)>> GetUsersAndRolesAsync(int page, int pageSize);
+        Task<ResponseResult> ForgotPasswordAsync(ApplicationUser user); 
         Task<(bool Succeeded, string[] Errors)> ResetPasswordAsync(ApplicationUser user, string newPassword);
+        Task<(bool Succeeded, string[] Errors)> ResetPasswordAsync(ApplicationUser user, string token, string newPassword);
         Task<bool> TestCanDeleteRoleAsync(string roleId);
         Task<bool> TestCanDeleteUserAsync(string userId);
         Task<(bool Succeeded, string[] Errors)> UpdatePasswordAsync(ApplicationUser user, string currentPassword, string newPassword);

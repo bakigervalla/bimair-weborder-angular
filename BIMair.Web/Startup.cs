@@ -5,6 +5,7 @@
 
 using BIMair.Authorization;
 using BIMair.Helpers;
+using BIMair.Services;
 using DAL;
 using DAL.Core;
 using DAL.Core.Interfaces;
@@ -112,6 +113,7 @@ namespace BIMair
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddProfileService<ProfileService>();
 
+            services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = TimeSpan.FromHours(2));
 
 
             var applicationUrl = Configuration["ApplicationUrl"].TrimEnd('/');
@@ -178,6 +180,7 @@ namespace BIMair
 
             // Business Services
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IEmailService, EmailService>();
 
 
             // Repositories
@@ -212,7 +215,7 @@ namespace BIMair
                 app.UseHsts();
             }
 
-            SeedIdentityServerData(app);
+            //SeedIdentityServerData(app);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

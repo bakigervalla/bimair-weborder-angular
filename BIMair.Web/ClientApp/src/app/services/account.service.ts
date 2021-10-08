@@ -70,8 +70,15 @@ export class AccountService {
     return this.accountEndpoint.getNewUserEndpoint<User>(user);
   }
 
-  resetPassword(email: string) {
-    return this.accountEndpoint.resetPasswordEndpoint<string>(email);
+  forgotPassword(email: string) {
+    var forgetModel = {
+      email: email
+    };
+    return this.accountEndpoint.forgotPasswordEndpoint<any>(forgetModel);
+  }
+
+  resetPassword(resetPasswordModel) {
+    return this.accountEndpoint.resetPasswordEndpoint<any>(resetPasswordModel);
   }
 
   getUserPreferences() {

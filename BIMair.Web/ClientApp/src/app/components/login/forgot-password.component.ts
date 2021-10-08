@@ -15,6 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   loading = false;
   submitted = false;
   formResetToggle = true;
+  confirmationEmailSent = false;
 
   public resetSavedCallback: () => void;
 
@@ -33,7 +34,7 @@ export class ForgotPasswordComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.resetForm.controls; }
 
-  resetPassword() {
+  forgotPassword() {
     this.submitted = true;
 
     if (this.resetForm && this.resetForm.invalid) {
@@ -42,40 +43,42 @@ export class ForgotPasswordComponent implements OnInit {
     }
 
     this.loading = true;
-    this.accountService.resetPassword(this.f?.email.value)
+    this.accountService.forgotPassword(this.f?.email.value)
       .pipe(first())
       .pipe(finalize(() => this.loading = false))
       .subscribe({
-        next: () => this.resetSuccessHelper(),
-        error: error => this.showErrorAlert('Reset password', error)
+        next: () => this.forgotSuccessHelper(),
+        error: error => this.showErrorAlert('Forgot password', error)
       });
   }
 
-  private resetSuccessHelper() {
+  private forgotSuccessHelper() {
 
     this.loading = false;
     this.alertService.stopLoadingMessage();
+    this.confirmationEmailSent = true
 
     this.alertService.showMessage('Success', `Please check your email, containing password reset instructions`, MessageSeverity.success);
-
-
-      this.resetSavedCallback();
-
   }
 
   showErrorAlert(caption: string, message: string) {
-    this.alertService.showMessage(caption, message, MessageSeverity.error);
+    this.confirmationEmailSent = true
+    this.alertService.showMessage(caption, this.mapForgotErrorMessage(message), MessageSeverity.error);
   }
 
-  mapLoginErrorMessage(error: string) {
-
-    if (error === 'invalid_username_or_password') {
-      return 'Invalid username or password';
+  mapForgotErrorMessage(message: any) {
+    let { error } = message;
+    if (error === 'email_required') {
+      return 'Please enter a valid email address';
     }
 
-    if (error === 'invalid_grant') {
-      return 'This account has been disabled';
+    if (error === 'invalid_email') {
+      return 'Invalid email';
     }
+
+    let { text } = error;
+    if (text)
+      return text;
 
     return error;
   }

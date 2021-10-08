@@ -19,6 +19,7 @@ using BIMair.Helpers;
 using Microsoft.AspNetCore.JsonPatch;
 using DAL.Core;
 using IdentityServer4.AccessTokenValidation;
+using BIMair.Services;
 
 namespace BIMair.Controllers
 {
@@ -29,16 +30,22 @@ namespace BIMair.Controllers
         private readonly IMapper _mapper;
         private readonly IAccountManager _accountManager;
         private readonly IAuthorizationService _authorizationService;
+        private readonly IEmailService _emailService;
         private readonly ILogger<AccountController> _logger;
         private const string GetUserByIdActionName = "GetUserById";
         private const string GetRoleByIdActionName = "GetRoleById";
 
-        public AccountController(IMapper mapper, IAccountManager accountManager, IAuthorizationService authorizationService,
+        public AccountController(
+            IMapper mapper,
+            IAccountManager accountManager,
+            IAuthorizationService authorizationService,
+            IEmailService emailService,
             ILogger<AccountController> logger)
         {
             _mapper = mapper;
             _accountManager = accountManager;
             _authorizationService = authorizationService;
+            _emailService = emailService;
             _logger = logger;
         }
 
@@ -528,7 +535,53 @@ namespace BIMair.Controllers
             return Ok(_mapper.Map<List<PermissionViewModel>>(ApplicationPermissions.AllPermissions));
         }
 
+        [AllowAnonymous]
+        [HttpPost("forgot")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordModel forgotPasswordModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("email_required");
 
+            var user = await _accountManager.GetUserByEmailAsync(forgotPasswordModel.Email);
+            if (user == null)
+                return BadRequest("invalid_email");
+
+            var result = await _accountManager.ForgotPasswordAsync(user);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            var callbackResetUrl = $"{Request.Scheme}://{Request.Host}/reset?result={result.Result}&email={user.Email}";
+
+            (bool success, string message) = await _emailService.SendEmailAsync(forgotPasswordModel.Email, "ForgotEmailTemplate",
+                new Dictionary<string, string>
+                {
+                    { "email", user.Email }, { "link", callbackResetUrl }
+                });
+
+            if (!success)
+                return BadRequest("Error: " + message);
+
+            return Ok(message);
+        }
+
+        [HttpPost("reset")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel resetPasswordModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("required_fields");
+
+            var user = await _accountManager.GetUserByEmailAsync(resetPasswordModel.Email);
+            if (user == null)
+                return BadRequest("invalid_email");
+
+            var resetPassResult = await _accountManager.ResetPasswordAsync(user, resetPasswordModel.Token, resetPasswordModel.Password);
+            if (!resetPassResult.Succeeded)
+                return BadRequest(resetPassResult.Errors);
+
+            return Ok();
+        }
 
         private async Task<UserViewModel> GetUserViewModelHelper(string userId)
         {

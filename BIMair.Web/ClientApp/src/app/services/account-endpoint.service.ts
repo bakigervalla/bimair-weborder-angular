@@ -24,7 +24,8 @@ export class AccountEndpoint extends EndpointBase {
   get rolesUrl() { return this.configurations.baseUrl + '/api/account/roles'; }
   get roleByRoleNameUrl() { return this.configurations.baseUrl + '/api/account/roles/name'; }
   get permissionsUrl() { return this.configurations.baseUrl + '/api/account/permissions'; }
-  get resetPasswordUrl() { return this.configurations.baseUrl + '/api/account/resetpassword'; }
+  get forgotPasswordUrl() { return this.configurations.baseUrl + '/api/account/forgot'; }
+  get resetPasswordUrl() { return this.configurations.baseUrl + '/api/account/reset'; }
 
 
   constructor(private configurations: ConfigurationService, http: HttpClient, authService: AuthService) {
@@ -70,12 +71,17 @@ export class AccountEndpoint extends EndpointBase {
       }));
   }
 
-  
-  resetPasswordEndpoint<T>(email: string) {
-
-    return this.http.post<T>(this.resetPasswordUrl, JSON.stringify(email), this.requestHeaders).pipe<T>(
+  forgotPasswordEndpoint<T>(forgetModel: any) {
+    return this.http.post<T>(this.forgotPasswordUrl, JSON.stringify(forgetModel), this.requestHeaders).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.resetPasswordEndpoint(email));
+        return this.handleError(error, () => this.forgotPasswordEndpoint(forgetModel));
+      }));
+  }
+
+  resetPasswordEndpoint<T>(resetPasswordModel: any) {
+    return this.http.post<T>(this.resetPasswordUrl, JSON.stringify(resetPasswordModel), this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.resetPasswordEndpoint(resetPasswordModel));
       }));
   }
 

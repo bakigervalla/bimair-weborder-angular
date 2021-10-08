@@ -23,7 +23,6 @@ namespace DAL.Core
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
 
-
         public AccountManager(
             ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
@@ -34,7 +33,6 @@ namespace DAL.Core
             _context.CurrentUserId = httpAccessor.HttpContext?.User.FindFirst(ClaimConstants.Subject)?.Value?.Trim();
             _userManager = userManager;
             _roleManager = roleManager;
-
         }
 
 
@@ -175,12 +173,30 @@ namespace DAL.Core
             return (true, new string[] { });
         }
 
+        public async Task<ResponseResult> ForgotPasswordAsync(ApplicationUser user)
+        {
+            string resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            if (string.IsNullOrEmpty(resetToken))
+                return new ResponseResult(false, new string[] { $"Could not reset password {user.Email }" });
+
+            return (new ResponseResult(true, resetToken));
+        }
 
         public async Task<(bool Succeeded, string[] Errors)> ResetPasswordAsync(ApplicationUser user, string newPassword)
         {
             string resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
 
             var result = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
+            if (!result.Succeeded)
+                return (false, result.Errors.Select(e => e.Description).ToArray());
+
+            return (true, new string[] { });
+        }
+
+        public async Task<(bool Succeeded, string[] Errors)> ResetPasswordAsync(ApplicationUser user, string token, string newPassword)
+        {
+            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
             if (!result.Succeeded)
                 return (false, result.Errors.Select(e => e.Description).ToArray());
 

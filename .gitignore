@@ -21,3 +21,5 @@ BIMair.Web/Logs/
 *.log
 
 BIMair.Web/Logs/log-20211007.log
+BIMair.Web/appsettings.json
+BIMair.Web/appsettings.Development.json
