@@ -21,7 +21,7 @@ namespace BIMair.ViewModels
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
-        public string Gender { get; set; }
+        public string Country { get; set; }
 
         public ICollection<OrderViewModel> Orders { get; set; }
     }
@@ -34,7 +34,7 @@ namespace BIMair.ViewModels
         public CustomerViewModelValidator()
         {
             RuleFor(register => register.Name).NotEmpty().WithMessage("Customer name cannot be empty");
-            RuleFor(register => register.Gender).NotEmpty().WithMessage("Gender cannot be empty");
+            // RuleFor(register => register.Country).NotEmpty().WithMessage("Gender cannot be empty");
         }
     }
 }

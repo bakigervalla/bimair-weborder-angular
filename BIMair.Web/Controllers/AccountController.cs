@@ -294,6 +294,8 @@ namespace BIMair.Controllers
 
                 ApplicationUser appUser = _mapper.Map<ApplicationUser>(user);
 
+                appUser.IsEnabled = Configuration["GeneralConfig:DefaultNewUserRegistrationEnable"] == "true" ? true : false;
+
                 var result = await _accountManager.CreateUserAsync(appUser, user.Roles, user.NewPassword);
                 if (result.Succeeded)
                 {

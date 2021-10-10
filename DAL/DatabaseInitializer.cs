@@ -68,7 +68,7 @@ namespace DAL
                 {
                     Name = "BIMair Admin",
                     Email = "info@bimair.nl",
-                    Gender = Gender.Male,
+                    Country = 1,
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow
                 };
@@ -80,7 +80,7 @@ namespace DAL
                     PhoneNumber = "088-0568900",
                     Address = "Assen",
                     City = "Assen",
-                    Gender = Gender.Male,
+                    Country = 1,
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow
                 };
@@ -93,7 +93,7 @@ namespace DAL
                     Address = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
                     Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet",
                     City = "Lorem Ipsum",
-                    Gender = Gender.Male,
+                    Country = 2,
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow
                 };
@@ -106,7 +106,7 @@ namespace DAL
                     Address = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
                     Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet",
                     City = "Lorem Ipsum",
-                    Gender = Gender.Male,
+                    Country = 1,
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow
                 };

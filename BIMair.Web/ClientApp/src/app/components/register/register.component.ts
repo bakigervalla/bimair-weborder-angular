@@ -23,6 +23,7 @@ export class RegisterComponent {
 
   public isSaving = false;
   submitted = false;
+  savedSuccessfully = false;
   public showValidationErrors = true;
   public uniqueId: string = Utilities.uniqueId();
   public user: User = new User();
@@ -76,11 +77,11 @@ export class RegisterComponent {
     }
 
     this.isSaving = false;
+    this.savedSuccessfully = true;
     this.alertService.stopLoadingMessage();
     this.showValidationErrors = false;
 
-    this.alertService.showMessage('Success', `User \"${this.user.userName}\" was created successfully`, MessageSeverity.success);
-
+    this.alertService.showMessage('Success', `User \"${this.userEdit.email}\" was created successfully`, MessageSeverity.success);
 
     if (this.changesSavedCallback) {
       this.changesSavedCallback();

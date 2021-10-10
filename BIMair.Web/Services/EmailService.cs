@@ -76,6 +76,9 @@ namespace BIMair.Services
         {
             string emailMessage = template;
 
+            if (replacers == null)
+                return emailMessage;
+
             foreach (var dict in replacers)
                 emailMessage = emailMessage.Replace($"[{dict.Key}]", dict.Value);
 

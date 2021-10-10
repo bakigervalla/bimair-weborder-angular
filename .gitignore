@@ -3,6 +3,7 @@ bin-debug/
 bin-release/
 [Oo]bj/
 [Bb]in/
+@Docs/
 BIMair.Web/Logs/
 
 # Other files and folders
