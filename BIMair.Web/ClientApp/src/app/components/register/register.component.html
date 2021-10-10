@@ -18,7 +18,7 @@
             <label class="col-form-label col" for="fullName-{{uniqueId}}">{{'users.editor.FullName' | translate}}</label>
             <div class="col-lg-12">
               <input type="text" attr.id="fullName-{{uniqueId}}" name="fullName" placeholder="Enter full name"
-                class="form-control" [(ngModel)]="user.fullName" />
+                class="form-control" [(ngModel)]="userEdit.fullName" />
             </div>
           </div>
 
@@ -28,7 +28,7 @@
               <input type="text" attr.id="email-{{uniqueId}}" name="email" placeholder="Enter email address"
                 class="form-control"
                 [ngClass]="{'is-valid': f.submitted && email.valid, 'is-invalid' : f.submitted && !email.valid}"
-                [(ngModel)]="user.email" #email="ngModel" required maxlength="200"
+                [(ngModel)]="userEdit.email" #email="ngModel" required maxlength="200"
                 pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" />
               <span *ngIf="showValidationErrors && f.submitted && email.errors?.required" class="invalid-feedback">
                 {{'users.editor.EmailRequired' | translate}}
@@ -41,11 +41,9 @@
           <div class="form-group">
             <label class="col-form-label col" for="newPassword-{{uniqueId}}">{{'users.editor.Password' | translate}}</label>
             <div class="col-lg-12">
-              <input type="password" attr.id="newPassword-{{uniqueId}}" name="newPassword" placeholder="Enter password"
-                class="form-control"
+              <input type="password" attr.id="newPassword-{{uniqueId}}" name="newPassword" placeholder="Enter password" class="form-control"
                 [ngClass]="{'is-valid': f.submitted && newPassword.valid, 'is-invalid' : f.submitted && !newPassword.valid}"
-                [(ngModel)]="userEdit.newPassword" #newPassword="ngModel" required minlength="6"
-                appValidateEqual="confirmPassword" reverse="true" />
+                [(ngModel)]="userEdit.newPassword" #newPassword="ngModel" required minlength="6" appValidateEqual="confirmPassword" reverse="true" />
               <span *ngIf="showValidationErrors && f.submitted && !newPassword.valid" class="invalid-feedback">
                 {{'users.editor.NewPasswordRequired' | translate}}
               </span>
@@ -55,18 +53,10 @@
           <div class="form-group">
             <label class="col-form-label confirm-label col" for="confirmPassword-{{uniqueId}}">{{'users.editor.ConfirmPassword' | translate}}</label>
             <div class="col-lg-12">
-              <input type="password" attr.id="confirmPassword-{{uniqueId}}" name="confirmPassword"
-                placeholder="Confirm password" class="form-control"
+              <input type="password" attr.id="confirmPassword-{{uniqueId}}" name="confirmPassword" placeholder="Confirm password" class="form-control"
                 [ngClass]="{'is-valid': f.submitted && confirmPassword.valid, 'is-invalid' : f.submitted && !confirmPassword.valid}"
-                [(ngModel)]="userEdit.confirmPassword" #confirmPassword="ngModel" required
-                appValidateEqual="newPassword" />
-              <span *ngIf="showValidationErrors && f.submitted && confirmPassword.errors?.required"
-                class="invalid-feedback">
-                {{'users.editor.ConfirmationPasswordRequired' | translate}}
-              </span>
-              <span
-                *ngIf="showValidationErrors && f.submitted && confirmPassword.errors?.appValidateEqual && !confirmPassword.errors?.required"
-                class="invalid-feedback">
+                [(ngModel)]="userEdit.confirmPassword" #confirmPassword="ngModel" required appValidateEqual="newPassword" />
+              <span *ngIf="showValidationErrors && !confirmPassword.valid" class="invalid-feedback">
                 {{'users.editor.PasswordMismatch' | translate}}
               </span>
             </div>

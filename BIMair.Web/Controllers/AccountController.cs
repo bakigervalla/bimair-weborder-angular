@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using DAL.Core;
 using IdentityServer4.AccessTokenValidation;
 using BIMair.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace BIMair.Controllers
 {
@@ -34,19 +35,22 @@ namespace BIMair.Controllers
         private readonly ILogger<AccountController> _logger;
         private const string GetUserByIdActionName = "GetUserById";
         private const string GetRoleByIdActionName = "GetRoleById";
+        public IConfiguration Configuration { get; }
 
         public AccountController(
             IMapper mapper,
             IAccountManager accountManager,
             IAuthorizationService authorizationService,
             IEmailService emailService,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            IConfiguration configuration)
         {
             _mapper = mapper;
             _accountManager = accountManager;
             _authorizationService = authorizationService;
             _emailService = emailService;
             _logger = logger;
+            Configuration = configuration;
         }
 
 
@@ -262,17 +266,25 @@ namespace BIMair.Controllers
             return BadRequest(ModelState);
         }
 
-
-        [HttpPost("users")]
-        [Authorize(Authorization.Policies.ManageAllUsersPolicy)]
+        // Front-end account created by the user itself
+        [HttpPost("users/frontregister")]
+        [AllowAnonymous]
         [ProducesResponseType(201, Type = typeof(UserViewModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
-        public async Task<IActionResult> Register([FromBody] UserEditViewModel user)
+        public async Task<IActionResult> RegisterFront([FromBody] UserEditViewModel user)
         {
-            if (!(await _authorizationService.AuthorizeAsync(this.User, (user.Roles, new string[] { }), Authorization.Policies.AssignAllowedRolesPolicy)).Succeeded)
-                return new ChallengeResult();
+            if (string.IsNullOrEmpty(user.UserName))
+            {
+                user.UserName = user.Email;
+                ModelState.Remove("UserName");
+            }
 
+            if (user.Roles == null)
+            {
+                user.Roles = new string[] { Configuration["GeneralConfig:DefaultUserRole"] };
+                ModelState.Remove("Roles");
+            }
 
             if (ModelState.IsValid)
             {
@@ -286,6 +298,54 @@ namespace BIMair.Controllers
                 if (result.Succeeded)
                 {
                     UserViewModel userVM = await GetUserViewModelHelper(appUser.Id);
+
+                    // send email to registered user
+                    var userEmailed = await _emailService.SendEmailAsync(null, "UserRegisteredSelfEmailTemplate");
+
+                    // send email to admin to notify for new user created
+                    var adminEmailed = await _emailService.SendEmailAsync(null, "UserRegisteredAdminEmailTemplate",
+                       new Dictionary<string, string>
+                       {
+                          { "email", user.Email }
+                       });
+
+                    return CreatedAtAction(GetUserByIdActionName, new { id = userVM.Id }, userVM);
+                }
+
+                AddError(result.Errors);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+
+        [HttpPost("users")]
+        [AllowAnonymous]
+        [Authorize(Authorization.Policies.ManageAllUsersPolicy)]
+        [ProducesResponseType(201, Type = typeof(UserViewModel))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        public async Task<IActionResult> Register([FromBody] UserEditViewModel user)
+        {
+            if (!(await _authorizationService.AuthorizeAsync(this.User, (user.Roles, new string[] { }), Authorization.Policies.AssignAllowedRolesPolicy)).Succeeded)
+                return new ChallengeResult();
+
+            if (ModelState.IsValid)
+            {
+                if (user == null)
+                    return BadRequest($"{nameof(user)} cannot be null");
+
+
+                ApplicationUser appUser = _mapper.Map<ApplicationUser>(user);
+
+                var result = await _accountManager.CreateUserAsync(appUser, user.Roles, user.NewPassword);
+                if (result.Succeeded)
+                {
+                    UserViewModel userVM = await GetUserViewModelHelper(appUser.Id);
+
+                    // send email to registered user
+                    var userEmailed = await _emailService.SendEmailAsync(null, "UserRegisteredSelfEmailTemplate");
+
                     return CreatedAtAction(GetUserByIdActionName, new { id = userVM.Id }, userVM);
                 }
 

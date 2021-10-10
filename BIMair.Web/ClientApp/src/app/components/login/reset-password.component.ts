@@ -75,16 +75,11 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   private resetSuccessHelper() {
-
     this.loading = false;
     this.alertService.stopLoadingMessage();
     this.confirmationResetSucceed = true;
 
     this.alertService.showMessage('Success', `Your password is changed, please login now.`, MessageSeverity.success);
-
-
-    this.resetSavedCallback();
-
   }
 
   showErrorAlert(caption: string, message: string) {

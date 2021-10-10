@@ -17,6 +17,7 @@ import { ConfigurationService } from './configuration.service';
 export class AccountEndpoint extends EndpointBase {
 
   get usersUrl() { return this.configurations.baseUrl + '/api/account/users'; }
+  get usersFrontUrl() { return this.configurations.baseUrl + '/api/account/users/frontregister'; }
   get userByUserNameUrl() { return this.configurations.baseUrl + '/api/account/users/username'; }
   get currentUserUrl() { return this.configurations.baseUrl + '/api/account/users/me'; }
   get currentUserPreferencesUrl() { return this.configurations.baseUrl + '/api/account/users/me/preferences'; }
@@ -59,6 +60,14 @@ export class AccountEndpoint extends EndpointBase {
     return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getUsersEndpoint(page, pageSize));
+      }));
+  }
+
+
+  getNewUserFrontEndpoint<T>(userObject: any): Observable<T> {
+    return this.http.post<T>(this.usersFrontUrl, JSON.stringify(userObject), this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.getNewUserFrontEndpoint(userObject));
       }));
   }
 

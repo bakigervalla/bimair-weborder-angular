@@ -57,7 +57,7 @@ namespace BIMair.Controllers
         public async Task<string> Email()
         {
             string recepientName = "BIMair Tester"; //         <===== Put the recepient's name here
-            string recepientEmail = "test@ebenmonney.com"; //   <===== Put the recepient's email here
+            string recepientEmail = "test@bimair.nl"; //   <===== Put the recepient's email here
 
             string message = EmailTemplates.GetTestEmail(recepientName, DateTime.UtcNow);
 

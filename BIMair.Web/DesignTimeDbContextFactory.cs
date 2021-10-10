@@ -28,7 +28,7 @@ namespace BIMair
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-            builder.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("BIMair"));
+            builder.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("BIMair.Web"));
 
             return new ApplicationDbContext(builder.Options);
         }

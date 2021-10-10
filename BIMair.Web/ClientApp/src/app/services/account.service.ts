@@ -66,6 +66,10 @@ export class AccountService {
     }
   }
 
+  newUserFront(user: UserEdit) {
+    return this.accountEndpoint.getNewUserFrontEndpoint<User>(user);
+  }
+  
   newUser(user: UserEdit) {
     return this.accountEndpoint.getNewUserEndpoint<User>(user);
   }

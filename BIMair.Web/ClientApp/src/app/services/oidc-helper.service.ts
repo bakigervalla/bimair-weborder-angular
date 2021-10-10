@@ -18,8 +18,8 @@ import { LoginResponse } from '../models/login-response.model';
 export class OidcHelperService {
 
     private get baseUrl() { return this.configurations.baseUrl; }
-    private clientId = 'BIMair_spa';
-    private scope = 'openid email phone profile offline_access roles BIMair_api';
+  private clientId = 'bimair_spa';
+  private scope = 'openid email phone profile offline_access roles bimair_api';
 
     constructor(
         private http: HttpClient,

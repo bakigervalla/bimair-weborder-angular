@@ -78,20 +78,20 @@ namespace BIMair
 
 
             // Adds IdentityServer.
-            //services.AddIdentityServer()
-            //    // The AddDeveloperSigningCredential extension creates temporary key material for signing tokens.
-            //    // This might be useful to get started, but needs to be replaced by some persistent key material for production scenarios.
-            //    // See http://docs.identityserver.io/en/release/topics/crypto.html#refcrypto for more information.
-            //    .AddDeveloperSigningCredential()
-            //    .AddInMemoryPersistedGrants()
-            //    // To configure IdentityServer to use EntityFramework (EF) as the storage mechanism for configuration data (rather than using the in-memory implementations),
-            //    // see https://identityserver4.readthedocs.io/en/release/quickstarts/8_entity_framework.html
-            //    .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
-            //    .AddInMemoryApiScopes(IdentityServerConfig.GetApiScopes())
-            //    .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
-            //    .AddInMemoryClients(IdentityServerConfig.GetClients())
-            //    .AddAspNetIdentity<ApplicationUser>()
-            //    .AddProfileService<ProfileService>();
+            ////services.AddIdentityServer()
+            ////    // The AddDeveloperSigningCredential extension creates temporary key material for signing tokens.
+            ////    // This might be useful to get started, but needs to be replaced by some persistent key material for production scenarios.
+            ////    // See http://docs.identityserver.io/en/release/topics/crypto.html#refcrypto for more information.
+            ////    .AddDeveloperSigningCredential()
+            ////    .AddInMemoryPersistedGrants()
+            ////    // To configure IdentityServer to use EntityFramework (EF) as the storage mechanism for configuration data (rather than using the in-memory implementations),
+            ////    // see https://identityserver4.readthedocs.io/en/release/quickstarts/8_entity_framework.html
+            ////    .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
+            ////    .AddInMemoryApiScopes(IdentityServerConfig.GetApiScopes())
+            ////    .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
+            ////    .AddInMemoryClients(IdentityServerConfig.GetClients())
+            ////    .AddAspNetIdentity<ApplicationUser>()
+            ////    .AddProfileService<ProfileService>();
 
 
             // Adds IdentityServer.

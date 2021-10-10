@@ -5,10 +5,10 @@
   "author": {
     "name": "Ebenezer Monney",
     "email": "bakigervalla@gmail.com",
-    "url": "https://www.ebenmonney.com/about"
+    "url": "https://www.bimair.com/about"
   },
   "license": "MIT",
-  "homepage": "https://www.ebenmonney.com/BIMair",
+  "homepage": "https://www.bimair.com/BIMair",
   "repository": "https://github.com/emonney/BIMair.git",
   "scripts": {
     "ng": "ng",

@@ -3,7 +3,6 @@ bin-debug/
 bin-release/
 [Oo]bj/
 [Bb]in/
-@Docs/
 BIMair.Web/Logs/
 
 # Other files and folders
@@ -23,3 +22,5 @@ BIMair.Web/Logs/
 BIMair.Web/Logs/log-20211007.log
 BIMair.Web/appsettings.json
 BIMair.Web/appsettings.Development.json
+BIMair.Web/appsettings.Development.json
+BIMair.Web/appsettings.json

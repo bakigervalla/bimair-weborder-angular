@@ -22,6 +22,7 @@ import { Permission } from '../../models/permission.model';
 export class RegisterComponent {
 
   public isSaving = false;
+  submitted = false;
   public showValidationErrors = true;
   public uniqueId: string = Utilities.uniqueId();
   public user: User = new User();
@@ -36,7 +37,7 @@ export class RegisterComponent {
   public form;
 
   // ViewChilds Required because ngIf hides template variables from global scope
-  @ViewChild('userName')
+  @ViewChild('fullName')
   public userName;
 
   @ViewChild('userPassword')
@@ -62,8 +63,9 @@ export class RegisterComponent {
 
   save() {
     this.isSaving = true;
+    this.submitted = true;
     this.alertService.startLoadingMessage('Saving changes...');
-    this.accountService.newUser(this.userEdit).subscribe(user => this.saveSuccessHelper(user), error => this.saveFailedHelper(error));
+    this.accountService.newUserFront(this.userEdit).subscribe(user => this.saveSuccessHelper(user), error => this.saveFailedHelper(error));
   }
 
 

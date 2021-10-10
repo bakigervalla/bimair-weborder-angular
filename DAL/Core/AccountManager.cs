@@ -180,7 +180,23 @@ namespace DAL.Core
             if (string.IsNullOrEmpty(resetToken))
                 return new ResponseResult(false, new string[] { $"Could not reset password {user.Email }" });
 
+            // token should be encoded as + is converted to %20 when confirmation sent by email
+            resetToken = System.Web.HttpUtility.UrlEncode(resetToken);
+
             return (new ResponseResult(true, resetToken));
+        }
+
+        public async Task<(bool Succeeded, string[] Errors)> ResetPasswordAsync(ApplicationUser user, string token, string newPassword)
+        {
+            // token should be decoded as + is converted to %20
+            // decode converts %20 to space, thus we need to replace it in order for token to match
+            token = System.Web.HttpUtility.UrlDecode(token).Replace(' ', '+');
+
+            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            if (!result.Succeeded)
+                return (false, result.Errors.Select(e => e.Description).ToArray());
+
+            return (true, new string[] { });
         }
 
         public async Task<(bool Succeeded, string[] Errors)> ResetPasswordAsync(ApplicationUser user, string newPassword)
@@ -191,16 +207,7 @@ namespace DAL.Core
             if (!result.Succeeded)
                 return (false, result.Errors.Select(e => e.Description).ToArray());
 
-            return (true, new string[] { });
-        }
-
-        public async Task<(bool Succeeded, string[] Errors)> ResetPasswordAsync(ApplicationUser user, string token, string newPassword)
-        {
-            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
-            if (!result.Succeeded)
-                return (false, result.Errors.Select(e => e.Description).ToArray());
-
-            return (true, new string[] { });
+            return (true, Array.Empty<string>());
         }
 
         public async Task<(bool Succeeded, string[] Errors)> UpdatePasswordAsync(ApplicationUser user, string currentPassword, string newPassword)

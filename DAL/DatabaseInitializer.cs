@@ -52,8 +52,8 @@ namespace DAL
                 await EnsureRoleAsync(adminRoleName, "Default administrator", ApplicationPermissions.GetAllPermissionValues());
                 await EnsureRoleAsync(userRoleName, "Default user", new string[] { });
 
-                await CreateUserAsync("admin", "tempP@ss123", "Inbuilt Administrator", "admin@ebenmonney.com", "+1 (123) 000-0000", new string[] { adminRoleName });
-                await CreateUserAsync("user", "tempP@ss123", "Inbuilt Standard User", "user@ebenmonney.com", "+1 (123) 000-0001", new string[] { userRoleName });
+                await CreateUserAsync("info@bimair.nl", "admiN@123", "Inbuilt Administrator", "admin@bimair.com", "+1 (123) 000-0000", new string[] { adminRoleName });
+                await CreateUserAsync("janr@bimair.nl", "janR@123", "Inbuilt Standard User", "user@bimair.com", "+1 (123) 000-0001", new string[] { userRoleName });
 
                 _logger.LogInformation("Inbuilt account generation completed");
             }
@@ -66,8 +66,8 @@ namespace DAL
 
                 Customer cust_1 = new Customer
                 {
-                    Name = "Ebenezer Monney",
-                    Email = "contact@ebenmonney.com",
+                    Name = "BIMair Admin",
+                    Email = "info@bimair.nl",
                     Gender = Gender.Male,
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow
@@ -75,11 +75,11 @@ namespace DAL
 
                 Customer cust_2 = new Customer
                 {
-                    Name = "Itachi Uchiha",
-                    Email = "uchiha@narutoverse.com",
-                    PhoneNumber = "+81123456789",
-                    Address = "Some fictional Address, Street 123, Konoha",
-                    City = "Konoha",
+                    Name = "Jan Rood",
+                    Email = "janr@bimair.nl",
+                    PhoneNumber = "088-0568900",
+                    Address = "Assen",
+                    City = "Assen",
                     Gender = Gender.Male,
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow

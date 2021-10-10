@@ -13,7 +13,7 @@ namespace BIMair.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AppCustomers",
+                name: "App_Customers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -37,7 +37,7 @@ namespace BIMair.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppProductCategories",
+                name: "App_ProductCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -110,7 +110,7 @@ namespace BIMair.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppProducts",
+                name: "App_Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -138,13 +138,13 @@ namespace BIMair.Migrations
                     table.ForeignKey(
                         name: "FK_AppProducts_AppProductCategories_ProductCategoryId",
                         column: x => x.ProductCategoryId,
-                        principalTable: "AppProductCategories",
+                        principalTable: "App_ProductCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AppProducts_AppProducts_ParentId",
                         column: x => x.ParentId,
-                        principalTable: "AppProducts",
+                        principalTable: "App_Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -171,7 +171,7 @@ namespace BIMair.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppOrders",
+                name: "App_Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -193,7 +193,7 @@ namespace BIMair.Migrations
                     table.ForeignKey(
                         name: "FK_AppOrders_AppCustomers_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "AppCustomers",
+                        principalTable: "App_Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -290,7 +290,7 @@ namespace BIMair.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppOrderDetails",
+                name: "App_OrderDetails",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -311,55 +311,55 @@ namespace BIMair.Migrations
                     table.ForeignKey(
                         name: "FK_AppOrderDetails_AppOrders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "AppOrders",
+                        principalTable: "App_Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AppOrderDetails_AppProducts_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "AppProducts",
+                        principalTable: "App_Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppCustomers_Name",
-                table: "AppCustomers",
+                table: "App_Customers",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppOrderDetails_OrderId",
-                table: "AppOrderDetails",
+                table: "App_OrderDetails",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppOrderDetails_ProductId",
-                table: "AppOrderDetails",
+                table: "App_OrderDetails",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppOrders_CashierId",
-                table: "AppOrders",
+                table: "App_Orders",
                 column: "CashierId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppOrders_CustomerId",
-                table: "AppOrders",
+                table: "App_Orders",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppProducts_Name",
-                table: "AppProducts",
+                table: "App_Products",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppProducts_ParentId",
-                table: "AppProducts",
+                table: "App_Products",
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppProducts_ProductCategoryId",
-                table: "AppProducts",
+                table: "App_Products",
                 column: "ProductCategoryId");
 
             migrationBuilder.CreateIndex(
@@ -405,7 +405,7 @@ namespace BIMair.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AppOrderDetails");
+                name: "App_OrderDetails");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -423,22 +423,22 @@ namespace BIMair.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AppOrders");
+                name: "App_Orders");
 
             migrationBuilder.DropTable(
-                name: "AppProducts");
+                name: "App_Products");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AppCustomers");
+                name: "App_Customers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AppProductCategories");
+                name: "App_ProductCategories");
         }
     }
 }

@@ -37,7 +37,7 @@ namespace BIMair.Services
             {
                 var template = GetEmailTemplate(templateName, emailTo);
 
-                MailAddress oFromAddress = new(Configuration["SmtpConfig:EmailAddress"], "Email From " + template.From);
+                MailAddress oFromAddress = new(Configuration["SmtpConfig:EmailAddress"], Configuration["SmtpConfig:EmailFromTitle"]);
                 MailAddress oToAddress = new(template.To, "Email To " + template.To);
                 string fromPassword = Configuration["SmtpConfig:Password"];
                 string subject = template.Subject;
@@ -55,10 +55,13 @@ namespace BIMair.Services
                 using (var message = new MailMessage(oFromAddress, oToAddress)
                 {
                     Subject = subject,
-                    Body = body
+                    Body = body,
+                    IsBodyHtml = true,
+                    BodyEncoding = System.Text.Encoding.ASCII
                 })
                 {
                     await smtp.SendMailAsync(message);
+                    
                     return (true, "Email sent successfully");
                 }
             }

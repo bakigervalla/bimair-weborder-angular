@@ -14,9 +14,9 @@ namespace BIMair
 {
     public class IdentityServerConfig
     {
-        public const string ApiName = "BIMair_api";
+        public const string ApiName = "bimair_api";
         public const string ApiFriendlyName = "BIMair API";
-        public const string BIMairClientID = "BIMair_spa";
+        public const string BIMairClientID = "bimair_spa";
         public const string SwaggerClientID = "swaggerui";
 
         // Identity resources (used by UserInfo endpoint).
