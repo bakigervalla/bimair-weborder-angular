@@ -34,6 +34,8 @@ import { NotificationService } from './services/notification.service';
 import { NotificationEndpoint } from './services/notification-endpoint.service';
 import { AccountService } from './services/account.service';
 import { AccountEndpoint } from './services/account-endpoint.service';
+import { ProjectService } from './services/project.service';
+import { ProjectEndpoint } from './services/project-endpoint.service';
 
 import { EqualValidator } from './directives/equal-validator.directive';
 import { LastElementDirective } from './directives/last-element.directive';
@@ -67,6 +69,7 @@ import { UsersManagementComponent } from './components/controls/users-management
 import { RolesManagementComponent } from './components/controls/roles-management.component';
 import { RoleEditorComponent } from './components/controls/role-editor.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { ProjectListComponent } from './components/projects/project-list.component';
 
 
 @NgModule({
@@ -119,7 +122,8 @@ import { ProjectsComponent } from './components/projects/projects.component';
     BootstrapToggleDirective,
     GroupByPipe,
     ShowHidePasswordDirective,
-    ProjectsComponent
+    ProjectsComponent,
+    ProjectListComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
@@ -132,6 +136,8 @@ import { ProjectsComponent } from './components/projects/projects.component';
     NotificationEndpoint,
     AccountService,
     AccountEndpoint,
+    ProjectService,
+    ProjectEndpoint,
     LocalStoreManager,
     OidcHelperService
   ],

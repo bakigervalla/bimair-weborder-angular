@@ -22,21 +22,21 @@ namespace DAL.Repositories
         { }
 
 
-        public async Task<IEnumerable<Project>> GetProjects(int page, int pageSize)
+        public async Task<IEnumerable<Project>> GetProjects()
         {
             IQueryable<Project> projectsQuery = _appContext.Projects
                .Include(c => c.Customer).ThenInclude(c => c.Orders).ThenInclude(o => o.OrderDetails).ThenInclude(d => d.Product)
                .OrderByDescending(c => c.DateCreated);
 
-            if (page != -1)
-                projectsQuery = projectsQuery.Skip((page - 1) * pageSize);
+            // if (page != -1)
+            //    projectsQuery = projectsQuery.Skip((page - 1) * pageSize);
 
-            if (pageSize != -1)
-                projectsQuery = projectsQuery.Take(pageSize);
+            //if (pageSize != -1)
+            //    projectsQuery = projectsQuery.Take(pageSize);
 
-            var projects = await projectsQuery.ToListAsync();
+            //var projects = await projectsQuery.ToListAsync();
 
-            return projects;
+            return projectsQuery;
         }
 
         public IEnumerable<Project> GetProjectsByUser(string userId)

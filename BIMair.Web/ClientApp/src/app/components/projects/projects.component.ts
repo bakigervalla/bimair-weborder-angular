@@ -46,7 +46,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   private getProjects() {
-    this.projectService.getProjects(1, 10)
+    this.projectService.getProjects()
       .subscribe(projects => {
         this.rows = projects;
         this.rowsCache = [...projects];

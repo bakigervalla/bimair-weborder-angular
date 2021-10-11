@@ -11,6 +11,7 @@ import { ForgotPasswordComponent } from './components/login/forgot-password.comp
 import { ResetPasswordComponent } from './components/login/reset-password.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
+import { ProjectListComponent } from './components/projects/project-list.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { ProductsComponent } from './components/products/products.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -50,6 +51,7 @@ const routes: Routes = [
   { path: 'forgot', component: ForgotPasswordComponent, data: { title: 'Forgot Password' } },
   { path: 'reset', component: ResetPasswordComponent, data: { title: 'Reset Password' } },
   { path: 'register', component: RegisterComponent, data: { title: 'Register' } },
+  { path: 'projects', component: ProjectListComponent, canActivate: [AuthGuard], data: { title: 'Projects' } },
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard], data: { title: 'Customers' } },
   { path: 'products', component: ProductsComponent, canActivate: [AuthGuard], data: { title: 'Products' } },
   { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard], data: { title: 'Orders' } },

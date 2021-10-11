@@ -13,7 +13,7 @@ namespace DAL.Repositories.Interfaces
 {
     public interface IProjectRepository : IRepository<Project>
     {
-        Task<IEnumerable<Project>> GetProjects(int page, int pageSize);
+        Task<IEnumerable<Project>> GetProjects();
         IEnumerable<Project> GetProjectsByUser(string userId);
         IEnumerable<Project> GetProjectsByCustomer(int customerId);
     }

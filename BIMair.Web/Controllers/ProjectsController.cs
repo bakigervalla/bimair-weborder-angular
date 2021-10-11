@@ -16,11 +16,13 @@ using BIMair.Helpers;
 using DAL.Models;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Authorization;
+using IdentityServer4.AccessTokenValidation;
 
 namespace BIMair.Controllers
 {
+    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    public class ProjectController : ControllerBase
+    public class ProjectsController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -28,7 +30,7 @@ namespace BIMair.Controllers
         private readonly IEmailSender _emailSender;
 
 
-        public ProjectController(IMapper mapper, IUnitOfWork unitOfWork, ILogger<ProjectController> logger, IEmailSender emailSender)
+        public ProjectsController(IMapper mapper, IUnitOfWork unitOfWork, ILogger<ProjectsController> logger, IEmailSender emailSender)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
@@ -39,18 +41,19 @@ namespace BIMair.Controllers
 
 
         // GET: api/values
-        [HttpGet("projects/{pageNumber:int}/{pageSize:int}")]
+        //[HttpGet("{pageNumber:int}/{pageSize:int}")]
+        [HttpGet]
         [Authorize(Authorization.Policies.ViewAllUsersPolicy)]
         [ProducesResponseType(200, Type = typeof(List<ProjectViewModel>))]
-        public async Task<IActionResult> Get(int pageNumber, int pageSize)
+        public async Task<IActionResult> Get()
         {
-            var allProjects = await _unitOfWork.Projects.GetProjects(pageNumber, pageSize);
+            var allProjects = await _unitOfWork.Projects.GetProjects();
             return Ok(_mapper.Map<IEnumerable<ProjectViewModel>>(allProjects));
         }
 
 
 
-        [HttpGet("projects/customer/{id}")]
+        [HttpGet("customer/{id}")]
         [ProducesResponseType(200, Type = typeof(ProjectViewModel))]
         public IActionResult GetByCustomer(int customerId)
         {
@@ -63,7 +66,7 @@ namespace BIMair.Controllers
         }
 
 
-        [HttpGet("projects/user/{id}")]
+        [HttpGet("user/{id}")]
         [ProducesResponseType(200, Type = typeof(ProjectViewModel))]
         public IActionResult GetByUser(string userId)
         {
@@ -89,7 +92,7 @@ namespace BIMair.Controllers
             return Ok();
         }
 
-        [HttpDelete("projects/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int projectId)
         {
             Expression<Func<Project, bool>> expr = p => p.Id == projectId;

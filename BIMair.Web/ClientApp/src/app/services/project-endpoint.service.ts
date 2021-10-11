@@ -11,7 +11,6 @@ import { catchError } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { EndpointBase } from './endpoint-base.service';
 import { ConfigurationService } from './configuration.service';
-import { id } from '@swimlane/ngx-datatable';
 
 @Injectable()
 export class ProjectEndpoint extends EndpointBase {
@@ -28,16 +27,16 @@ export class ProjectEndpoint extends EndpointBase {
   }
 
 
-  getProjectsEndpoint<T>(page?: number, pageSize?: number): Observable<T> {
-    const endpointUrl = page && pageSize ? `${this.projectsUrl}/${page}/${pageSize}` : this.projectsUrl;
-    return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
+  getProjectsEndpoint<T>(page?:number, pageSize?:number): Observable<T> {
+    const endpointUrl = `${this.projectsUrl}/${page}/${pageSize}`;
+    return this.http.get<T>(this.projectsUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getProjectsEndpoint(page, pageSize));
       }));
   }
 
   getProjectEndpoint<T>(Id?: number): Observable<T> {
-    const endpointUrl = `${this.projectUrl}/${id}`;
+    const endpointUrl = `${this.projectUrl}/${Id}`;
 
     return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
