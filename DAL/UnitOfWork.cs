@@ -18,6 +18,7 @@ namespace DAL
         readonly ApplicationDbContext _context;
 
         ICustomerRepository _customers;
+        IProjectRepository _projects;
         IProductRepository _products;
         IOrdersRepository _orders;
 
@@ -38,6 +39,19 @@ namespace DAL
                     _customers = new CustomerRepository(_context);
 
                 return _customers;
+            }
+        }
+
+
+
+        public IProjectRepository Projects
+        {
+            get
+            {
+                if (_projects == null)
+                    _projects = new ProjectRepository(_context);
+
+                return _projects;
             }
         }
 

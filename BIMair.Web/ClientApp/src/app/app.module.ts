@@ -66,6 +66,7 @@ import { UserPreferencesComponent } from './components/controls/user-preferences
 import { UsersManagementComponent } from './components/controls/users-management.component';
 import { RolesManagementComponent } from './components/controls/roles-management.component';
 import { RoleEditorComponent } from './components/controls/role-editor.component';
+import { ProjectsComponent } from './components/projects/projects.component';
 
 
 @NgModule({
@@ -117,7 +118,8 @@ import { RoleEditorComponent } from './components/controls/role-editor.component
     BootstrapTabDirective,
     BootstrapToggleDirective,
     GroupByPipe,
-    ShowHidePasswordDirective
+    ShowHidePasswordDirective,
+    ProjectsComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },

@@ -20,6 +20,7 @@ namespace DAL
     {
         public string CurrentUserId { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -48,6 +49,11 @@ namespace DAL
             builder.Entity<Customer>().Property(c => c.PhoneNumber).IsUnicode(false).HasMaxLength(30);
             builder.Entity<Customer>().Property(c => c.City).HasMaxLength(50);
             builder.Entity<Customer>().ToTable($"App_{nameof(this.Customers)}");
+
+            builder.Entity<Project>().Property(c => c.Name).IsRequired().HasMaxLength(100);
+            builder.Entity<Project>().HasIndex(c => c.Name);
+            builder.Entity<Project>().Property(c => c.Description).IsRequired().HasMaxLength(450);
+            builder.Entity<Project>().ToTable($"App_{nameof(this.Projects)}");
 
             builder.Entity<ProductCategory>().Property(p => p.Name).IsRequired().HasMaxLength(100);
             builder.Entity<ProductCategory>().Property(p => p.Description).HasMaxLength(500);

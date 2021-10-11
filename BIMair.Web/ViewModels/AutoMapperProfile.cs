@@ -60,6 +60,9 @@ namespace BIMair.ViewModels
 
             CreateMap<Order, OrderViewModel>()
                 .ReverseMap();
+
+            CreateMap<Project, ProjectViewModel>()
+                .ReverseMap();
         }
     }
 }

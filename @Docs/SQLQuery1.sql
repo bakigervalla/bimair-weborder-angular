@@ -16,14 +16,14 @@ select * from [dbo].[DeviceCodes];
 select * from [dbo].[IdentityResourceProperties];
 select * from [dbo].[PersistedGrants];
 
+select * from [dbo].[AspNetUsers];
+select * from [dbo].[AspNetUserRoles];
 select * from [dbo].[ApiResources];
 select * from [dbo].[ApiResourceScopes];
 select * from [dbo].[ApiScopeClaims];
 select * from [dbo].[ApiScopes];
 select * from [dbo].[AspNetRoleClaims];
 select * from [dbo].[AspNetRoles];
-select * from [dbo].[AspNetUserRoles];
-select * from [dbo].[AspNetUsers];
 select * from [dbo].[ClientGrantTypes];
 select * from [dbo].[Clients];
 select * from [dbo].[ClientScopes];

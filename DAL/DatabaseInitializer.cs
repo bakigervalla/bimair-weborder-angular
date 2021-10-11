@@ -42,6 +42,9 @@ namespace DAL
         {
             await _context.Database.MigrateAsync().ConfigureAwait(false);
 
+            ApplicationUser adminUser = null,
+                defaultUser = null;
+
             if (!await _context.Users.AnyAsync())
             {
                 _logger.LogInformation("Generating inbuilt accounts");
@@ -52,8 +55,8 @@ namespace DAL
                 await EnsureRoleAsync(adminRoleName, "Default administrator", ApplicationPermissions.GetAllPermissionValues());
                 await EnsureRoleAsync(userRoleName, "Default user", new string[] { });
 
-                await CreateUserAsync("info@bimair.nl", "admiN@123", "Inbuilt Administrator", "admin@bimair.com", "+1 (123) 000-0000", new string[] { adminRoleName });
-                await CreateUserAsync("janr@bimair.nl", "janR@123", "Inbuilt Standard User", "user@bimair.com", "+1 (123) 000-0001", new string[] { userRoleName });
+                adminUser = await CreateUserAsync("info@bimair.nl", "admiN@123", "Inbuilt Administrator", "admin@bimair.com", "+1 (123) 000-0000", new string[] { adminRoleName });
+                defaultUser = await CreateUserAsync("janr@bimair.nl", "janR@123", "Inbuilt Standard User", "user@bimair.com", "+1 (123) 000-0001", new string[] { userRoleName });
 
                 _logger.LogInformation("Inbuilt account generation completed");
             }
@@ -112,7 +115,6 @@ namespace DAL
                 };
 
 
-
                 ProductCategory prodCat_1 = new ProductCategory
                 {
                     Name = "None",
@@ -121,6 +123,40 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
+
+                Project prj_1 = new Project
+                {
+                    Name = "Project 1",
+                    Description = "Yet another masterpiece project",
+                    CustomerId = cust_4.Id,
+                    UserId = defaultUser?.Id,
+                    Number = "123",
+                    Refrence  = "A123",
+                    DeliveryAddress = "Assen",
+                    DeliveryDate = DateTime.UtcNow,
+                    RectangularDuctwork = "Rectangular",
+                    RoundDuctwork = "Rounded",
+                    TotalList = "1",
+                    DateCreated = DateTime.UtcNow,
+                    DateModified = DateTime.UtcNow
+                };
+
+                Project prj_2 = new Project
+                {
+                    Name = "Project 58",
+                    Description = "Yet another fantastic project",
+                    CustomerId = cust_4.Id,
+                    UserId = defaultUser?.Id,
+                    Number = "007",
+                    Refrence = "A007",
+                    DeliveryAddress = "Pristina",
+                    DeliveryDate = DateTime.UtcNow,
+                    RectangularDuctwork = "Rectangular",
+                    RoundDuctwork = "Rounded",
+                    TotalList = "77",
+                    DateCreated = DateTime.UtcNow,
+                    DateModified = DateTime.UtcNow
+                };
 
 
                 Product prod_1 = new Product
@@ -185,6 +221,9 @@ namespace DAL
 
                 _context.Products.Add(prod_1);
                 _context.Products.Add(prod_2);
+
+                _context.Projects.Add(prj_1);
+                _context.Projects.Add(prj_2);
 
                 _context.Orders.Add(ordr_1);
                 _context.Orders.Add(ordr_2);

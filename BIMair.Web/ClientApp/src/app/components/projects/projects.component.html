@@ -1,0 +1,62 @@
+<h4>Projects</h4>
+<!-- <div>
+  <div class="row control-box">
+    <div class="col-lg-8">
+      <div class="form-group search-box">
+        <app-search-box (searchChange)="onSearchChanged($event)"
+          placeholder="{{'todoDemo.management.Search' | translate}}"></app-search-box>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <ul class="nav flex-column flex-lg-row">
+        <li [class.active]="hideCompletedTasks" class="nav-item toolbaritem">
+          <a class="nav-link" href="javascript:;" (click)="hideCompletedTasks = !hideCompletedTasks"><i
+              class="fa fa-eye-slash"></i> {{'todoDemo.management.HideCompleted' | translate}}</a>
+        </li>
+        <li class="nav-item toolbaritem">
+          <a class="nav-link" href="javascript:;" (click)="addTask()"><i class="fa fa-plus"></i>
+            {{'todoDemo.management.AddTask' | translate}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ngx-datatable class="material colored-header sm table-hover" [loadingIndicator]="loadingIndicator" [rows]="rows"
+    [rowHeight]="35" [headerHeight]="35" [footerHeight]="35" [columns]="columns" [scrollbarV]="verticalScrollbar"
+    [columnMode]="'force'">
+  </ngx-datatable>
+
+  <ng-template #statusHeaderTemplate>
+    <i class="fa fa-check-square-o"></i>
+  </ng-template>
+
+  <ng-template #nameTemplate let-row="row" let-value="value">
+    <span *ngIf="!editing[row.$$index + '-name']" class="inline-label" attr.title="Double click to edit - {{value}}"
+      (dblclick)="editing[row.$$index + '-name'] = true">
+      {{value}}
+    </span>
+    <input *ngIf="editing[row.$$index + '-name']" class="inline-editor" appAutofocus
+      (blur)="updateValue($event, 'name', value, row)" type="text" [value]="value" />
+  </ng-template>
+
+  <ng-template #descriptionTemplate let-row="row" let-value="value">
+    <span *ngIf="!editing[row.$$index + '-description']" class="inline-label"
+      attr.title="Double click to edit - {{value}}" (dblclick)="editing[row.$$index + '-description'] = true">
+      {{value}}
+    </span>
+    <input *ngIf="editing[row.$$index + '-description']" class="inline-editor" appAutofocus
+      (blur)="updateValue($event, 'description', value, row)" type="text" [value]="value" />
+  </ng-template>
+
+
+  <ng-template #actionsTemplate let-row="row">
+    <a class="btn btn-link btn-sm" href="javascript:;" tooltip="{{'todoDemo.management.Delete' | translate}}"
+      container="body" (click)="delete(row)"><i class="fa fa-times"></i></a>
+    <a class="btn btn-link btn-sm" href="javascript:;" tooltip="{{'todoDemo.management.Important' | translate}}"
+      container="body" (click)="row.important = !row.important" (mouseover)="row.isMouseOver=true"
+      (mouseout)="row.isMouseOver=false">
+      <i *ngIf="row.important || row.isMouseOver" class="fa fa-bookmark"></i>
+      <i *ngIf="!row.important && !row.isMouseOver" class="fa fa-bookmark-o"></i>
+    </a>
+  </ng-template>
+
+</div> -->
