@@ -16,10 +16,8 @@ namespace BIMair.Authorization
 
     }
 
-
-
     public class ViewRoleAuthorizationHandler : AuthorizationHandler<ViewRoleAuthorizationRequirement, string>
-    {
+    {  
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ViewRoleAuthorizationRequirement requirement, string roleName)
         {
             if (context.User == null)

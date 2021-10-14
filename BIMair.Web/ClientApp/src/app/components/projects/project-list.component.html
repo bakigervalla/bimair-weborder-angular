@@ -2,8 +2,11 @@
   <div class="content-container">
     <div class="content-area">
       <h1>Projects</h1>
+      <span class="pull-right">
+        <button type="button" [routerLink]="['/project']" id="loading-btn" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Create New Project</button>
+      </span>
       <ngx-datatable class='bootstrap no-detail-row' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'"
-        [rows]='rows' [count]="totalCount" [limit]="dataParams.page_size">
+                     [rows]='rows' [count]="totalCount" [limit]="dataParams.page_size">
         <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
         <ngx-datatable-column name="Description" prop="description"></ngx-datatable-column>
         <ngx-datatable-column name="DeliveryDate" prop="deliveryDate"></ngx-datatable-column>

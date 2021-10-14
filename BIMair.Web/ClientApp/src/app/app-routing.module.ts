@@ -12,6 +12,7 @@ import { ResetPasswordComponent } from './components/login/reset-password.compon
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProjectListComponent } from './components/projects/project-list.component';
+import { ProjectsComponent } from './components/projects/projects.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { ProductsComponent } from './components/products/products.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -44,7 +45,6 @@ export class LowerCaseUrlSerializer extends DefaultUrlSerializer {
   }
 }
 
-
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard], data: { title: 'Home' } },
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
@@ -52,6 +52,7 @@ const routes: Routes = [
   { path: 'reset', component: ResetPasswordComponent, data: { title: 'Reset Password' } },
   { path: 'register', component: RegisterComponent, data: { title: 'Register' } },
   { path: 'projects', component: ProjectListComponent, canActivate: [AuthGuard], data: { title: 'Projects' } },
+  { path: 'project', component: ProjectsComponent, canActivate: [AuthGuard], data: { title: 'Project' } },
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard], data: { title: 'Customers' } },
   { path: 'products', component: ProductsComponent, canActivate: [AuthGuard], data: { title: 'Products' } },
   { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard], data: { title: 'Orders' } },
