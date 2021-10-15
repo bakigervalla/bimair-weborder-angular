@@ -13,6 +13,7 @@ import { Utilities } from '../../services/utilities';
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })
+
 export class ProjectsComponent implements OnInit {
   project: Project | undefined;
   public isSaving = false;

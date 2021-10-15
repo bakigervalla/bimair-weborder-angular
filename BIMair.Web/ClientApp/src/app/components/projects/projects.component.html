@@ -1,77 +1,123 @@
 <div class="container padding-bottom-3x mb-2 mt-5">
+
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8">
+      <img src="../assets/images/bimair-logo-white.png" class="d-inline-block align-top float-right h-25" alt="logo">
+</div> 
+  </div>
 
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
       <h4 class="card-title">Create a new Project</h4>
-      <form class="card mt-4" *ngIf="!savedSuccessfully" name="projectForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? addProject() : ''">
+      <form class="card mt-4 mb-lg-5" *ngIf="!savedSuccessfully" name="projectForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? addProject() : ''">
 
         <div class="card-body">
+
           <div class="form-group">
-            <label class="col-form-label col" for="name">{{'project.name' | translate}}</label>
+            <label class="col-form-label col" for="name"></label>
             <div class="col-lg-12">
-              <input type="text" attr.id="name" name="name" placeholder="Enter full name"
-                     class="form-control" [(ngModel)]="project.name" />
+              <input type="text" attr.id="name" name="name" placeholder="Enter name project"
+                     class="form-control" /> <!--[(ngModel)]="project.name"-->
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-form-label col" for="email">{{'project.Email' | translate}}</label>
+            <label class="col-form-label col" for="number"></label>
             <div class="col-lg-12">
-              <input type="text" attr.id="email" name="email" placeholder="Enter email address"
-                     class="form-control"
-                     [ngClass]="{'is-valid': f.submitted && email.valid, 'is-invalid' : f.submitted && !email.valid}"
-                     [(ngModel)]="userEdit.email" #email="ngModel" required maxlength="200"
-                     pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" />
-              <span *ngIf="showValidationErrors && f.submitted && email.errors?.required" class="invalid-feedback">
-                {{'project.EmailRequired' | translate}}
-              </span>
-              <span *ngIf="showValidationErrors && f.submitted && email.errors?.pattern" class="invalid-feedback">
-                {{'project.InvalidEmail' | translate}}
-              </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-form-label col" for="newPassword">{{'project.Password' | translate}}</label>
-            <div class="col-lg-12">
-              <input type="password" attr.id="newPassword" name="newPassword" placeholder="Enter password" class="form-control"
-                     [ngClass]="{'is-valid': f.submitted && newPassword.valid, 'is-invalid' : f.submitted && !newPassword.valid}"
-                     [(ngModel)]="userEdit.newPassword" #newPassword="ngModel" required minlength="6" appValidateEqual="confirmPassword" reverse="true" />
-              <span *ngIf="showValidationErrors && f.submitted && !newPassword.valid" class="invalid-feedback">
-                {{'project.NewPasswordRequired' | translate}}
-              </span>
+              <input type="text" attr.id="number" name="number" placeholder="Enter number"
+                     class="form-control" />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-form-label confirm-label col" for="confirmPassword">{{'project.ConfirmPassword' | translate}}</label>
+            <label class="col-form-label col" for="refrence"></label>
             <div class="col-lg-12">
-              <input type="password" attr.id="confirmPassword" name="confirmPassword" placeholder="Confirm password" class="form-control"
-                     [ngClass]="{'is-valid': f.submitted && confirmPassword.valid, 'is-invalid' : f.submitted && !confirmPassword.valid}"
-                     [(ngModel)]="userEdit.confirmPassword" #confirmPassword="ngModel" required appValidateEqual="newPassword" />
-              <span *ngIf="showValidationErrors && !confirmPassword.valid" class="invalid-feedback">
-                {{'project.PasswordMismatch' | translate}}
-              </span>
+              <input type="text" attr.id="refrence" name="refrence" placeholder="Enter refrence"
+                     class="form-control" />
             </div>
           </div>
 
-          <div class="card-footer">
-            <div ngPreserveWhitespaces>
-              <div class="float-left">Already have an account? <a routerLink="/login">Login</a></div>
-              <button type="submit" class="btn btn-primary btn-block float-right" [disabled]="isSaving">
-                <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
-                {{
+          <div class="form-group">
+            <label class="col-form-label col" for="deliveryAddress"></label>
+            <div class="col-lg-12">
+              <input type="text" attr.id="deliveryAddress" name="deliveryAddress" placeholder="Enter delivery address"
+                     class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col" for="deliveryDate"></label>
+            <div class="col-lg-12">
+              <input type="text" attr.id="deliveryDate" name="deliveryDate" placeholder="Enter delivery date"
+                     class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col" for="rectangularDuctwork"></label>
+            <div class="col-lg-12">
+              <input type="text" attr.id="rectangularDuctwork" name="rectangularDuctwork" placeholder="Enter rectangular ductwork" 
+                     class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col" for="roundDuctwork"></label>
+            <div class="col-lg-12">
+              <input type="text" attr.id="roundDuctwork" name="roundDuctwork" placeholder="Enter round ductwork"
+                     class="form-control" /> 
+            </div>
+          </div>         
+
+
+        </div>
+        <div class="card-footer">
+          <div ngPreserveWhitespaces>
+            <!--<div class="float-left">Already have an account? <a routerLink="/login">Login</a></div>-->
+            <button type="submit" class="btn btn-primary btn-block float-right" [disabled]="isSaving">
+              <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
+              {{
 isSaving ? ('project.Saving' | translate) :
                 ('project.Save' | translate)
-                }}
-              </button>
-            </div>
+              }}
+            </button>
           </div>
         </div>
       </form>
-      <span *ngIf="savedSuccessfully">
+      <!--<span *ngIf="savedSuccessfully">
         Your account is created successfully. Please click here to <a [routerLink]="['/login']" class="card-link">login</a>
-      </span>
+      </span>-->
     </div>
   </div>
+
+  <div class="row justify-content-center pb-lg-5">
+    <ul class="nav flex-column flex-lg-row">
+      <li>
+        <button type="submit" class="btn btn-primary mr-4 float-right">
+          Rectangular ductwork
+          <i class='fa'></i>
+        </button>
+      </li>
+      <li>
+        <button type="submit" class="btn btn-primary mr-4 float-right">
+          Round ductwork
+          <i class='fa'></i>
+        </button>
+      </li>
+      <li>
+        <button type="submit" class="btn btn-primary mr-4 float-right">
+          Montagemateriaal
+          <i class='fa'></i>
+        </button>
+      </li>
+      <li>
+        <button type="submit" class="btn btn-primary mr-4 float-right">
+          Total list
+          <i class='fa'></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+
 </div>
 

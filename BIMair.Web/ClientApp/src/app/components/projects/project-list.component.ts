@@ -7,6 +7,7 @@ import { Project } from '../../models/project';
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss']
 })
+
 export class ProjectListComponent implements OnInit {
   rows = new Array<Project>();
   totalCount: Number = 0;
