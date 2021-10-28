@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  width  : 100%;
+  height : 100%;
+
+  .ngx-datatable {
+    height: 100vh;
+  }
+}
+
+.btn-add {
+  float  : right !important;
+  padding: 8px;
+  margin: 0 -8px;
+}
+
+.btn {
+  color        : #fff;
+  float        : right;
+  font-size    : 13px;
+  border       : none;
+  min-width    : 50px;
+  border-radius: 2px;
+  border       : none;
+  outline      : none !important;
+  margin-left  : 10px;
+
+  i {
+    float       : left;
+    font-size   : 21px;
+    margin-right: 5px;
+  }
+
+  span {
+    float     : left;
+    margin-top: 2px;
+  }
+}
+
+.action-buttons {
+  display: inline-flex;
+}

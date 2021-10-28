@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  width  : 100%;
+  height : 100%;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+input {
+  margin: 0px;
+}
+
+.card-footer {
+  margin: 30px 0 0 0;
+}
+
+@media (min-width: 576px) {
+  .col-sm-1 {
+    flex: 0 0 4%;
+  }
+}
+
+.dtpicker {
+  margin-left: 0 !important;
+}
+.button-dtpicker {
+  margin-top: 35px;
+}

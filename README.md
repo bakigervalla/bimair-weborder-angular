@@ -1,2 +1,2 @@
-# BIMair.WebOrder
-BIMair online ordering
+# BIMair-WebOrder
+Web Ordering system for BIMair Air Ducts

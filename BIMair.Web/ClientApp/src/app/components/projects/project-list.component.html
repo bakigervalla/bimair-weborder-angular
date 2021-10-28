@@ -1,0 +1,86 @@
+<div class="main-container">
+  <div class="content-container">
+    <div class="content-area">
+      <h2>{{ 'projects.Projects' | translate }}</h2>
+      <div class="row">
+        <div class="col-xl-12 btn-add">
+          <a [routerLink]="['/project']" class="btn btn-success" data-toggle="modal">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span>{{ 'projects.AddNewProject' | translate }}</span></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12">
+          <ngx-datatable class="material colored-header sm table-hover" [loadingIndicator]="loadingIndicator"
+            [rowHeight]="35" [headerHeight]="35" [footerHeight]="35" [columnMode]="'force'" [footerHeight]="50"
+            [rows]='rows' [count]="totalCount" [limit]="dataParams.page_size">
+            <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+            <ngx-datatable-column name="Description" prop="description"></ngx-datatable-column>
+            <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
+            <ngx-datatable-column name="Number" prop="number" [cellClass]="'text-right'" [width]="100">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Refrence" prop="refrence" [cellClass]="'text-right'" [width]="100">
+            </ngx-datatable-column>
+            <ngx-datatable-column>
+              <ng-template let-column="deliveryDate" ngx-datatable-header-template>
+                Delivery Date
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.deliveryDate| formatDate}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Rectangular" prop="rectangularDuctwork"></ngx-datatable-column>
+            <ngx-datatable-column name="Round" prop="roundDuctwork"></ngx-datatable-column>
+            <ngx-datatable-column [sortable]="false">
+              <ng-template ngx-datatable-header-template>
+              </ng-template>
+              <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                <div class="action-buttons">
+                  <a href="#" class="btn btn-success btn-sm">Edit</a>
+                  <a href="#" class="btn btn-danger btn-sm">Delete </a>
+                  <!-- <a title="Edit" class="mr-2" href="javascript:void(0);">Edit</a>
+              <a title="Delete" href="javascript:void(0);">Delete</a> -->
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="container">
+  <header class="pageHeader">
+    <h3><i class="fa fa-tasks fa-lg page-caption" aria-hidden="true"></i> Projects </h3>
+  </header>
+
+  <div class="row control-box">
+    <div class="col-lg-8">
+    </div>
+    <div class="col-lg-4">
+      <ul class="nav flex-column flex-lg-row">
+        <li class="nav-item toolbaritem">
+          <button type="button" [routerLink]="['/project']" id="loading-btn" class="nav-link"><i class="fa fa-plus"></i> Create New Project</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <ngx-datatable class='bootstrap no-detail-row' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'"
+                 [rows]='rows' [count]="totalCount" [limit]="dataParams.page_size">
+    <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+    <ngx-datatable-column name="Description" prop="description"></ngx-datatable-column>
+    <ngx-datatable-column name="DeliveryDate" prop="deliveryDate"></ngx-datatable-column>
+    <ngx-datatable-column name="Action" widht="600">
+      <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+        <div class="text-left">
+          <a title="Edit" class="mr-2" href="javascript:void(0);">Edit</a>
+          <a title="Delete" href="javascript:void(0);">Delete</a>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+-->

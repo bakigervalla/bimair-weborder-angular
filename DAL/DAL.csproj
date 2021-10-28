@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Version>5.0.0</Version>
+    <Description>Data Access Layer for the BIMair Web Ordering Application</Description>
+    <Copyright>Copyright © 2021 www.bimair.nl</Copyright>
+    <PackageProjectUrl>https://www.bimair.nl</PackageProjectUrl>
+    <Company>BIMair</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+  </ItemGroup>
+
+</Project>

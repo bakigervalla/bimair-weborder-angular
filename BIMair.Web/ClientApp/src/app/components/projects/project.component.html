@@ -1,0 +1,133 @@
+<h2>Project</h2>
+<div class="container py-5">
+  <!-- <form *ngIf="!savedSuccessfully" name="projectForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
+    (name.errors?.required && showErrorAlert('Name is required', 'Please enter project name'));
+
+    (!customerName.valid && showErrorAlert('Customer is required', 'Please enter customer'));
+
+    (number.valid && number.errors?.required && showErrorAlert('Number field is required', 'Please enter project number'));
+    (reference.valid && reference.errors?.required && showErrorAlert('Reference is required', 'Please enter project reference'));
+    "> -->
+  <form name="projectForm" #f="ngForm" novalidate (ngSubmit)="save()">
+    <div class="row">
+
+      <div class="col-4">
+        <!--left side -->
+        <div class="form-group row">
+          <label for="customerName">Customer</label>
+          <input type="text" class="form-control" attr.id="customerName-{{uniqueId}}" name="customerName"
+            placeholder="Customer name" [ngbTypeahead]="search"
+            [ngClass]="{'is-valid': f.submitted && customerName.valid, 'is-invalid' : f.submitted && !customerName.valid}"
+            [(ngModel)]="projectEdit.customerName" #customerName="ngModel" required />
+          <span *ngIf="f.submitted && customerName.errors?.required" class="invalid-feedback">
+            {{'projects.CustomerNameRequired' | translate}}
+          </span>
+        </div>
+        <div class="form-group row">
+          <label for="name">Project</label>
+          <input type="text" class="form-control" attr.id="name-{{uniqueId}}" name="name" placeholder="Project name"
+            [ngClass]="{'is-valid': f.submitted && name.valid, 'is-invalid' : f.submitted && !name.valid}"
+            [(ngModel)]="projectEdit.name" #name="ngModel" required />
+          <span *ngIf="f.submitted && name.errors?.required" class="invalid-feedback">
+            {{'projects.NameRequired' | translate}}
+          </span>
+        </div>
+        <div class="form-group row">
+          <label for="number">Number</label>
+          <input type="text" class="form-control" attr.id="number-{{uniqueId}}" name="number"
+            placeholder="Project number"
+            [ngClass]="{'is-valid': f.submitted && number.valid, 'is-invalid' : f.submitted && !number.valid}"
+            [(ngModel)]="projectEdit.number" #number="ngModel" required />
+          <span *ngIf="f.submitted && number.errors?.required" class="invalid-feedback">
+            {{'projects.NumberRequired' | translate}}
+          </span>
+        </div>
+        <div class="form-group row">
+          <label for="reference">Reference</label>
+          <input type="text" class="form-control" attr.id="reference-{{uniqueId}}" name="reference"
+            placeholder="Project reference"
+            [ngClass]="{'is-valid': f.submitted && reference.valid, 'is-invalid' : f.submitted && !reference.valid}"
+            [(ngModel)]="projectEdit.reference" #reference="ngModel" required />
+          <span *ngIf="f.submitted && reference.errors?.required" class="invalid-feedback">
+            {{'projects.ReferenceRequired' | translate}}
+          </span>
+        </div>
+      </div>
+
+      <div class="col-sm-1"></div>
+
+      <div class="col-4">
+
+        <div class="form-group">
+          <label for="deliveryAddress">Address</label>
+          <textarea rows="4" type="text" class="form-control" attr.id="deliveryAddress-{{uniqueId}}"
+            name="deliveryAddress" placeholder="Delivery address"
+            [ngClass]="{'is-valid': f.submitted && deliveryAddress.valid, 'is-invalid' : f.submitted && !deliveryAddress.valid}"
+            [(ngModel)]="projectEdit.deliveryAddress" #deliveryAddress="ngModel" required></textarea>
+          <span *ngIf="f.submitted && deliveryAddress.errors?.required" class="invalid-feedback">
+            {{'projects.DeliveryAddressRequired' | translate}}
+          </span>
+        </div>
+
+        <div class="row dtpicker">
+          <div class="col-xs-9">
+            <label for="deliveryDate">Date</label>
+            <input type="text" class="form-control" attr.id="deliveryDate-{{uniqueId}}" name="deliveryDate"
+              placeholder="dd/mm/yyyy"
+              [ngClass]="{'is-valid': f.submitted && deliveryDate.valid, 'is-invalid' : f.submitted && !deliveryDate.valid}"
+              [(ngModel)]="projectEdit.deliveryDate" ngbDatepicker="ngModel" #deliveryDate="ngbDatepicker" required
+              (focus)="deliveryDate.open()" />
+            <span *ngIf="f.submitted && deliveryDate.errors?.required" class="invalid-feedback">
+              {{'projects.DeliveryDateRequired' | translate}}
+            </span>
+          </div>
+          <div class="button-dtpicker col-xs-2">
+            <div class="input-group-text">
+              <i class="fa fa-calendar" style="cursor: pointer;" (click)="deliveryDate.toggle()"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-footer col-9">
+        <div class="float-right">
+          <button type="submit" class="btn btn-primary px-4 btn-block" [disabled]="isSaving">
+            <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
+            {{isSaving ? ('projects.Saving' | translate) :
+            ('projects.SaveAndContinue' | translate)}}
+          </button>
+        </div>
+      </div>
+
+      <!--
+      <div class="card-footer col-9">
+        <div class="col-4 float-left">
+          <button type="submit" class="btn btn-secondary px-4 btn-block" [disabled]="isSaving">
+            <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
+            {{isSaving ? ('projects.Saving' | translate) :
+            ('projects.rectangularDuctwork' | translate)}}
+          </button>
+        </div>
+        <div class="col-4 float-left">
+          <button type="submit" class="btn btn-secondary px-4 btn-block" [disabled]="isSaving">
+            <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
+            {{isSaving ? ('projects.Saving' | translate) :
+            ('projects.roundDuctwork' | translate)}}
+          </button>
+        </div>
+        <div class="col-4 float-left">
+          <button type="submit" class="btn btn-secondary px-4 btn-block" [disabled]="isSaving">
+            <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
+            {{isSaving ? ('projects.Saving' | translate) :
+            ('projects.totalList' | translate)}}
+          </button>
+        </div>
+      </div>
+
+      -->
+
+    </div>
+  </form>
+
+</div>
