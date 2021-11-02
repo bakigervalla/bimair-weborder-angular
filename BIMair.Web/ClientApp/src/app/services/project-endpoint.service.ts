@@ -19,7 +19,7 @@ export class ProjectEndpoint extends EndpointBase {
   get projectUrl() { return this.configurations.baseUrl + '/api/projects/id'; }
   get projectsByCustomerUrl() { return this.configurations.baseUrl + '/api/projects/customer'; }
   get projectsByUserUrl() { return this.configurations.baseUrl + '/api/projects/user'; }
-  get addProjectUrl() { return this.configurations.baseUrl + '/api/projects'; }
+  get addProjectUrl() { return this.configurations.baseUrl + '/api/projects/add'; }
   get updateProjectUrl() { return this.configurations.baseUrl + '/api/projects'; }
   get deteProjectUrl() { return this.configurations.baseUrl + '/api/projects'; }
 
@@ -27,20 +27,19 @@ export class ProjectEndpoint extends EndpointBase {
     super(http, authService);
   }
 
+  getProjectsEndpoint<T>(page?:number, pageSize?:number): Observable<T> {
+    const endpointUrl = `${this.projectsUrl}/${page}/${pageSize}`;
+    return this.http.get<T>(this.projectsUrl, this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.getProjectsEndpoint(page, pageSize));
+      }));
+  }
 
   getCustomersByUserEndpoint<T>(): Observable<T> {
     const endpointUrl = this.customersByUserUrl;
     return this.http.get<T>(this.customersByUserUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getCustomersByUserEndpoint());
-      }));
-  }
-
-  getProjectsEndpoint<T>(page?:number, pageSize?:number): Observable<T> {
-    const endpointUrl = `${this.projectsUrl}/${page}/${pageSize}`;
-    return this.http.get<T>(this.projectsUrl, this.requestHeaders).pipe<T>(
-      catchError(error => {
-        return this.handleError(error, () => this.getProjectsEndpoint(page, pageSize));
       }));
   }
 
@@ -71,19 +70,12 @@ export class ProjectEndpoint extends EndpointBase {
       }));
   }
 
-  addProjectEndpoint<T>(projectObject: any): Observable<T> {
-    return this.http.post<T>(this.projectUrl, JSON.stringify(projectObject), this.requestHeaders).pipe<T>(
+  saveProjectEndpoint<T>(projectObject: any): Observable<T> {
+    console.log(projectObject);
+    console.log(JSON.stringify(projectObject));
+    return this.http.post<T>(this.addProjectUrl, JSON.stringify(projectObject), this.requestHeaders).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.addProjectEndpoint(projectObject));
-      }));
-  }
-
-
-  updateProjectEndpoint<T>(projectObject: any): Observable<T> {
-
-    return this.http.post<T>(this.projectUrl, JSON.stringify(projectObject), this.requestHeaders).pipe<T>(
-      catchError(error => {
-        return this.handleError(error, () => this.updateProjectEndpoint(projectObject));
+        return this.handleError(error, () => this.saveProjectEndpoint(projectObject));
       }));
   }
 

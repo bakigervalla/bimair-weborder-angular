@@ -68,7 +68,7 @@ namespace BIMair.Controllers
             }
 
             return Ok(_mapper.Map<IEnumerable<ProjectViewModel>>(
-                        projects.OrderByDescending(x=> x.CreatedDate))
+                        projects.OrderByDescending(x => x.CreatedDate))
                      );
         }
 
@@ -98,16 +98,38 @@ namespace BIMair.Controllers
         }
 
 
-        [HttpPost("projects")]
+        [HttpPost("add")]
+        [ProducesResponseType(201, Type = typeof(ProjectViewModel))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
         public IActionResult Add([FromBody] ProjectViewModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
+            string userId = this.User.GetUserId();
+
+            model.UserId = userId;
+
+            Expression<Func<Customer, bool>> expr = p => p.Name == model.CustomerName && p.UserId == userId;
+            var customer = _unitOfWork.Customers.GetSingleOrDefault(expr);
+
+            if (customer == null)
+            {
+                customer = _unitOfWork.Customers.Add(new Customer { Name = model.CustomerName, UserId = userId });
+                _unitOfWork.SaveChanges();
+            }
+
+            var project = _mapper.Map<Project>(model);
+            project.Customer = customer;
+
             if (model.Id == 0)
-                _unitOfWork.Projects.Add(_mapper.Map<Project>(model));
+                _unitOfWork.Projects.Add(project);
             else
-                _unitOfWork.Projects.Add(_mapper.Map<Project>(model));
+                _unitOfWork.Projects.Update(project);
+
+            _unitOfWork.SaveChanges();
+
             return Ok();
         }
 

@@ -20,7 +20,7 @@ namespace DAL.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Number { get; set; }
-        public string Refrence { get; set; }
+        public string Reference { get; set; }
         public string DeliveryAddress { get; set; }
         public DateTime DeliveryDate { get; set; }
         public string RectangularDuctwork { get; set; }

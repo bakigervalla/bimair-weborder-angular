@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
+import { Utilities } from '../../services/utilities';
 
 @Component({
   selector: 'app-project-list',
@@ -10,6 +11,7 @@ import { Project } from '../../models/project.model';
 
 export class ProjectListComponent implements OnInit {
   rows = new Array<Project>();
+  rowsCache = [];
   totalCount: Number = 0;
   closeResult: string;
   dataParams: any = {
@@ -38,9 +40,18 @@ export class ProjectListComponent implements OnInit {
     this.projectService.getProjects()
       .subscribe(projects => {
         this.rows = projects;
+        this.rowsCache = [...projects];
         // this.totalCount = projects.length
         // this.rowsCache = [...projects];
         this.isLoading = false;
       });
   }
+
+  onSearchChanged(value: string) {
+    this.rows = this.rowsCache.filter(r =>
+      Utilities.searchArray(value, false, r.name, r.description, r.customerName,
+                                          r.number, r.reference, r.deliveryAddress, r.deliveryDate, r.dateCreated, r.dateModified )
+        );
+  }
+
 }

@@ -74,10 +74,10 @@
             <label for="deliveryDate">Date</label>
             <input type="text" class="form-control" attr.id="deliveryDate-{{uniqueId}}" name="deliveryDate"
               placeholder="dd/mm/yyyy"
-              [ngClass]="{'is-valid': f.submitted && deliveryDate.valid, 'is-invalid' : f.submitted && !deliveryDate.valid}"
-              [(ngModel)]="projectEdit.deliveryDate" ngbDatepicker="ngModel" #deliveryDate="ngbDatepicker" required
+              [ngClass]="{'is-valid': f.submitted && deliveryDate.valid, 'is-invalid' : f.submitted && !dd.valid}"
+              [(ngModel)]="projectEdit.deliveryDate" ngbDatepicker="ngModel" #dd="ngModel" #deliveryDate="ngbDatepicker" required
               (focus)="deliveryDate.open()" />
-            <span *ngIf="f.submitted && deliveryDate.errors?.required" class="invalid-feedback">
+            <span *ngIf="f.submitted && dd.errors?.required" class="invalid-feedback">
               {{'projects.DeliveryDateRequired' | translate}}
             </span>
           </div>

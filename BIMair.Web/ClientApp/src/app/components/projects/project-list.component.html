@@ -2,9 +2,15 @@
   <div class="content-container">
     <div class="content-area">
       <h2>{{ 'projects.Projects' | translate }}</h2>
-      <div class="row">
-        <div class="col-xl-12 btn-add">
-          <a [routerLink]="['/project']" class="btn btn-success" data-toggle="modal">
+      <div class="row control-box">
+        <div class="col-xl-8">
+          <div class="form-group search-box">
+            <app-search-box (searchChange)="onSearchChanged($event)"
+              placeholder="{{'projects.SearchProjects' | translate}}"></app-search-box>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <a [routerLink]="['/project']" class="btn btn-success btn-add" data-toggle="modal">
             <i class="fa fa-plus" aria-hidden="true"></i>
             <span>{{ 'projects.AddNewProject' | translate }}</span></a>
         </div>
@@ -15,12 +21,10 @@
             [rowHeight]="35" [headerHeight]="35" [footerHeight]="35" [columnMode]="'force'" [footerHeight]="50"
             [rows]='rows' [count]="totalCount" [limit]="dataParams.page_size">
             <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
-            <ngx-datatable-column name="Description" prop="description"></ngx-datatable-column>
             <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
             <ngx-datatable-column name="Number" prop="number" [cellClass]="'text-right'" [width]="100">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Refrence" prop="refrence" [cellClass]="'text-right'" [width]="100">
-            </ngx-datatable-column>
+            <ngx-datatable-column name="Reference" prop="reference" [cellClass]="'text-right'" [width]="100"></ngx-datatable-column>
             <ngx-datatable-column>
               <ng-template let-column="deliveryDate" ngx-datatable-header-template>
                 Delivery Date
@@ -36,10 +40,8 @@
               </ng-template>
               <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
                 <div class="action-buttons">
-                  <a href="#" class="btn btn-success btn-sm">Edit</a>
-                  <a href="#" class="btn btn-danger btn-sm">Delete </a>
-                  <!-- <a title="Edit" class="mr-2" href="javascript:void(0);">Edit</a>
-              <a title="Delete" href="javascript:void(0);">Delete</a> -->
+                  <a href="#" title="Edit project" class="btn btn-secondary btn-sm">Project</a>
+                  <a href="#" title="Edit order" class="btn btn-secondary btn-sm">Orders</a>
                 </div>
               </ng-template>
             </ngx-datatable-column>

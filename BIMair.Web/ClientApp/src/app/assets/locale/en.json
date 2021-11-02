@@ -211,6 +211,10 @@
     "ReferenceRequired": "Project reference is required",
     "DeliveryAddressRequired": "Address is required",
     "DeliveryDateRequired": "Delivery date is required",
-    "SaveAndContinue": "Save and continue"
+    "SaveAndContinue": "Save and continue",
+    "EditOrder": "Edit order",
+    "EditItems": "Edit items",
+    "DeleteProject": "Delete project",
+    "SearchProjects": "Search projects"
   }
 }

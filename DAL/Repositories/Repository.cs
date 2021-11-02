@@ -25,9 +25,10 @@ namespace DAL.Repositories
             _entities = context.Set<TEntity>();
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             _entities.Add(entity);
+            return entity;
         }
 
         public virtual void AddRange(IEnumerable<TEntity> entities)

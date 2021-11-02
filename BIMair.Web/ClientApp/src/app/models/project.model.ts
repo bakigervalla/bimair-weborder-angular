@@ -2,8 +2,8 @@ import { Customer } from './customer.model';
 
 export class Project {
 
-  constructor(id?: number, name?:string, description?: string, customerName?: string, number?: number, reference?: string,
-              deliveryAddress?: string, deliveryDate?: Date, dateCreated?: Date, dateModified?: Date, customer?: Customer) {
+  constructor(id?: number, name?:string, description?: string, customerName?: string, customerId?: number, number?: number, reference?: string,
+              deliveryAddress?: string, deliveryDate?: Date, dateCreated?: Date, dateModified?: Date) { //, customer?: Customer) {
       this.id = id;
       this.name = name;
       this.description = description;
@@ -14,7 +14,8 @@ export class Project {
       this.deliveryDate = deliveryDate;
       this.dateCreated = dateCreated;
       this.dateModified = dateModified;
-      this.customer = customer;
+      this.customerId = customerId
+      //this.customer = customer;
   }
 
   id: number;
@@ -30,6 +31,7 @@ export class Project {
   totalList: string;
   dateCreated: Date;
   dateModified: Date;
-  customer: Customer;
-  orders: any[];
+  customerId: number;
+  // customer: Customer;
+  // orders: any[];
 };

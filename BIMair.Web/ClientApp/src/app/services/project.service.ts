@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProjectEndpoint } from './project-endpoint.service';
 import { Project } from '../models/project.model';
+import { ProjectEdit } from '../models/project-edit.model';
 import { Customer } from '../models/customer.model';
 import { Observable } from "rxjs";
 
@@ -29,12 +30,8 @@ export class ProjectService {
     return this.projectEndpoint.getProjectsByUserEndpoint<Project>(userId);
   }
 
-  addProject(project: Project) {
-    return this.projectEndpoint.addProjectEndpoint<Project>(project);
-  }
-
-  updateProject(project: Project) {
-    return this.projectEndpoint.updateProjectEndpoint<Project>(project);
+  saveProject(project: ProjectEdit) {
+    return this.projectEndpoint.saveProjectEndpoint<Project>(project);
   }
 
   deleteProject(projectId: number) {

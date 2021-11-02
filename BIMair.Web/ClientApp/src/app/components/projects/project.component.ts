@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import {Observable, OperatorFunction} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Observable, OperatorFunction } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { AppTranslationService } from '../../services/app-translation.service';
 import { AlertService, MessageSeverity, DialogType } from '../../services/alert.service';
@@ -11,6 +11,7 @@ import { Utilities } from '../../services/utilities';
 import { Project } from '../../models/project.model';
 import { ProjectEdit } from '../../models/project-edit.model';
 import { Customer } from '../../models/customer.model';
+import {Router} from '@angular/router';
 
 import { ProjectService } from '../../services/project.service';
 
@@ -55,19 +56,19 @@ export class ProjectComponent implements OnInit {
   public deliveryAddress;
 
   @ViewChild('deliveryDate')
-  public deliveryDate : NgbDatepicker
+  public deliveryDate: NgbDatepicker
 
-  constructor(private alertService: AlertService, private projectService: ProjectService) { }
+  constructor(private router: Router, private alertService: AlertService, private projectService: ProjectService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getCustomers();
   }
   // convenience getter for easy access to form fields
   get f() { return this.projectForm.controls; }
 
-  getCustomers(){
+  getCustomers() {
     this.projectService.getCustomersByUser()
-      .subscribe(data => this.customers = data.map(x=> x.name));
+      .subscribe(data => this.customers = data.map(x => x.name));
   }
 
   save() {
@@ -80,14 +81,10 @@ export class ProjectComponent implements OnInit {
     this.isSaving = true;
     this.submitted = true;
 
-    if (this.project.id == null) {
-      this.alertService.startLoadingMessage('Creating project...');
-      this.projectService.addProject(this.projectEdit).subscribe(project => this.saveSuccessHelper(project), error => this.saveFailedHelper(error));
-    }
-    {
-      this.alertService.startLoadingMessage('Saving changes...');
-      this.projectService.updateProject(this.projectEdit).subscribe(project => this.saveSuccessHelper(project), error => this.saveFailedHelper(error));
-    }
+    this.projectEdit.deliveryDate = new Date(this.projectEdit.deliveryDate['year'], this.projectEdit.deliveryDate['month'], this.projectEdit.deliveryDate['day'])
+
+    this.alertService.startLoadingMessage('Saving project...');
+    this.projectService.saveProject(this.projectEdit).subscribe(project => this.saveSuccessHelper(project), error => this.saveFailedHelper(error));
   }
 
   private saveSuccessHelper(project?: Project) {
@@ -101,14 +98,9 @@ export class ProjectComponent implements OnInit {
     this.alertService.stopLoadingMessage();
     this.showValidationErrors = false;
 
-    if (project.id == null)
-      this.alertService.showMessage('Success', `Project \"${this.projectEdit.name}\" created successfully`, MessageSeverity.success);
-    else
-      this.alertService.showMessage('Success', `Project \"${this.projectEdit.name}\" saved successfully`, MessageSeverity.success);
+    this.alertService.showMessage('Success', `Project \"${this.projectEdit.name}\" saved successfully`, MessageSeverity.success);
 
-    if (this.changesSavedCallback) {
-      this.changesSavedCallback();
-    }
+    this.router.navigateByUrl('/projects');
   }
 
   private saveFailedHelper(error: any) {
@@ -129,5 +121,4 @@ export class ProjectComponent implements OnInit {
       map(term => term.length < 2 ? []
         : this.customers.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     )
-
 }
