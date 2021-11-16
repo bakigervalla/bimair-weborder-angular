@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8fd3a1cc-28fa-4298-a847-21f907b566f2": {
+      "ProjectGuid": "8fd3a1cc-28fa-4298-a847-21f907b566f2",
+      "DisplayName": "BIMair.Web",
+      "ColorIndex": 0
+    },
+    "47a06c37-bebe-4b67-9591-a4067e6c8398": {
+      "ProjectGuid": "47a06c37-bebe-4b67-9591-a4067e6c8398",
+      "DisplayName": "DAL",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "ed3c8804-50ee-42d4-ba61-20d0defaf5b3": {
+      "ProjectGuid": "ed3c8804-50ee-42d4-ba61-20d0defaf5b3",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

@@ -116,7 +116,7 @@ namespace BIMair
             services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = TimeSpan.FromHours(2));
 
 
-            var applicationUrl = Configuration["ApplicationUrl"].TrimEnd('/');
+            var applicationUrl = Configuration["ApplicationUrl"];
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>

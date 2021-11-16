@@ -73,6 +73,7 @@ import { ProjectComponent } from './components/projects/project.component';
 import { DatePipe } from './helpers/format-date.pipe';
 import { NgbModal, NgbModule, NgbDatepicker, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateFormat } from "./pipes/ngb-date-format.pipe";
+import { RectangularComponent } from './components/rectangular/rectangular.component';
 
 @NgModule({
   imports: [
@@ -128,6 +129,7 @@ import { NgbDateFormat } from "./pipes/ngb-date-format.pipe";
     ProjectListComponent,
     ProjectComponent,
     DatePipe,
+    RectangularComponent,
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },

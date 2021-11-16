@@ -1,0 +1,205 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Fill-in sheet Rectangular</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Fill-in sheet Round</a>
+  </li>
+</ul>
+
+<table class="table table-responsive table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Pos</th>
+      <th scope="col">Code </th>
+      <th scope="col">Aan-tal</th>
+      <th scope="col">A</th>
+      <th scope="col">B	</th>
+      <th scope="col">C	</th>
+      <th scope="col">D</th>
+      <th scope="col">E</th>
+      <th scope="col">F</th>
+      <th scope="col">G1</th>
+      <th scope="col">G2</th>
+      <th scope="col">H1</th>
+      <th scope="col">H2</th>
+      <th scope="col">I1</th>
+      <th scope="col">I2</th>
+      <th scope="col">K1</th>
+      <th scope="col">K2</th>
+      <th scope="col">L1</th>
+      <th scope="col">L2</th>
+      <th scope="col">L3</th>
+      <th scope="col">L4</th>
+      <th scope="col">verbindingen</th>
+      <th scope="col">Opmerkingen</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let field of fieldArray; let i = index ">
+          <td>
+              {{ i + 1}}
+          </td>
+          <td style="min-width: 200px;">
+              <select [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}"  (change)="colValue(field.name)">
+                <option  *ngFor="let item of note" [value]="item.label">{{ item.label }}</option>
+              </select>
+          </td>
+          <td>
+              <span *ngIf="(i+1) > 0 && (i+1) != ''">1</span>
+          </td>
+          <!-- Col A Breedte -->
+          <td>
+           
+            <ng-container *ngIf="field.name =='RH Recht kanaal'  || field.name == 'RH Sprong'
+            || field.name == 'RH Aftakking' || field.name == 'RH Vierkant-Rond'
+            || field.name == 'RH-S Bocht 2x' || field.name == 'RH-S Bocht en verloop'
+            || field.name == 'RH-S Bocht + vierkant-rond' || field.name == 'RH Deksel'
+            || field.name == 'RH Afgesch. Kanaal' || field.name == 'RH Plenum'
+            || field.name == 'RH VP Raam' || field.name == 'RH Vlakke Plaat' || field.name == 'RH Flexibel'">
+            <input type="text" [(ngModel)]="field.colB" class="form-control" name="{{field.colB}}" [value]="field.colB"> Breedte
+          </ng-container>
+          <ng-container *ngIf="field.name =='RH T-Stuk'  || field.name == 'RH Bocht' || field.name == 'RH Verloop' ">
+                                Breedte Onder
+                              </ng-container>
+          </td>
+          <!-- Col B Diepte -->
+          <td><ng-container *ngIf="field.name =='RH Recht kanaal'
+            || field.name =='RH T-Stuk'
+            || field.name == 'RH Bocht'
+            || field.name == 'RH Sprong'
+            || field.name == 'RH Aftakking'
+            || field.name == 'RH Vierkant-Rond'
+            || field.name == 'RH-S Bocht 2x'
+            || field.name == 'RH-S Bocht en verloop'
+            || field.name == 'RH-S Bocht + vierkant-rond'
+            || field.name == 'RH Deksel'
+            || field.name == 'RH Afgesch. Kanaal'
+            || field.name == 'RH Plenum'
+            || field.name == 'RH VP Raam'
+            || field.name == 'RH Vlakke Plaat'
+            || field.name == 'RH Flexibel'">Diepte</ng-container>
+            <!-- condition 2 -->
+          <ng-container *ngIf="field.name == 'RH Verloop'">Diepte Onder</ng-container>
+          </td>
+          <!-- Col C - Breedte Links -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH T-Stuk'">Breedte Links</ng-container>
+            <ng-container *ngIf="field.name == 'RH Bocht' || field.name == 'RH Verloop'">Breedte Boven</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht 2x'">Breedte Linksonder</ng-container>
+            <ng-container *ngIf="field.name == 'RH Afgesch. Kanaal'">Breedte schuine zijde</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht en Verloop' || field.name == 'RH-S Bocht + vierkant-rond'">Breedte Bocht onder</ng-container>
+          </td>
+          <!-- Col D -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH T-Stuk'">Breedte Rechts</ng-container>
+            <ng-container *ngIf="field.name == 'RH Verloop'">Diepte Boven</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht 2x'">Breedte Linksboven</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht en Verloop' || field.name == 'RH-S Bocht + vierkant-rond'">Breedte Bocht Boven</ng-container>
+          </td>
+          <!-- Col E -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH-S Bocht 2x'">Breedte Rechtsboven</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht en Verloop'">Verloop Breedte Boven</ng-container>
+          </td>
+          <!-- Col F -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH-S Bocht en Verloop'">Verloop Diepte Boven</ng-container>
+          </td>
+          <!-- Col G1 -->
+          <td>
+            <ng-container *ngIf="field.name =='RH Bocht' || field.name == 'RH Verloop'
+            || field.name == 'RH-S Bocht en Verloop' || field.name == 'RH=S Bocht + Vierkant-rond'
+            || field.name == 'RH Sprong' || field.name == 'RH Afgesch. Kanaal'">Graden</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht + vierkant-rond'">Graden Bocht</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht 2x'">Graden Links</ng-container>
+          </td>
+          <!-- Col G2 -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH-S Bocht 2x'">Graden Rechts</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht + vierkant-rond'">Graden Verloop</ng-container>
+          </td>
+          <!-- Col H1 -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH Bocht'">Radius</ng-container>
+            <ng-container *ngIf="field.name == 'RH T-stuk' || field.name == 'RH-S Bocht 2x'">Radius Links</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht en verloop' || field.name == 'RH-S Bocht + Vierkant-Rond'">Radius Bocht</ng-container>
+          </td>
+          <!-- Col H2 -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH T-stuk','RH-S Bocht 2x'">Radius Rechts</ng-container>
+          </td>
+          <!-- Col I1 -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH-S Bocht en Verloop'">Extensie Onder</ng-container>
+            <ng-container *ngIf="field.name == 'RH T-stuk' || field.name == 'RH Sprong'">Extension Links</ng-container>
+            <ng-container *ngIf="field.name == 'RH Aftakking' || field.name == 'RH Bocht'
+            || field.name == 'RH-S Bocht + vierkant-rond'">Extensie Boven</ng-container>
+          </td>
+          <!-- Col I2 -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH T-stuk'">Extension onder Links</ng-container>
+            <ng-container *ngIf="field.name == 'RH Verloop' || field.name == 'RH-S Bocht en verloop' || field.name == 'RH-S Bocht + vierkant-rond'">Offset Breedte</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht en Verloop'">Extensie Onder</ng-container>
+          </td>
+          <!-- Col K1 -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH T-stuk' || field.name == 'RH Sprong'">Extension Rechts</ng-container>
+            <ng-container *ngIf="field.name == 'RH Bocht' || field.name == 'RH-S Bocht + vierkant-rond'">Extensie Onder</ng-container>
+            <ng-container *ngIf="field.name == 'RH-S Bocht en Verloop'">Extensie Bocht</ng-container>
+          </td>
+          <!-- Col K2 -->
+          <td>
+            <ng-container *ngIf="field.name == 'RH T-stuk'">Extension Onder Rechts</ng-container>
+            <ng-container *ngIf="field.name == 'RH Verloop' || field.name == 'RH-S Bocht en verloop'  || field.name == 'RH-S Bocht + vierkant-rond'">Offset Diepte</ng-container>
+          </td>
+          <!-- Col  L1-->
+          <td><input type="text" name="l1" id="l1" /></td>
+          <!-- Col  L2-->
+          <td><input type="text" name="l2" id="l2" /></td>
+          <!-- Col  L3-->
+          <td><input type="text" name="l3" id="l3" /></td>
+          <!-- Col  L4-->
+          <td>Other value</td>
+          <!-- verbindingen 1 -->
+          <td>
+            <select>
+            <option *ngFor="let item of verbindingen" value="{{ item.label }}">{{ item.label }}</option>
+          </select>
+        </td>
+          <!-- verbindingen 2 -->
+          <td>
+            <select>
+            <option *ngFor="let item of verbindingen" value="{{ item.label }}">{{ item.label }}</option>
+          </select>
+        </td>
+
+          <!-- verbindingen 2 -->
+          <td>
+            <select>
+            <option *ngFor="let item of verbindingen" value="{{ item.label }}">{{ item.label }}</option>
+          </select>
+        </td>
+
+          <td>
+              <button class="btn btn-default"  type="button" (click)="deleteFieldValue(i)">Delete</button>
+          </td>
+      </tr>
+
+      <tr>
+          <!-- <td>
+              <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" />
+          </td>
+          <td>
+              <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.name" name="newAttributeName" />
+          </td>
+          <td>
+              <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.price" name="newAttributePrice" />
+          </td> -->
+          <td>
+            <button class="btn btn-primary" type="button" (click)="addFieldValue()">Add</button>
+            <button class="btn btn-primary" type="button" (click)="savebtn(fieldArray)">save</button>
+          </td>
+      </tr>
+  </tbody>
+</table>
