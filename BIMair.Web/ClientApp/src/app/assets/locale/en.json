@@ -215,6 +215,10 @@
     "EditOrder": "Edit order",
     "EditItems": "Edit items",
     "DeleteProject": "Delete project",
-    "SearchProjects": "Search projects"
+    "SearchProjects": "Search projects",
+    "Rectangular": "Rectangular",
+    "Round": "Round",
+    "Montagerail": "Montagerail",
+    "Totaalblad": "Totaalblad"
   }
 }
