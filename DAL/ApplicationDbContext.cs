@@ -55,6 +55,8 @@ namespace DAL
             builder.Entity<Project>().Property(c => c.Description).IsRequired().HasMaxLength(450);
             builder.Entity<Project>().ToTable($"App_{nameof(this.Projects)}");
 
+            // builder.Entity<Project>().HasOne(p => p.Customer);
+
             builder.Entity<ProductCategory>().Property(p => p.Name).IsRequired().HasMaxLength(100);
             builder.Entity<ProductCategory>().Property(p => p.Description).HasMaxLength(500);
             builder.Entity<ProductCategory>().ToTable($"App_{nameof(this.ProductCategories)}");

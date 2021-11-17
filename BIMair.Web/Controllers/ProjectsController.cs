@@ -72,7 +72,91 @@ namespace BIMair.Controllers
                      );
         }
 
+        [HttpGet("{id}")]
+        [Authorize(Authorization.Policies.ViewAllUsersPolicy)]
+        [ProducesResponseType(200, Type = typeof(List<ProjectViewModel>))]
+        public async Task<IActionResult> GetProjectById(int id)
+        {
+            Project project;
 
+            string userId = this.User.GetUserId();
+
+            if (this.User.IsUserInRole("administrator"))
+            {
+                Expression<Func<Project, bool>> expr = p => p.Id == id;
+                project = _unitOfWork.Projects.GetSingleOrDefault(expr);
+            }
+            else
+            {
+                Expression<Func<Project, bool>> expr = p => p.UserId == userId && p.Id == id;
+                project = _unitOfWork.Projects.GetSingleOrDefault(expr);
+            }
+
+            if (project != null)
+                project.Customer = _unitOfWork.Customers.GetSingleOrDefault(x => x.Id == project.CustomerId);
+
+            return Ok(_mapper.Map<ProjectViewModel>(project));
+        }
+
+
+        [HttpPost("save")]
+        [ProducesResponseType(201, Type = typeof(ProjectViewModel))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+
+        public IActionResult SaveProject([FromBody] ProjectViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            string userId = this.User.GetUserId();
+
+            model.UserId = userId;
+
+            Expression<Func<Customer, bool>> expr = p => p.Name == model.CustomerName && p.UserId == userId;
+            var customer = _unitOfWork.Customers.GetSingleOrDefault(expr);
+
+            if (customer == null)
+            {
+                customer = _unitOfWork.Customers.Add(new Customer { Name = model.CustomerName, UserId = userId });
+                _unitOfWork.SaveChanges();
+            }
+
+            var project = _mapper.Map<Project>(model);
+            project.Customer = customer;
+
+            if (model.Id == 0)
+                _unitOfWork.Projects.Add(project);
+            else
+            {
+                if (!IsMyProject(project.Id))
+                    return BadRequest();
+
+                _unitOfWork.Projects.Update(project);
+            }
+
+            _unitOfWork.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] int Id)
+        {
+            if (!IsMyProject(Id))
+                return BadRequest();
+
+            Expression<Func<Project, bool>> expr = p => p.Id == Id;
+            var project = _unitOfWork.Projects.GetSingleOrDefault(expr);
+
+            if (project == null)
+                return BadRequest();
+
+            _unitOfWork.Projects.Remove(project);
+            _unitOfWork.SaveChanges();
+
+            return Ok();
+        }
 
         [HttpGet("customer/{id}")]
         [ProducesResponseType(200, Type = typeof(ProjectViewModel))]
@@ -97,59 +181,17 @@ namespace BIMair.Controllers
             return Ok(_mapper.Map<IEnumerable<ProjectViewModel>>(result));
         }
 
-
-        [HttpPost("add")]
-        [ProducesResponseType(201, Type = typeof(ProjectViewModel))]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(403)]
-        public IActionResult Add([FromBody] ProjectViewModel model)
+        private bool IsMyProject(int projectId)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
             string userId = this.User.GetUserId();
 
-            model.UserId = userId;
-
-            Expression<Func<Customer, bool>> expr = p => p.Name == model.CustomerName && p.UserId == userId;
-            var customer = _unitOfWork.Customers.GetSingleOrDefault(expr);
-
-            if (customer == null)
-            {
-                customer = _unitOfWork.Customers.Add(new Customer { Name = model.CustomerName, UserId = userId });
-                _unitOfWork.SaveChanges();
+            if (this.User.IsUserInRole("administrator"))
+                return true;
+            else { 
+                Expression<Func<Project, bool>> expr = p => p.Id == projectId && p.UserId == userId;
+                return _unitOfWork.Projects.GetSingleOrDefault(expr) != null;
             }
 
-            var project = _mapper.Map<Project>(model);
-            project.Customer = customer;
-
-            if (model.Id == 0)
-                _unitOfWork.Projects.Add(project);
-            else
-                _unitOfWork.Projects.Update(project);
-
-            _unitOfWork.SaveChanges();
-
-            return Ok();
         }
-
-
-        [HttpPut("projects")]
-        public IActionResult Update(ProjectViewModel model)
-        {
-            _unitOfWork.Projects.Update(_mapper.Map<Project>(model));
-            return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int projectId)
-        {
-            Expression<Func<Project, bool>> expr = p => p.Id == projectId;
-            var project = _unitOfWork.Projects.GetSingleOrDefault(expr);
-
-            _unitOfWork.Projects.Remove(project);
-            return Ok();
-        }
-
     }
 }

@@ -40,8 +40,8 @@
               </ng-template>
               <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
                 <div class="action-buttons">
-                  <a href="#" title="Edit project" class="btn btn-secondary btn-sm">Project</a>
-                  <a href="#" title="Edit order" class="btn btn-secondary btn-sm">Orders</a>
+                  <a [routerLink]="['/project', row.id]" title="Edit project" class="btn btn-link btn-sm">{{'projects.EditProject' | translate }}</a>
+                  <a [routerLink]="['/orders']" title="Edit order" class="btn btn-link btn-sm">{{'projects.EditItems' | translate }}</a>
                 </div>
               </ng-template>
             </ngx-datatable-column>

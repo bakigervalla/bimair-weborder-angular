@@ -16,11 +16,12 @@ namespace BIMair.ViewModels
 {
     public class ProjectViewModel
     {
+
         public int Id { get; set; }
         public string UserId { get; set; }
         public string Name { get; set; }
         public string Description { get => Name; }
-        public string CustomerName { get; set; }
+        public string CustomerName { get; set; } // { get { return Customer?.Name; } }
         public string Number { get; set; }
         public string Reference { get; set; }
         public string DeliveryAddress { get; set; }
@@ -31,7 +32,8 @@ namespace BIMair.ViewModels
         //public string TotalList { get; set; }
 
         //public ICollection<OrderViewModel> Orders { get; set; }
-        // public Customer Customer { get; set; }
+
+        public CustomerViewModel Customer { get; set; }
 
         public int? CustomerId { get; set; }
     }

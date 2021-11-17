@@ -212,6 +212,7 @@
     "DeliveryAddressRequired": "Address is required",
     "DeliveryDateRequired": "Delivery date is required",
     "SaveAndContinue": "Save and continue",
+    "Save": "Save",
     "EditOrder": "Edit order",
     "EditItems": "Edit items",
     "DeleteProject": "Delete project",
@@ -219,6 +220,11 @@
     "Rectangular": "Rectangular",
     "Round": "Round",
     "Montagerail": "Montagerail",
-    "Totaalblad": "Totaalblad"
+    "Totaalblad": "Totaalblad",
+    "EditProject": "Project",
+    "EditOrder": "Order",
+    "EditItems": "Items",
+    "Deleting": "Deleting",
+    "Delete": "Delete"
   }
 }

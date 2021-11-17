@@ -12,6 +12,7 @@
     <div class="row">
 
       <div class="col-4">
+        <input type="hidden" [(ngModel)]="projectEdit.id" attr.id="id-{{uniqueId}}" name="id" />
         <!--left side -->
         <div class="form-group row">
           <label for="customerName">Customer</label>
@@ -72,18 +73,21 @@
         <div class="row dtpicker">
           <div class="col-xs-9">
             <label for="deliveryDate">Date</label>
-            <input type="text" class="form-control" attr.id="deliveryDate-{{uniqueId}}" name="deliveryDate"
+
+
+            <input class="form-control" attr.id="deliveryDate-{{uniqueId}}" name="deliveryDate"
               placeholder="dd/mm/yyyy"
-              [ngClass]="{'is-valid': f.submitted && deliveryDate.valid, 'is-invalid' : f.submitted && !dd.valid}"
-              [(ngModel)]="projectEdit.deliveryDate" ngbDatepicker="ngModel" #dd="ngModel" #deliveryDate="ngbDatepicker" required
-              (focus)="deliveryDate.open()" />
-            <span *ngIf="f.submitted && dd.errors?.required" class="invalid-feedback">
+              [ngClass]="{'is-valid': f.submitted && deliveryDate.valid, 'is-invalid' : f.submitted && !deliveryDate.valid}"
+              [(ngModel)]="projectEdit.deliveryDate" #deliveryDate="ngModel" #dd="ngbDatepicker" ngbDatepicker
+              required (focus)="dd.open()"
+             outsideDays="hidden" />
+            <span *ngIf="f.submitted && deliveryDate.errors?.required" class="invalid-feedback">
               {{'projects.DeliveryDateRequired' | translate}}
             </span>
           </div>
           <div class="button-dtpicker col-xs-2">
             <div class="input-group-text">
-              <i class="fa fa-calendar" style="cursor: pointer;" (click)="deliveryDate.toggle()"></i>
+              <i class="fa fa-calendar" style="cursor: pointer;" (click)="dd.toggle()"></i>
             </div>
           </div>
         </div>
@@ -91,13 +95,25 @@
       </div>
 
       <div class="card-footer col-9">
+
+        <button type="submit" class="btn btn-primary px-4 btn-block btn-save" [disabled]="isSaving">
+          <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
+          {{isSaving ? ('projects.Saving' | translate) :
+          projectEdit.id > 0 ? ('projects.Save' | translate) : ('projects.SaveAndContinue' | translate) }}
+        </button>
+
+        <a [routerLink]="['/rect', projectEdit.id]" *ngIf="projectEdit.id > 0" title="Edit order"
+          class="btn btn-link btn-sm">{{'projects.EditOrder' | translate }}</a>
+
         <div class="float-right">
-          <button type="submit" class="btn btn-primary px-4 btn-block" [disabled]="isSaving">
-            <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
-            {{isSaving ? ('projects.Saving' | translate) :
-            ('projects.SaveAndContinue' | translate)}}
+          <button type="button" *ngIf="projectEdit.id > 0" (click)="delete()"
+            class="btn btn-warning px-4 btn-block btn-delete" [disabled]="isDeleting">
+            <i *ngIf="isDeleting" class='fa fa-circle-o-notch fa-spin'></i>
+            {{isDeleting ? ('projects.Deleting' | translate) :
+            ('projects.Delete' | translate)}}
           </button>
         </div>
+
       </div>
 
       <!--

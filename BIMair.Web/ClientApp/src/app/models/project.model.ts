@@ -1,9 +1,10 @@
 import { Customer } from './customer.model';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export class Project {
 
   constructor(id?: number, name?:string, description?: string, customerName?: string, customerId?: number, number?: number, reference?: string,
-              deliveryAddress?: string, deliveryDate?: Date, dateCreated?: Date, dateModified?: Date) { //, customer?: Customer) {
+              deliveryAddress?: string, deliveryDate?: NgbDateStruct, dateCreated?: Date, dateModified?: Date) { //, customer?: Customer) {
       this.id = id;
       this.name = name;
       this.description = description;
@@ -25,7 +26,7 @@ export class Project {
   number: number;
   reference: string;
   deliveryAddress: string;
-  deliveryDate: Date;
+  deliveryDate: NgbDateStruct;
   rectangularDuctwork: string;
   roundDuctwork: string;
   totalList: string;

@@ -21,6 +21,10 @@ export class ProjectService {
     return this.projectEndpoint.getProjectsEndpoint<Project[]>(1,10);
   }
 
+  getProject(id: number) {
+    return this.projectEndpoint.getProjectEndpoint<Project>(id);
+  }
+
   getProjectsByCustomer(customerId?: number) {
     return this.projectEndpoint.getProjectsByCustomerEndpoint<Project>(customerId);
   }
