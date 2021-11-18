@@ -34,6 +34,7 @@ export class ProjectListComponent implements OnInit {
     setTimeout(() => { this.loadingIndicator = false; }, 1500);
 
     this.getProjects();
+
   }
 
   private getProjects() {
@@ -45,6 +46,8 @@ export class ProjectListComponent implements OnInit {
         // this.rowsCache = [...projects];
         this.isLoading = false;
       });
+
+
   }
 
   onSearchChanged(value: string) {
