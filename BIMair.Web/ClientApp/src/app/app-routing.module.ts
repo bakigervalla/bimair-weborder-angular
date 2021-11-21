@@ -57,11 +57,11 @@ const routes: Routes = [
   { path: 'project/:id', component: ProjectComponent, canActivate: [AuthGuard], data: { title: 'Project' } },
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard], data: { title: 'Customers' } },
   { path: 'products', component: ProductsComponent, canActivate: [AuthGuard], data: { title: 'Products' } },
-  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard], data: { title: 'Orders' } },
+  // { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard], data: { title: 'Orders' } },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], data: { title: 'Settings' } },
   { path: 'about', component: AboutComponent, data: { title: 'About Us' } },
   { path: 'home', redirectTo: '/', pathMatch: 'full' },
-  { path: 'orders', component: RectangularComponent, data: { title: 'Orders' } },
+  { path: 'orders/:id', component: RectangularComponent, data: { title: 'Orders' } },
   { path: '**', component: NotFoundComponent, data: { title: 'Page Not Found' } }
 ];
 
