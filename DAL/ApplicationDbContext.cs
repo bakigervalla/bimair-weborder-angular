@@ -54,9 +54,9 @@ namespace DAL
             builder.Entity<Project>().HasIndex(c => c.Name);
             builder.Entity<Project>().Property(c => c.Description).IsRequired().HasMaxLength(450);
             builder.Entity<Project>().ToTable($"App_{nameof(this.Projects)}");
-
-            // builder.Entity<Project>().HasOne(p => p.Customer);
-
+            builder.Entity<Project>().HasOne(p => p.Customer);
+            builder.Entity<Project>().HasOne(p => p.Order);
+            
             builder.Entity<ProductCategory>().Property(p => p.Name).IsRequired().HasMaxLength(100);
             builder.Entity<ProductCategory>().Property(p => p.Description).HasMaxLength(500);
             builder.Entity<ProductCategory>().ToTable($"App_{nameof(this.ProductCategories)}");
@@ -70,13 +70,11 @@ namespace DAL
             builder.Entity<Product>().Property(p => p.BuyingPrice).HasColumnType(priceDecimalType);
             builder.Entity<Product>().Property(p => p.SellingPrice).HasColumnType(priceDecimalType);
 
-            builder.Entity<Order>().Property(o => o.Comments).HasMaxLength(500);
+            builder.Entity<Order>().Property(o => o.Comment).HasMaxLength(500);
             builder.Entity<Order>().ToTable($"App_{nameof(this.Orders)}");
-            builder.Entity<Order>().Property(p => p.Discount).HasColumnType(priceDecimalType);
-
+            
             builder.Entity<OrderDetail>().ToTable($"App_{nameof(this.OrderDetails)}");
-            builder.Entity<OrderDetail>().Property(p => p.UnitPrice).HasColumnType(priceDecimalType);
-            builder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType(priceDecimalType);
+            builder.Entity<Order>().HasMany(p => p.OrderDetails);
         }
 
 

@@ -29,8 +29,8 @@ namespace DAL.Repositories
         public IEnumerable<Customer> GetAllCustomersData()
         {
             return _appContext.Customers
-                .Include(c => c.Orders).ThenInclude(o => o.OrderDetails).ThenInclude(d => d.Product)
-                .Include(c => c.Orders).ThenInclude(o => o.Cashier)
+                .Include(c => c.Orders).ThenInclude(o => o.OrderDetails)
+                .Include(c => c.Orders).ThenInclude(o => o.Customer)
                 .OrderBy(c => c.Name)
                 .ToList();
         }

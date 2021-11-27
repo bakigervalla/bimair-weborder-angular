@@ -123,7 +123,6 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-
                 Project prj_1 = new Project
                 {
                     Name = "Project 1",
@@ -138,7 +137,14 @@ namespace DAL
                     RoundDuctwork = "Rounded",
                     TotalList = "1",
                     DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
+                    DateModified = DateTime.UtcNow,
+                    //Order = new Order
+                    //{
+                    //    Customer = cust_1,
+                    //    DateCreated = DateTime.UtcNow,
+                    //    DateModified = DateTime.UtcNow,
+                    //    OrderDetails = new List<OrderDetail>()
+                    //}
                 };
 
                 Project prj_2 = new Project
@@ -155,8 +161,16 @@ namespace DAL
                     RoundDuctwork = "Rounded",
                     TotalList = "77",
                     DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
-                };
+                    DateModified = DateTime.UtcNow,
+                    //Order = new Order
+                    //{
+                    //    Customer = cust_2,
+                    //    DateCreated = DateTime.UtcNow,
+                    //    DateModified = DateTime.UtcNow,
+                    //}
+            };
+
+
 
 
                 Product prod_1 = new Product
@@ -185,35 +199,6 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-
-
-                Order ordr_1 = new Order
-                {
-                    Discount = 500,
-                    Cashier = await _context.Users.FirstAsync(),
-                    Customer = cust_1,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow,
-                    OrderDetails = new List<OrderDetail>()
-                    {
-                        new OrderDetail() {UnitPrice = prod_1.SellingPrice, Quantity=1, Product = prod_1 },
-                        new OrderDetail() {UnitPrice = prod_2.SellingPrice, Quantity=1, Product = prod_2 },
-                    }
-                };
-
-                Order ordr_2 = new Order
-                {
-                    Cashier = await _context.Users.FirstAsync(),
-                    Customer = cust_2,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow,
-                    OrderDetails = new List<OrderDetail>()
-                    {
-                        new OrderDetail() {UnitPrice = prod_2.SellingPrice, Quantity=1, Product = prod_2 },
-                    }
-                };
-
-
                 _context.Customers.Add(cust_1);
                 _context.Customers.Add(cust_2);
                 _context.Customers.Add(cust_3);
@@ -225,8 +210,8 @@ namespace DAL
                 _context.Projects.Add(prj_1);
                 _context.Projects.Add(prj_2);
 
-                _context.Orders.Add(ordr_1);
-                _context.Orders.Add(ordr_2);
+                //_context.Orders.Add(ordr_1);
+                //_context.Orders.Add(ordr_2);
 
                 await _context.SaveChangesAsync();
 

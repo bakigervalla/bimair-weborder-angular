@@ -29,7 +29,7 @@ namespace DAL.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public Order Order { get; set; }
         public Customer Customer { get; set; }
     }
 }
