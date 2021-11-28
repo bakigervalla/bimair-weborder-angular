@@ -140,6 +140,37 @@ namespace BIMair.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Save Order Items
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpPost("saveorder")]
+        [ProducesResponseType(201, Type = typeof(ProjectViewModel))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        public IActionResult SaveOrderItems([FromBody] List<OrderItemViewModel> model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            string userId = this.User.GetUserId();
+            model.ForEach(x => x.UserId = userId);
+
+
+            var orderItems = _mapper.Map<IList<OrderItem>>(model);
+
+            var newItems = orderItems.Where(x => x.Id == 0);
+            var editedItems = orderItems.Where(x => x.Id == 0);
+
+            _unitOfWork.OrderItems.AddRange(newItems);
+            _unitOfWork.OrderItems.UpdateRange(editedItems);
+
+            _unitOfWork.SaveChanges();
+
+            return Ok();
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] int Id)
         {
@@ -187,7 +218,8 @@ namespace BIMair.Controllers
 
             if (this.User.IsUserInRole("administrator"))
                 return true;
-            else { 
+            else
+            {
                 Expression<Func<Project, bool>> expr = p => p.Id == projectId && p.UserId == userId;
                 return _unitOfWork.Projects.GetSingleOrDefault(expr) != null;
             }

@@ -211,62 +211,7 @@ namespace BIMair.Migrations
                     b.ToTable("App_Customers");
                 });
 
-            modelBuilder.Entity("DAL.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Comment")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EmailTo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProjectId")
-                        .IsUnique();
-
-                    b.ToTable("App_Orders");
-                });
-
-            modelBuilder.Entity("DAL.Models.OrderDetail", b =>
+            modelBuilder.Entity("DAL.Models.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -275,6 +220,9 @@ namespace BIMair.Migrations
 
                     b.Property<string>("A")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("B")
                         .HasColumnType("nvarchar(max)");
@@ -303,6 +251,9 @@ namespace BIMair.Migrations
 
                     b.Property<string>("D")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Diameter1")
                         .HasColumnType("decimal(18,2)");
@@ -361,135 +312,14 @@ namespace BIMair.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("App_OrderDetails");
-                });
-
-            modelBuilder.Entity("DAL.Models.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("BuyingPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Icon")
-                        .HasMaxLength(256)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDiscontinued")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("SellingPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("UnitsInStock")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("ParentId");
-
-                    b.HasIndex("ProductCategoryId");
-
-                    b.ToTable("App_Products");
-                });
-
-            modelBuilder.Entity("DAL.Models.ProductCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Icon")
+                    b.Property<string>("ProductType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256)
@@ -498,9 +328,16 @@ namespace BIMair.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("App_ProductCategories");
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("App_OrderItems");
                 });
 
             modelBuilder.Entity("DAL.Models.Project", b =>
@@ -680,68 +517,23 @@ namespace BIMair.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DAL.Models.Order", b =>
+            modelBuilder.Entity("DAL.Models.OrderItem", b =>
                 {
                     b.HasOne("DAL.Models.ApplicationUser", null)
-                        .WithMany("Orders")
+                        .WithMany("OrderItems")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("DAL.Models.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DAL.Models.Project", "Project")
-                        .WithOne("Order")
-                        .HasForeignKey("DAL.Models.Order", "ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
+                        .WithMany("OrderItems")
+                        .HasForeignKey("ProjectId");
 
                     b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("DAL.Models.OrderDetail", b =>
-                {
-                    b.HasOne("DAL.Models.Order", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.Product", null)
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("DAL.Models.Product", b =>
-                {
-                    b.HasOne("DAL.Models.Product", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("DAL.Models.ProductCategory", "ProductCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Parent");
-
-                    b.Navigation("ProductCategory");
                 });
 
             modelBuilder.Entity("DAL.Models.Project", b =>
                 {
                     b.HasOne("DAL.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Projects")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -811,36 +603,19 @@ namespace BIMair.Migrations
                 {
                     b.Navigation("Claims");
 
-                    b.Navigation("Orders");
+                    b.Navigation("OrderItems");
 
                     b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("DAL.Models.Customer", b =>
                 {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("DAL.Models.Order", b =>
-                {
-                    b.Navigation("OrderDetails");
-                });
-
-            modelBuilder.Entity("DAL.Models.Product", b =>
-                {
-                    b.Navigation("Children");
-
-                    b.Navigation("OrderDetails");
-                });
-
-            modelBuilder.Entity("DAL.Models.ProductCategory", b =>
-                {
-                    b.Navigation("Products");
+                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("DAL.Models.Project", b =>
                 {
-                    b.Navigation("Order");
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

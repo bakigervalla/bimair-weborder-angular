@@ -21,10 +21,7 @@ namespace DAL
         public string CurrentUserId { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
 
 
@@ -50,34 +47,15 @@ namespace DAL
             builder.Entity<Customer>().Property(c => c.City).HasMaxLength(50);
             builder.Entity<Customer>().ToTable($"App_{nameof(this.Customers)}");
 
+            builder.Entity<OrderItem>().ToTable($"App_{nameof(this.OrderItems)}");
+            
             builder.Entity<Project>().Property(c => c.Name).IsRequired().HasMaxLength(100);
             builder.Entity<Project>().HasIndex(c => c.Name);
             builder.Entity<Project>().Property(c => c.Description).IsRequired().HasMaxLength(450);
-            builder.Entity<Project>().ToTable($"App_{nameof(this.Projects)}");
             builder.Entity<Project>().HasOne(p => p.Customer);
-            builder.Entity<Project>().HasOne(p => p.Order);
-            
-            builder.Entity<ProductCategory>().Property(p => p.Name).IsRequired().HasMaxLength(100);
-            builder.Entity<ProductCategory>().Property(p => p.Description).HasMaxLength(500);
-            builder.Entity<ProductCategory>().ToTable($"App_{nameof(this.ProductCategories)}");
-
-            builder.Entity<Product>().Property(p => p.Name).IsRequired().HasMaxLength(100);
-            builder.Entity<Product>().HasIndex(p => p.Name);
-            builder.Entity<Product>().Property(p => p.Description).HasMaxLength(500);
-            builder.Entity<Product>().Property(p => p.Icon).IsUnicode(false).HasMaxLength(256);
-            builder.Entity<Product>().HasOne(p => p.Parent).WithMany(p => p.Children).OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Product>().ToTable($"App_{nameof(this.Products)}");
-            builder.Entity<Product>().Property(p => p.BuyingPrice).HasColumnType(priceDecimalType);
-            builder.Entity<Product>().Property(p => p.SellingPrice).HasColumnType(priceDecimalType);
-
-            builder.Entity<Order>().Property(o => o.Comment).HasMaxLength(500);
-            builder.Entity<Order>().ToTable($"App_{nameof(this.Orders)}");
-            
-            builder.Entity<OrderDetail>().ToTable($"App_{nameof(this.OrderDetails)}");
-            builder.Entity<Order>().HasMany(p => p.OrderDetails);
+            builder.Entity<Project>().HasMany(p => p.OrderItems);
+            builder.Entity<Project>().ToTable($"App_{nameof(this.Projects)}");            
         }
-
-
 
 
         public override int SaveChanges()

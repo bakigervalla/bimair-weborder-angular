@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace DAL.Models
 {
-    public class OrderDetail : AuditableEntity
+    public class OrderItem : AuditableEntity
     {
         public int Id { get; set; }
         public int Position { get; set; }
@@ -40,10 +40,9 @@ namespace DAL.Models
         public decimal Diameter2 { get; set; }
         public decimal Length { get; set; }
 
-        public int OrderId { get; set; }
-        public Order Order { get; set; }
-        public int ProductId { get; set; }
-        // public Product Product { get; set; }
-
+        public string ProductType { get; set; }
+        public string UserId { get; set; }
+        public DateTime DateCreated { get; set; }
+        public Project Project { get; set; }
     }
 }

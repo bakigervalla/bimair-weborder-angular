@@ -25,6 +25,6 @@ namespace DAL.Models
         public DateTime DateModified { get; set; }
         public string UserId { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Project> Projects { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace BIMair.ViewModels
         public string City { get; set; }
         public string Country { get; set; }
 
-        public ICollection<OrderViewModel> Orders { get; set; }
+        public ICollection<OrderItemViewModel> OrderItems { get; set; }
     }
 
 

@@ -19,17 +19,12 @@ namespace DAL
 
         ICustomerRepository _customers;
         IProjectRepository _projects;
-        IProductRepository _products;
-        IOrdersRepository _orders;
-
-
+        IOrderItemRepository _orders;
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
         }
-
-
 
         public ICustomerRepository Customers
         {
@@ -42,8 +37,6 @@ namespace DAL
             }
         }
 
-
-
         public IProjectRepository Projects
         {
             get
@@ -55,34 +48,16 @@ namespace DAL
             }
         }
 
-
-
-        public IProductRepository Products
-        {
-            get
-            {
-                if (_products == null)
-                    _products = new ProductRepository(_context);
-
-                return _products;
-            }
-        }
-
-
-
-        public IOrdersRepository Orders
+        public IOrderItemRepository OrderItems
         {
             get
             {
                 if (_orders == null)
-                    _orders = new OrdersRepository(_context);
+                    _orders = new OrderItemRepository(_context);
 
                 return _orders;
             }
         }
-
-
-
 
         public int SaveChanges()
         {

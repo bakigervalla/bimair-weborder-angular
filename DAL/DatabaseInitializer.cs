@@ -22,9 +22,6 @@ namespace DAL
         Task SeedAsync();
     }
 
-
-
-
     public class DatabaseInitializer : IDatabaseInitializer
     {
         private readonly ApplicationDbContext _context;
@@ -63,7 +60,7 @@ namespace DAL
 
 
 
-            if (!await _context.Customers.AnyAsync() && !await _context.ProductCategories.AnyAsync())
+            if (!await _context.Customers.AnyAsync())
             {
                 _logger.LogInformation("Seeding initial data");
 
@@ -114,15 +111,6 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-
-                ProductCategory prodCat_1 = new ProductCategory
-                {
-                    Name = "None",
-                    Description = "Default category. Products that have not been assigned a category",
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
-                };
-
                 Project prj_1 = new Project
                 {
                     Name = "Project 1",
@@ -138,13 +126,6 @@ namespace DAL
                     TotalList = "1",
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow,
-                    //Order = new Order
-                    //{
-                    //    Customer = cust_1,
-                    //    DateCreated = DateTime.UtcNow,
-                    //    DateModified = DateTime.UtcNow,
-                    //    OrderDetails = new List<OrderDetail>()
-                    //}
                 };
 
                 Project prj_2 = new Project
@@ -162,56 +143,15 @@ namespace DAL
                     TotalList = "77",
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow,
-                    //Order = new Order
-                    //{
-                    //    Customer = cust_2,
-                    //    DateCreated = DateTime.UtcNow,
-                    //    DateModified = DateTime.UtcNow,
-                    //}
             };
-
-
-
-
-                Product prod_1 = new Product
-                {
-                    Name = "BMW M6",
-                    Description = "Yet another masterpiece from the world's best car manufacturer",
-                    BuyingPrice = 109775,
-                    SellingPrice = 114234,
-                    UnitsInStock = 12,
-                    IsActive = true,
-                    ProductCategory = prodCat_1,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
-                };
-
-                Product prod_2 = new Product
-                {
-                    Name = "Nissan Patrol",
-                    Description = "A true man's choice",
-                    BuyingPrice = 78990,
-                    SellingPrice = 86990,
-                    UnitsInStock = 4,
-                    IsActive = true,
-                    ProductCategory = prodCat_1,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
-                };
 
                 _context.Customers.Add(cust_1);
                 _context.Customers.Add(cust_2);
                 _context.Customers.Add(cust_3);
                 _context.Customers.Add(cust_4);
 
-                _context.Products.Add(prod_1);
-                _context.Products.Add(prod_2);
-
                 _context.Projects.Add(prj_1);
                 _context.Projects.Add(prj_2);
-
-                //_context.Orders.Add(ordr_1);
-                //_context.Orders.Add(ordr_2);
 
                 await _context.SaveChangesAsync();
 

@@ -55,10 +55,7 @@ namespace BIMair.ViewModels
             CreateMap<Customer, CustomerViewModel>()
                 .ReverseMap();
 
-            CreateMap<Product, ProductViewModel>()
-                .ReverseMap();
-
-            CreateMap<Order, OrderViewModel>()
+            CreateMap<OrderItem, OrderItemViewModel>()
                 .ReverseMap();
 
             CreateMap<Project, ProjectViewModel>()

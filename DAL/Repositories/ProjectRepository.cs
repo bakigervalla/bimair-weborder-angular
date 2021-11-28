@@ -25,7 +25,7 @@ namespace DAL.Repositories
         public async Task<IEnumerable<Project>> GetProjects()
         {
             IQueryable<Project> projectsQuery = _appContext.Projects
-               .Include(c => c.Customer).ThenInclude(c => c.Orders).ThenInclude(o => o.OrderDetails)
+               .Include(c => c.Customer).Include(c => c.OrderItems)
                .OrderByDescending(c => c.DateCreated);
 
             // if (page != -1)
@@ -42,7 +42,7 @@ namespace DAL.Repositories
         public IEnumerable<Project> GetProjectsByUser(string userId)
         {
             return _appContext.Projects.Where(x=> x.UserId == userId)
-                        .Include(c => c.Customer).ThenInclude(c => c.Orders).ThenInclude(o => o.OrderDetails)
+                        .Include(c => c.Customer).Include(c => c.OrderItems)
                         .OrderByDescending(c => c.DateCreated)
                         .ToList();
         }
@@ -50,7 +50,7 @@ namespace DAL.Repositories
         public IEnumerable<Project> GetProjectsByCustomer(int customerId)
         {
             return _appContext.Projects.Where(x => x.CustomerId == customerId)
-                        .Include(c => c.Customer).ThenInclude(c => c.Orders).ThenInclude(o => o.OrderDetails)
+                        .Include(c => c.Customer).Include(c => c.OrderItems)
                         .OrderByDescending(c => c.DateCreated)
                         .ToList();
         }
