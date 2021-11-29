@@ -21,7 +21,6 @@ import { LoginComponent } from '../components/login/login.component';
 
 const alertify: any = require('../assets/scripts/alertify.js');
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -389,3 +389,61 @@ i.page-caption {
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+@import '~jexcel/dist/jexcel.css';
+
+/******* JEXCEL *******/
+
+.jexcel_content {
+  font-family: sans-serif !important;
+  font-size: 11px !important;
+}
+.jcontextmenu {
+  position: absolute !important;
+  left: -400px;
+  border: 1px solid #C6C6C6 !important;
+  background-color: #efefef !important;
+  border-radius: 2px !important;
+  padding: 6px !important;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 11px;
+  padding-top: 5px;
+  z-index: 100;
+  width: 140px !important;
+}
+.jcontextmenu div:hover {
+  font-weight: 600;
+}
+
+.jdropdown-close {
+  display: none !important;
+}
+
+.jdropdown-container {
+    text-align: left !important;
+    background-color: #efefef !important;
+    padding: 6px !important;
+    border: 1px solid #ccc !important;
+    min-width: 170px !important;
+    font-family: sans-serif;
+    font-size: 11px;
+    position: absolute;
+    z-index: 100;
+}
+
+.jdropdown-item{
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.jdropdown-item:hover {
+  font-weight: 600;
+}
+
+.jexcel > tbody > tr > td:first-child {
+  text-align: center !important;
+}
+.jexcel tbody td {
+  text-align: left !important;
+}
