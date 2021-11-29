@@ -1,79 +1,95 @@
 <div class="login-page">
   <div class="container padding-bottom-3x mb-2 mt-5">
     <div class="row justify-content-center">
-      <div class="col-lg-4 col-md-6">
-        <div class="brand">
-          <img src="../assets/images/bimair-logo-blue.png" alt="logo">
-        </div>
-        <div class="card fat">
-          <div class="card-body">
-
-            <div class="login-title">
-              <span class="card-title">Login in to continue to:</span>
-              <h6>BIMair</h6>
+      <div class="col-lg-10 col-md-10">
+        <div class="row">
+          <div class="col col-lg-8 col-md-8 left-col">
+            <div class="brand">
+              <img src="../assets/images/bimair-logo-blue.png" alt="logo">
             </div>
+            <h1> BIMair Automation &amp; Innovation</h1>
+            <p>From our automated factory in Assen we produce round air ducts, rectangular air ducts and specials for
+              various industries. Whatever ductwork you need we at BIMair produce it from A to Z with the
+                top quality and speed.
+            </p>
+            <br>
+            <p><strong>Create an account and order your air ducts.</strong></p>
+          </div>
+          <div class="col col-lg-4 col-md-4">
+            <div class="brand">
 
-            <form *ngIf="formResetToggle" class="login-validation" name="loginForm" #f="ngForm" novalidate
-              (ngSubmit)="f.form.valid ? login() :
+            </div>
+            <div class="card fat">
+              <div class="card-body">
+                <div class="login-title">
+                  <span class="card-title">Login in to continue to:</span>
+                  <h6>BIMair</h6>
+                </div>
+
+                <form *ngIf="formResetToggle" class="login-validation" name="loginForm" #f="ngForm" novalidate
+                  (ngSubmit)="f.form.valid ? login() :
                           (email.errors?.required && showErrorAlert('Invalid Email', 'Email is required'));
                           (email.errors?.pattern && showErrorAlert('Invalid Email', 'Please enter a valid email address'));
                           (!password.valid && showErrorAlert('Password is required', 'Please enter a valid password'))">
-              <div class="form-group">
-                <input type="text" attr.id="email-{{uniqueId}}" name="email" placeholder="Enter email address" class="form-control"
-                  [ngClass]="{'is-valid': f.submitted && email.valid, 'is-invalid' : f.submitted && !email.valid}"
-                  [(ngModel)]="userLogin.email" #email="ngModel" required maxlength="200"
-                  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" />
-                <span *ngIf="f.submitted && email.errors?.required" class="invalid-feedback">
-                  {{'users.editor.EmailRequired' | translate}}
-                </span>
-                <span *ngIf="f.submitted && email.errors?.pattern" class="invalid-feedback">
-                  {{'users.editor.InvalidEmail' | translate}}
-                </span>
-              </div>
+                  <div class="form-group">
+                    <input type="text" attr.id="email-{{uniqueId}}" name="email" placeholder="Enter email address"
+                      class="form-control"
+                      [ngClass]="{'is-valid': f.submitted && email.valid, 'is-invalid' : f.submitted && !email.valid}"
+                      [(ngModel)]="userLogin.email" #email="ngModel" required maxlength="200"
+                      pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" />
+                    <span *ngIf="f.submitted && email.errors?.required" class="invalid-feedback">
+                      {{'users.editor.EmailRequired' | translate}}
+                    </span>
+                    <span *ngIf="f.submitted && email.errors?.pattern" class="invalid-feedback">
+                      {{'users.editor.InvalidEmail' | translate}}
+                    </span>
+                  </div>
 
-              <div class="form-group">
-                <label for="login-password">
-                  <a [routerLink]="['/forgot']" class="float-right">
-                    Forgot Password?
-                  </a>
-                </label>
-                <div style="position:relative" id="eye-password-0">
-                  <input [inputFromParent] type="password" id="login-password" name="password"
-                    placeholder="Enter password" autocomplete="current-password" class="form-control"
-                    [ngClass]="{'is-valid': f.submitted && password.valid, 'is-invalid' : f.submitted && !password.valid}"
-                    [(ngModel)]="userLogin.password" #password="ngModel" required data-eye=""
-                    style="padding-right: 60px;" />
-                  <span class="invalid-feedback">
-                    Password is required
-                  </span>
-                  <i class="fa far fa-eye"
-                    style="position: absolute; right: 2px; top: 7px; padding: 2px 7px; font-size: 18px; color: #999; cursor: pointer;"
-                    toggle></i>
-                  <!--<div class="btn btn-primary btn-sm" style="position: absolute; right: 10px; top: 7px; padding: 2px 7px; font-size: 12px; cursor: pointer;" toggle>Show</div>-->
-                </div>
-                <div class="invalid-feedback">
-                  Password is required
-                </div>
-              </div>
+                  <div class="form-group">
+                    <label for="login-password">
+                      <a [routerLink]="['/forgot']" class="float-right">
+                        Forgot Password?
+                      </a>
+                    </label>
+                    <div style="position:relative" id="eye-password-0">
+                      <input [inputFromParent] type="password" id="login-password" name="password"
+                        placeholder="Enter password" autocomplete="current-password" class="form-control"
+                        [ngClass]="{'is-valid': f.submitted && password.valid, 'is-invalid' : f.submitted && !password.valid}"
+                        [(ngModel)]="userLogin.password" #password="ngModel" required data-eye=""
+                        style="padding-right: 60px;" />
+                      <span class="invalid-feedback">
+                        Password is required
+                      </span>
+                      <i class="fa far fa-eye"
+                        style="position: absolute; right: 2px; top: 7px; padding: 2px 7px; font-size: 18px; color: #999; cursor: pointer;"
+                        toggle></i>
+                      <!--<div class="btn btn-primary btn-sm" style="position: absolute; right: 10px; top: 7px; padding: 2px 7px; font-size: 12px; cursor: pointer;" toggle>Show</div>-->
+                    </div>
+                    <div class="invalid-feedback">
+                      Password is required
+                    </div>
+                  </div>
 
-              <div class="form-group">
-                <div class="custom-checkbox custom-control">
-                  <input type="checkbox" class="form-check-input" id="login-rememberme" name="rememberMe"
-                    [(ngModel)]="userLogin.rememberMe">
-                  <label class="form-check-label" for="login-rememberme">Remember me</label>
-                </div>
-              </div>
+                  <div class="form-group">
+                    <div class="custom-checkbox custom-control">
+                      <input type="checkbox" class="form-check-input" id="login-rememberme" name="rememberMe"
+                        [(ngModel)]="userLogin.rememberMe">
+                      <label class="form-check-label" for="login-rememberme">Remember me</label>
+                    </div>
+                  </div>
 
-              <div class="form-group m-0">
-                <button type="submit" class="btn btn-primary btn-block" [disabled]="isLoading">
-                  <i *ngIf="isLoading" class='fa fa-circle-o-notch fa-spin'></i> {{isLoading ? 'Logging in...' :
-                  'Login'}}
-                </button>
+                  <div class="form-group m-0">
+                    <button type="submit" class="btn btn-primary btn-block" [disabled]="isLoading">
+                      <i *ngIf="isLoading" class='fa fa-circle-o-notch fa-spin'></i> {{isLoading ? 'Logging in...' :
+                      'Login'}}
+                    </button>
+                  </div>
+                  <div class="mt-4 text-center">
+                    Don't have an account? <a [routerLink]="['/register']" class="card-link">Create One</a>
+                  </div>
+                </form>
               </div>
-              <div class="mt-4 text-center">
-                Don't have an account? <a [routerLink]="['/register']" class="card-link">Create One</a>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
         <!--<div class="footer">

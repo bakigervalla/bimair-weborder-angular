@@ -1,6 +1,25 @@
-﻿button.close {
-    position: absolute;
-    top: 0.25rem;
-    right: 1.5rem;
-    z-index: 100;
+﻿.datatable-header {
+  background-color: #FFF;
+  color: #2f2f2f !important;
 }
+
+button.close {
+  position: absolute;
+  top     : 0.25rem;
+  right   : 1.5rem;
+  z-index : 100;
+}
+
+.btn-light {
+  border: 1px solid #04B4E5;
+}
+
+.left-col {
+  text-align: center;
+}
+
+.main-pg {
+  margin-top: 10%;
+}
+
+

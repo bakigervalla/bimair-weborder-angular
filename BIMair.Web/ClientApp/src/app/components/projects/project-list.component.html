@@ -41,7 +41,8 @@
               <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
                 <div class="action-buttons">
                   <a [routerLink]="['/project', row.id]" title="Edit project" class="btn btn-link btn-sm">{{'projects.EditProject' | translate }}</a>
-                  <a [routerLink]="['/orders', row.id]" title="Edit order" class="btn btn-link btn-sm">{{'projects.EditItems' | translate }}</a>
+                  <!-- <a [routerLink]="['/orders', row.id]" title="Edit order" class="btn btn-link btn-sm">{{'projects.EditItems' | translate }}</a> -->
+                  <a [routerLink]="['/order-items', row.id]" title="Edit order" class="btn btn-link btn-sm">{{'projects.EditItems' | translate }}</a>
                 </div>
               </ng-template>
             </ngx-datatable-column>

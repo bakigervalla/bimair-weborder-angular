@@ -53,59 +53,60 @@
   </div>
 -->
 
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <a href="/project" class="btn btn-light mt-3">Create New Project</a>
-    </div>
-
-    <div class="col-7">
-
-
-
-      <!--  -->
-      <div class="card">
-        <div class="card-header">
-          Projects
-        </div>
-        <div class="card-body">
-
-
-          <ngx-datatable class="material colored-header sm table-hover"
-          [rowHeight]="35" [headerHeight]="35" [footerHeight]="35" [columnMode]="'force'" [footerHeight]="50"
-          [rows]='rows'>
-          <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
-          <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
-          <ngx-datatable-column>
-            <ng-template let-column="deliveryDate" ngx-datatable-header-template>
-              Delivery Date
-            </ng-template>
-            <ng-template let-row="row" ngx-datatable-cell-template>
-              {{row.deliveryDate| formatDate}}
-            </ng-template>
-          </ngx-datatable-column>
-
-          <ngx-datatable-column [sortable]="false">
-            <ng-template ngx-datatable-header-template>
-              Edit
-            </ng-template>
-            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-              <div class="action-buttons">
-                <a [routerLink]="['/project', row.id]" title="Edit project" class="btn btn-link btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                </svg></a>
-              </div>
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
-
-
-        </div>
+  <div class="container main-pg">
+    <div class="row">
+      <div class="col left-col">
+        <h4>Welcome to your BIMair account</h4>
+        <p>Create a new project and order your items</p>
+        <a href="/project" class="btn btn-light mt-3">Create New Project</a>
       </div>
-      <!--  -->
+      <div class="col-7">
+        <!--  -->
+        <div class="card">
+          <div class="card-header">
+            Projects
+          </div>
+          <div class="card-body">
+
+
+            <ngx-datatable class="material colored-header sm table-hover" [rowHeight]="35"
+              [headerHeight]="35" [footerHeight]="35" [columnMode]="'force'" [footerHeight]="50" [rows]='rows'>
+              <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+              <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
+              <ngx-datatable-column>
+                <ng-template let-column="deliveryDate" ngx-datatable-header-template>
+                  Delivery Date
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.deliveryDate| formatDate}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [sortable]="false">
+                <ng-template ngx-datatable-header-template>
+                  Edit
+                </ng-template>
+                <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                  <div class="action-buttons">
+                    <a [routerLink]="['/project', row.id]" title="Edit project" class="btn btn-link btn-sm"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path
+                          d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                      </svg></a>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+
+
+          </div>
+        </div>
+        <!--  -->
+      </div>
     </div>
   </div>
-</div>
 
 </div>

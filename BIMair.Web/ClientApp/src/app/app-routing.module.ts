@@ -16,6 +16,7 @@ import { ProjectComponent } from './components/projects/project.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { ProductsComponent } from './components/products/products.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { OrderItemsComponent } from './components/orders/order-items.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AboutComponent } from './components/about/about.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -62,6 +63,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent, data: { title: 'About Us' } },
   { path: 'home', redirectTo: '/', pathMatch: 'full' },
   { path: 'orders/:id', component: RectangularComponent, data: { title: 'Orders' } },
+  { path: 'order-items/:id', component: OrderItemsComponent, data: { title: 'Orders' } },
   { path: '**', component: NotFoundComponent, data: { title: 'Page Not Found' } }
 ];
 
