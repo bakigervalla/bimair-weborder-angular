@@ -102,7 +102,7 @@
           projectEdit.id > 0 ? ('projects.Save' | translate) : ('projects.SaveAndContinue' | translate) }}
         </button>
 
-        <a [routerLink]="['/rect', projectEdit.id]" *ngIf="projectEdit.id > 0" title="Edit order"
+        <a [routerLink]="['/orders', projectEdit.id]" *ngIf="projectEdit.id > 0" title="Edit order"
           class="btn btn-link btn-sm">{{'projects.EditOrder' | translate }}</a>
 
         <div class="float-right">

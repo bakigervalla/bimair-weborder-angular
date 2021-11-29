@@ -42,4 +42,8 @@ export class ProjectService {
     return this.projectEndpoint.deleteProjectEndpoint<Project>(projectId);
   }
 
+  saveOrder(order: any) {
+    return this.projectEndpoint.saveOrderEndpoint<Project>(order);
+  }
+
 }

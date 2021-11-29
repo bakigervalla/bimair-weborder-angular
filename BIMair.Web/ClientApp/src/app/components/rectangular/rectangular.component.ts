@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Order } from '../../models/order.model';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-rectangular',
@@ -68,7 +69,7 @@ selected = [];
 rows = [];
 public isEditable = {};
 ordList: Array<Order> = [];
-constructor() {}
+constructor(private projectService: ProjectService) {}
 
 ngOnInit() {
   this.rows = this.data;
@@ -203,9 +204,9 @@ colValue(id, field) {
 
     // End K2
 
-    colL1 = null;
-    colL2 = null;
-    colL3 = null;
+    colL1 = Number(field.l1);
+    colL2 = 0;
+    colL3 = 0;
     colL4 = null;
 
     colverbindingen1 = null;
@@ -213,16 +214,23 @@ colValue(id, field) {
     colverbindingen3 = null;
 
 
-    this.fieldArray[id] = ({id: id, name: field, cA: colA, cB: colB,
-                            cC: colC, cD: colD, cE: colE,  cF: colF,
-                            cG1: colG1, cG2: colG2, cH1: colH1,
-                            cH2: colH2, cI1: colI1, cI2: ColI2,
-                            cK1: colK1, cK2: colK2, cL1: colL1,
-                            cL2: colL2, cL3: colL3, cL4: colL4 });
+    this.fieldArray[id] = ({id: id, name: field, Code: field, A: colA, B: colB,
+      C: colC, D: colD, E: colE, F: colF,
+      G1: colG1, G2: colG2, H1: colH1,
+      H2: colH2, I1: colI1, I2: ColI2,
+      K1: colK1, K2: colK2, L1: colL1,
+      L2: colL2, L3: colL3, L4: colL4 });
 
 }
+chngL(row, field, value) {
+
+  this.fieldArray[row][field] = value;
+}
+
 savebtn(data) {
-  console.log(this.fieldArray);
+  // console.log(this.fieldArray);
+  this.projectService.saveOrder(this.fieldArray).subscribe(order => this.fieldArray, error => console.log(error));
+
 }
 
 // Delete row

@@ -172,29 +172,36 @@
           Offset Diepte</ng-container>
       </td>
       <!-- Col  L1-->
-      <td><input type="text" name="l1" id="l1" class="form-control" /></td>
+      <td><input type="number" [(ngModel)]="field.L1" name="{{field.l1}}"
+        (change)="chngL(i, 'L1', field.L1)"  id="l1" class="form-control" /></td>
       <!-- Col  L2-->
-      <td><input type="text" name="l2" id="l2" class="form-control" /></td>
+      <td><input type="number" [(ngModel)]="field.L2" name="{{field.l2}}"
+        (change)="chngL(i, 'L2', field.L2)" id="l2" class="form-control" /></td>
       <!-- Col  L3-->
-      <td><input type="text" name="l3" id="l3" class="form-control" /></td>
+      <td><input type="number" [(ngModel)]="field.L3" name="{{field.l3}}"
+        (change)="chngL(i, 'L3', field.L3)" id="l3" class="form-control" /></td>
       <!-- Col  L4-->
-      <td>Other value</td>
+      <td><input type="text" [(ngModel)]="field.L4" name="{{field.l4}}"
+        (change)="chngL(i, 'L4', field.L4)" id="l3" class="form-control" placeholder="Other value"/></td>
       <!-- verbindingen 1 -->
       <td>
-        <select class="form-control">
-          <option *ngFor="let item of verbindingen" value="{{ item.label }}">{{ item.label }}</option>
+        <select class="form-control"  [(ngModel)]="field.Connection1" name="{{field.Connection1}}"
+        (change)="chngL(i, 'Connection1', field.Connection1)">
+          <option *ngFor="let item of verbindingen" [value]="item.label">{{ item.label }}</option>
         </select>
       </td>
       <!-- verbindingen 2 -->
       <td>
-        <select class="form-control">
-          <option *ngFor="let item of verbindingen" value="{{ item.label }}">{{ item.label }}</option>
+        <select class="form-control"  [(ngModel)]="field.Connection2" name="{{field.Connection2}}"
+        (change)="chngL(i, 'Connection2', field.Connection2)">
+          <option *ngFor="let item of verbindingen" [value]="item.label ">{{ item.label }}</option>
         </select>
       </td>
       <!-- verbindingen 3 -->
       <td>
-        <select class="form-control">
-          <option *ngFor="let item of verbindingen" value="{{ item.label }}">{{ item.label }}</option>
+        <select class="form-control" [(ngModel)]="field.Connection3" name="{{field.Connection3}}"
+        (change)="chngL(i, 'Connection3', field.Connection3)">
+          <option *ngFor="let item of verbindingen" [value]="item.label ">{{ item.label }}</option>
         </select>
       </td>
       <td>&nbsp;</td>
