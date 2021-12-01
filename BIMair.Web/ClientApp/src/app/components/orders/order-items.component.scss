@@ -3,6 +3,18 @@
   margin: 0 !important;
 }
 
+.action-buttons {
+  float: right;
+}
+.action-buttons button {
+  height: 30px;
+  font-size: 13px;
+  padding: 0;
+  font-weight: bold;
+  min-width: 100px;
+  outline: none !important;
+  margin-right: 10px;
+}
 
 // ul {
 //   text-align: center;

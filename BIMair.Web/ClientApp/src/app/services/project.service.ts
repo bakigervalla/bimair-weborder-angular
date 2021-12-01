@@ -45,5 +45,8 @@ export class ProjectService {
   saveOrder(order: any) {
     return this.projectEndpoint.saveOrderEndpoint<Project>(order);
   }
+  saveOrderItems(orderItems: any) {
+    return this.projectEndpoint.saveOrderItemsEndpoint<string>(orderItems);
+  }
 
 }

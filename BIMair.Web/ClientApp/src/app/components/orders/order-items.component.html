@@ -1,16 +1,52 @@
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">{{ 'projects.Rectangular' | translate }}</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">{{ 'projects.Round' | translate }}</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">{{ 'projects.Montagemateriaal' | translate }}</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">{{ 'projects.Totaal' | translate }}</a>
-  </li>
-</ul>
+<div class="container">
+  <header class="pageHeader">
+    <h3><i class="fa fa-shopping-cart fa-lg page-caption" aria-hidden="true"></i> {{'projects.OrderItems' | translate}}
+    </h3>
+  </header>
 
-<div #spreadsheet></div>
+  <div class="row action-buttons">
+    <button class="btn btn-default btn-add" (click)="download()" type="button">
+      <i class="fa fa-download" aria-hidden="true" style="margin-right: 10px;"></i>
+      <span>{{ 'projects.Download' | translate }}</span>
+    </button>
+    <button class="btn btn-primary btn-add" (click)="save()" type="button">
+      <i class="fa fa-floppy-o" aria-hidden="true" style="margin-right: 10px;"></i>
+      <span>{{ 'projects.Save' | translate }}</span>
+    </button>
+  </div>
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="#rectangular" [ngClass]="{ 'active':activeTab==='rectangular'}"
+        (click)="toggelTab('rectangular')" data-toggle="tab">Rectangular</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#round" [ngClass]="{ 'active':activeTab==='round'}" data-toggle="tab"
+        (click)="toggelTab('round')">Round</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#montagerail" [ngClass]="{ 'active':activeTab==='montagerail'}" data-toggle="tab"
+        (click)="toggelTab('montagerail')">Montagerail</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#totaalblad" [ngClass]="{ 'active':activeTab==='totaalblad'}" data-toggle="tab"
+        (click)="toggelTab('totaalblad')">Totaalblad</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane" id="rectangular" [ngClass]="{ 'active':activeTab==='rectangular'}">
+      <div #spreadsheet id="spreadsheet"></div>
+    </div>
+    <div class="tab-pane" id="round" [ngClass]="{ 'active':activeTab==='round'}">
+      <div #sheetround></div>
+    </div>
+    <div class="tab-pane" id="montagerail" [ngClass]="{ 'active':activeTab==='montagerail'}">
+      <div #sheetmontagerail></div>
+    </div>
+    <div class="tab-pane" id="totaalblad" [ngClass]="{ 'active':activeTab==='totaalblad'}">
+      <div #sheettotaalblad></div>
+    </div>
+  </div>
+
+</div>

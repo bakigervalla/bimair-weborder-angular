@@ -225,6 +225,8 @@
     "EditOrder": "Order",
     "EditItems": "Items",
     "Deleting": "Deleting",
-    "Delete": "Delete"
+    "Delete": "Delete",
+    "OrderItems": "Order Items",
+    "Download": "Download"
   }
 }
