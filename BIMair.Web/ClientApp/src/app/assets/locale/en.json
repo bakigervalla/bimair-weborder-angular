@@ -227,6 +227,7 @@
     "Deleting": "Deleting",
     "Delete": "Delete",
     "OrderItems": "Order Items",
-    "Download": "Download"
+    "Download": "Download",
+    "SendByEmail": "Send by email"
   }
 }
