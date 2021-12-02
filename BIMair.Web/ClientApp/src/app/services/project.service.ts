@@ -18,7 +18,7 @@ export class ProjectService {
   }
 
   getProjects() {
-    return this.projectEndpoint.getProjectsEndpoint<Project[]>(1,10);
+    return this.projectEndpoint.getProjectsEndpoint<Project[]>(1, 10);
   }
 
   getProject(id: number) {
@@ -45,6 +45,11 @@ export class ProjectService {
   saveOrder(order: any) {
     return this.projectEndpoint.saveOrderEndpoint<Project>(order);
   }
+
+  getOrderItemsByProjectId(projectId?: string) {
+    return this.projectEndpoint.getOrderItemsByProjectId<any>(projectId);
+  }
+
   saveOrderItems(orderItems: any) {
     return this.projectEndpoint.saveOrderItemsEndpoint<string>(orderItems);
   }

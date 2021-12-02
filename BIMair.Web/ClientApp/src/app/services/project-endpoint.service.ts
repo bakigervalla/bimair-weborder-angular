@@ -22,6 +22,7 @@ export class ProjectEndpoint extends EndpointBase {
   get saveProjectUrl() { return this.configurations.baseUrl + '/api/projects/save'; }
   get deteProjectUrl() { return this.configurations.baseUrl + '/api/projects'; }
   get saveOrderUrl() { return this.configurations.baseUrl + '/api/projects/saveorder'; }
+  get orderItemsByProjectUrl() { return this.configurations.baseUrl + '/api/projects/projectitems'; }
   get saveOrderItemsUrl() { return this.configurations.baseUrl + '/api/projects/saveorder'; }
 
   constructor(private configurations: ConfigurationService, http: HttpClient, authService: AuthService) {
@@ -93,6 +94,15 @@ export class ProjectEndpoint extends EndpointBase {
     return this.http.post<T>(this.saveOrderUrl, orderObject, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.saveOrderEndpoint(orderObject));
+      }));
+  }
+
+  getOrderItemsByProjectId<T>(projectId?: string): Observable<T> {
+    const endpointUrl = `${this.orderItemsByProjectUrl}/${projectId}`;
+
+    return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.getProjectsByUserEndpoint(projectId));
       }));
   }
 

@@ -1,7 +1,9 @@
 import { Component, ViewChild, HostListener, ElementRef } from "@angular/core";
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService, MessageSeverity } from '../../services/alert.service';
 import { ProjectService } from '../../services/project.service';
 import * as jexcel from "jexcel";
+import { setUncaughtExceptionCaptureCallback } from "process";
 
 // import 'jexcel/dist/jexcel.css';
 //  require("jexcel/dist/jexcel.css")
@@ -22,17 +24,17 @@ export class OrderItemsComponent {
   savedSuccessfully = false;
 
   // Lookups
-  lookupBreedte = ["RH Recht kanaal", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en verloop", "RH-S Bocht + vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"];
+  lookupBreedte = ["RH Recht kanaal", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"];
   lookupBreedteOnder = ["RH T-Stuk", "RH Bocht", "RH Verloop"];
 
   @ViewChild("spreadsheet") spreadsheet: any;
   @ViewChild("sheetround") sheetround: any;
   @ViewChild("sheetmontagerail") sheetmontagerail: any;
   @ViewChild("sheettotaalblad") sheettotaalblad: any;
-  data = [{}];
-  dataRound = [{}];
-  dataMontagerail = [{}];
-  dataTotaalblad = [{}];
+  data = [];
+  dataRound = [];
+  dataMontagerail = [];
+  dataTotaalblad = [];
 
   // data = [
   //   ['Jazz', 'Honda', '2019-02-12', '', true, '$ 2.000,00', '#777700'],
@@ -44,9 +46,25 @@ export class OrderItemsComponent {
   public montagerailSheet;
   public totaalbladSheet;
 
-  constructor(private alertService: AlertService, private projectService: ProjectService) { }
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private alertService: AlertService,
+    private projectService: ProjectService
+  ) { }
 
   ngOnInit(): void {
+    let id = this.route.snapshot.params['id'];
+
+    if (id > 0)
+      this.projectService.getOrderItemsByProjectId(id)
+        .subscribe(data => {
+          console.log(data)
+          this.data = data.map(x => x.ProductType == 'Rectangular');
+          console.log(this.data)
+          this.dataRound = data.map(x => x.ProductType == 'Round');
+          this.dataMontagerail = data.map(x => x.ProductType == 'Montagerail');
+          this.dataTotaalblad = data.map(x => x.ProductType == 'Totaalblad');
+        });
   }
 
   @HostListener('document:click', ['$event'])
@@ -133,16 +151,37 @@ export class OrderItemsComponent {
       // },
 
       oneditionend(instance, cell, x, y, value, save) {
-        if (x == 0) { //Pos
+
+        if (x == 0) { // Pos
+          // C (Aantal)
           instance.jexcel.setValue(`C${y + 1}`, value > 0 && value != '' ? 1 : '');
         }
-        if (x == 1) { //Code
+        else if (x == 1) { // Code
+
+          // D
           if (value == '')
             instance.jexcel.setValue(`D${y + 1}`, '');
           else if (self.lookupBreedte.indexOf(value) >= 0)
             instance.jexcel.setValue(`D${y + 1}`, 'Breedte');
           else if (self.lookupBreedteOnder.indexOf(value) >= 0)
             instance.jexcel.setValue(`D${y + 1}`, 'Breedte Onder');
+
+          self.setCellValuesByCode(instance, value, y);
+
+          let con1 = instance.jexcel.getValue(`R${y}`),
+            con2 = instance.jexcel.getValue(`S${y}`);
+
+          self.setCellValuesByCodeAndConnection(instance, value, con1, con2, null, y);
+        }
+        else if (x == 21) { // Connection 1
+          let code = instance.jexcel.getValue(`B${y}`),
+            con2 = instance.jexcel.getValue(`S${y}`);
+          self.setCellValuesByCodeAndConnection(instance, code, value, con2, null, y);
+        }
+        else if (x == 22) { // Connection 2
+          let code = instance.jexcel.getValue(`B${y}`),
+            con1 = instance.jexcel.getValue(`R${y}`);
+          self.setCellValuesByCodeAndConnection(instance, code, con1, value, null, y);
         }
       },
       updateTable: function (instance, cell, col, row, source, value, id) {
@@ -197,8 +236,8 @@ export class OrderItemsComponent {
       columns: [
         { type: 'dropdown', title: 'Code', name: "Code", width: 120, source: ["Spirobuis", "lengte 3m.", "B45", "B90", "Spirobocht 45gr", "Spirobocht 90gr", "Verbinding buis", "Verbinding hulpstuk", "Verloop sym", "Verloop A-sym", "Zadel 90gr", "Zadel 45gr", "Deksel t.b.v. buis", "Platte tuit 90gr", "Platte tuit 45gr", "Regelklep", "T-stuk"] },
         { type: 'text', title: 'Aantal', name: "Number", width: 120 },
-        { type: 'numeric', title: 'Diameter 1', name: "Diameter1", width: 80, mask: '$ #,##.00', decimal: '.' },
-        { type: 'numeric', title: 'Diameter 2', name: "Diameter2", width: 80, mask: '$ #,##.00', decimal: '.' },
+        { type: 'dropdown', title: 'Diameter 1', name: "Diameter1", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
+        { type: 'dropdown', title: 'Diameter 2', name: "Diameter2", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
       ],
       onselection: function (html, colNumber, rowNumber) {
         // console.log(this.currentRowNumber)
@@ -315,6 +354,231 @@ export class OrderItemsComponent {
 
   // }
 
+  setCellValuesByCode = (instance, value, y) => {
+
+    console.log(value)
+    console.log(y)
+
+    // Set E
+    if (value == '')
+      instance.jexcel.setValue(`E${y + 1}`, '');
+    else if (["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en verloop",
+      "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`E${y + 1}`, 'Diepte');
+    else if ("RH Verloop" == value)
+      instance.jexcel.setValue(`E${y + 1}`, 'Diepte Onder');
+
+    // SET F
+    if (value == '')
+      instance.jexcel.setValue(`F${y + 1}`, '');
+    else if ("RH T-Stuk" == value)
+      instance.jexcel.setValue(`F${y + 1}`, 'Breedte Links');
+    else if (["RH Bocht", "RH Verloop"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`F${y + 1}`, 'Breedte Boven');
+    else if ("RH-S Bocht 2x" == value)
+      instance.jexcel.setValue(`F${y + 1}`, 'Breedte Linksonder');
+    else if ("RH Afgesch. Kanaal" == value)
+      instance.jexcel.setValue(`F${y + 1}`, 'Breedte schuine zijde');
+    else if (["RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`F${y + 1}`, 'Breedte Bocht onder');
+    else if (["RH Recht kanaal", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond",
+      "RH Deksel", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`F${y + 1}`, '');
+
+    // SET G
+    if (value == '')
+      instance.jexcel.setValue(`G${y + 1}`, '');
+    else if ("RH T-Stuk" == value)
+      instance.jexcel.setValue(`G${y + 1}`, 'Breedte Rechts');
+    else if ("RH Verloop" == value)
+      instance.jexcel.setValue(`G${y + 1}`, 'Diepte Boven');
+    else if ("RH-S Bocht 2x" == value)
+      instance.jexcel.setValue(`G${y + 1}`, 'Breedte Linksboven');
+    else if (["RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`G${y + 1}`, 'Breedte Bocht Boven');
+    else if (["RH Recht kanaal", "RH Bocht", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop",
+      "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`G${y + 1}`, '');
+
+    // SET H
+    if (value == '')
+      instance.jexcel.setValue(`H${y + 1}`, '');
+    else if ("RH-S Bocht 2x" == value)
+      instance.jexcel.setValue(`H${y + 1}`, 'Breedte Rechtsboven');
+    else if ("RH-S Bocht en Verloop" == value)
+      instance.jexcel.setValue(`H${y + 1}`, 'Verloop Breedte Boven');
+    else if (["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop",
+      "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`H${y + 1}`, '');
+
+    // SET I
+    if (value == '')
+      instance.jexcel.setValue(`I${y + 1}`, '');
+    else if ("RH-S Bocht en Verloop" == value)
+      instance.jexcel.setValue(`I${y + 1}`, 'Verloop Diepte Boven');
+    else if (["RH Recht kanaal", "RH Bocht", "RH Verloop", "RH T-Stuk", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop",
+      "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`I${y + 1}`, '');
+
+    // SET J
+    if (value == '')
+      instance.jexcel.setValue(`J${y + 1}`, '');
+    else if (["RH Bocht", "RH Verloop", "RH-S Bocht en Verloop", "RH=S Bocht + Vierkant-rond", "RH Sprong", "RH Afgesch. Kanaal"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`J${y + 1}`, 'Graden');
+    else if ("RH-S Bocht + Vierkant-rond" == value)
+      instance.jexcel.setValue(`J${y + 1}`, 'Graden Bocht');
+    else if ("RH-S Bocht 2x" == value)
+      instance.jexcel.setValue(`J${y + 1}`, 'Graden Links');
+    else if (["RH Recht kanaal", "RH Bocht", "RH Verloop", "RH T-Stuk", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH Deksel", "RH Afgesch. Kanaal",
+      "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`J${y + 1}`, '');
+
+    // SET K
+    if (value == '')
+      instance.jexcel.setValue(`K${y + 1}`, '');
+    else if ("RH-S Bocht + Vierkant-rond" == value)
+      instance.jexcel.setValue(`K${y + 1}`, 'Graden Verloop');
+    else if ("RH-S Bocht 2x" == value)
+      instance.jexcel.setValue(`K${y + 1}`, 'Graden Rechts');
+    else if (["RH Recht kanaal", "RH Bocht", "RH Verloop", "RH T-Stuk", "RH Sprong", "RH-S Bocht en Verloop", "RH Aftakking", "RH Vierkant-Rond", "RH Deksel",
+      "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`K${y + 1}`, '');
+
+    // SET L
+    if (value == '')
+      instance.jexcel.setValue(`L${y + 1}`, '');
+    else if ("RH Bocht" == value)
+      instance.jexcel.setValue(`L${y + 1}`, 'Radius');
+    else if ("RH T-Stuk" == value)
+      instance.jexcel.setValue(`L${y + 1}`, 'Radius Links');
+
+    else if (["RH T-Stuk", "RH-S Bocht 2x"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`L${y + 1}`, 'Radius Links');
+    else if (["RH-S Bocht en verloop", "RH-S Bocht + Vierkant-rond"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`L${y + 1}`, 'Radius Bocht');
+    else if (["RH Recht kanaal", "RH Bocht", "RH Verloop", "RH T-Stuk", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH Deksel",
+      "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`L${y + 1}`, '');
+
+    // SET M
+    if (value == '')
+      instance.jexcel.setValue(`M${y + 1}`, '');
+    else if (["RH T-Stuk", "RH-S Bocht 2x"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`M${y + 1}`, 'Radius Rechts');
+    else if (["RH-S Bocht + Vierkant-rond", "RH-S Bocht en Verloop", "RH Recht kanaal", "RH Bocht", "RH Verloop", "RH T-Stuk", "RH Sprong",
+      "RH Aftakking", "RH Vierkant-Rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`M${y + 1}`, '');
+
+    // SET N
+    if (value == '')
+      instance.jexcel.setValue(`N${y + 1}`, '');
+    else if (["RH T-Stuk", "RH Sprong"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`N${y + 1}`, 'Extensie Links');
+    else if (["RH Aftakking", "RH Bocht", "RH-S Bocht + Vierkant-rond"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`N${y + 1}`, 'Extensie Boven');
+    else if ("RH-S Bocht en Verloop" == value)
+      instance.jexcel.setValue(`N${y + 1}`, 'Extensie Onder');
+    else if (["RH-S Bocht en Verloop", "RH Recht kanaal", "RH-S Bocht 2x", "RH Verloop", "RH T-Stuk", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond",
+      "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`N${y + 1}`, '');
+
+    // SET O
+    if (value == '')
+      instance.jexcel.setValue(`O${y + 1}`, '');
+    else if ("RH T-Stuk" == value)
+      instance.jexcel.setValue(`O${y + 1}`, 'Extensie onder Links');
+    else if (["RH Verloop", "RH-S Bocht en verloop", "RH-S Bocht + Vierkant-rond"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`O${y + 1}`, 'Offset Breedte');
+    else if ("RH-S Bocht en Verloop" == value)
+      instance.jexcel.setValue(`O${y + 1}`, 'Extensie Onder');
+    else if (["RH Bocht", "RH-S Bocht en Verloop", "RH Recht kanaal", "RH-S Bocht 2x", "RH Verloop", "RH T-Stuk", "RH Sprong", "RH Aftakking",
+      "RH Vierkant-Rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`O${y + 1}`, '');
+
+    // SET P
+    if (value == '')
+      instance.jexcel.setValue(`P${y + 1}`, '');
+    else if (["RH T-Stuk", "RH Sprong"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`P${y + 1}`, 'Extension Rechts');
+    else if (["RH Bocht", "RH-S Bocht + Vierkant-rond"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`P${y + 1}`, 'Extensie Onder');
+    else if ("RH-S Bocht en Verloop" == value)
+      instance.jexcel.setValue(`P${y + 1}`, 'Extensie Bocht');
+    else if (["RH Bocht", "RH-S Bocht en Verloop", "RH Recht kanaal", "RH-S Bocht 2x", "RH Verloop", "RH T-Stuk", "RH Sprong", "RH Aftakking",
+      "RH Vierkant-Rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`P${y + 1}`, '');
+
+    // SET Q
+    if (value == '')
+      instance.jexcel.setValue(`Q${y + 1}`, '');
+    else if ("RH T-Stuk" == value)
+      instance.jexcel.setValue(`Q${y + 1}`, 'Extension Onder Rechts');
+    else if (["RH Verloop", "RH-S Bocht en verloop", "RH-S Bocht + Vierkant-rond"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`Q${y + 1}`, 'Offset Diepte');
+    else if (["RH Bocht", "RH-S Bocht en Verloop", "RH Recht kanaal", "RH-S Bocht 2x", "RH Verloop", "RH T-Stuk", "RH Sprong", "RH Aftakking",
+      "RH Vierkant-Rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      instance.jexcel.setValue(`Q${y + 1}`, '');
+  }
+
+  setCellValuesByCodeAndConnection = (instance, code, con1, con2, con3, y) => {
+
+    // Set R
+    if (code == '' || con1 == '' || con2 == '' || con3 == '')
+      instance.jexcel.setValue(`R${y + 1}`, '');
+    else if (code == "RH Verloop" && con1 == "TDC25" && con2 == "TDC25")
+      instance.jexcel.setValue(`R${y + 1}`, 1410);
+    else if ((code == "R" && con1 == "W" && con2 != "W") || (code == "R" && con1 != "W" && con2 == "W"))
+      instance.jexcel.setValue(`R${y + 1}`, 1456);
+    else if (code == "R" && con1 != "W" && con2 != "W")
+      instance.jexcel.setValue(`R${y + 1}`, 1500);
+    else if (["S", "V", "P"].indexOf(code) >= 0)
+      instance.jexcel.setValue(`R${y + 1}`, 0);
+    else if (code == "J")
+      instance.jexcel.setValue(`R${y + 1}`, 50);
+    else if (code == "F")
+      instance.jexcel.setValue(`R${y + 1}`, 330);
+    else
+      instance.jexcel.setValue(`R${y + 1}`, '');
+
+    // SET S
+    if (code == '' || con1 == '' || con2 == '' || con3 == '')
+      instance.jexcel.setValue(`S${y + 1}`, '');
+    else if (code == "RH Recht kanaal" && con1 == "TDC25" && con2 == "TDC25")
+      instance.jexcel.setValue(`S${y + 1}`, 1160);
+    else if ((code == "R" && con1 == "W" && con2 != "W") || (code == "R" && con1 != "W" && con2 == "W"))
+      instance.jexcel.setValue(`S${y + 1}`, 1456);
+    else if (code == "R" && con1 != "W" && con2 != "W")
+      instance.jexcel.setValue(`S${y + 1}`, 1500);
+    else if (["S", "V", "P"].indexOf(code) >= 0)
+      instance.jexcel.setValue(`S${y + 1}`, 0);
+    else if (code == "J")
+      instance.jexcel.setValue(`S${y + 1}`, 50);
+    else if (code == "F")
+      instance.jexcel.setValue(`S${y + 1}`, 330);
+    else
+      instance.jexcel.setValue(`S${y + 1}`, '');
+
+    // SET T
+    if (code == '' || con1 == '' || con2 == '' || con3 == '')
+      instance.jexcel.setValue(`T${y + 1}`, '');
+    else if (code == "RH Recht kanaal" && con1 == "TDC25" && con2 == "TDC25")
+      instance.jexcel.setValue(`T${y + 1}`, 910);
+    else if ((code == "R" && con1 == "W" && con2 != "W") || (code == "R" && con1 != "W" && con2 == "W"))
+      instance.jexcel.setValue(`T${y + 1}`, 1456);
+    else if (code == "R" && con1 != "W" && con2 != "W")
+      instance.jexcel.setValue(`T${y + 1}`, 1500);
+    else if (["S", "V", "P"].indexOf(code) >= 0)
+      instance.jexcel.setValue(`T${y + 1}`, 0);
+    else if (code == "J")
+      instance.jexcel.setValue(`T${y + 1}`, 50);
+    else if (code == "F")
+      instance.jexcel.setValue(`T${y + 1}`, 330);
+    else
+      instance.jexcel.setValue(`T${y + 1}`, '');
+
+
+  }
+
   toggelTab(activeTab) {
     this.activeTab = activeTab;
   }
@@ -342,23 +606,33 @@ export class OrderItemsComponent {
   }
 
   save() {
-    var json = this.rectangularSheet.getJson();
-    console.log(json);
-    return;
-    var rectangularArr = this.rectangularSheet.getData();
-    var roundArr = this.roundSheet.getData();
-    var montagerailArr = this.montagerailSheet.getData();
-    var totaalbladArr = this.totaalbladSheet.getData();
-    var arrayData = [...rectangularArr, ...roundArr, montagerailArr, totaalbladArr];
+    var rectangularData = this.rectangularSheet.getJson();
+    rectangularData.forEach(function (element) {
+      element.ProductType = "Rectangular";
+    });
 
-    var jsonOrderItems = JSON.stringify(arrayData);
-    console.log(jsonOrderItems);
-    return;
+    var roundData = this.roundSheet.getJson();
+    roundData.forEach(function (element) {
+      element.ProductType = "Round";
+    });
 
-    // var orderItems = [...this.data, ...this.dataRound, ...this.dataMontagerail, this.dataTotaalblad];
+    var montagerailData = this.montagerailSheet.getJson();
+    montagerailData.forEach(function (element) {
+      element.ProductType = "Montagerail";
+    });
 
-    // this.projectService.saveOrder(orderItems)
-    //   .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
+    var totaalbladData = this.totaalbladSheet.getJson();
+    totaalbladData.forEach(function (element) {
+      element.ProductType = "Totaalblad";
+    });
+
+    var jsonData = [...rectangularData, ...roundData, montagerailData, totaalbladData];
+
+    jsonData = jsonData.filter(x => x.Code?.trim() != '' && x.Code != null && x.Code != undefined);
+    console.log(jsonData)
+
+    this.projectService.saveOrderItems(jsonData)
+      .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
 
   }
 

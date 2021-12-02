@@ -141,27 +141,57 @@ namespace BIMair.Controllers
         }
 
         /// <summary>
+        /// Get OrderItems by projectId
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        [HttpGet("projectitems/{id}")]
+        [ProducesResponseType(201, Type = typeof(IEnumerable<OrderItemViewModel>))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        public IActionResult GetProjectItemsByProjectId(int id)
+        {
+            if (id <= 0)
+                return BadRequest();
+
+            IEnumerable<OrderItem> items;
+            string userId = this.User.GetUserId();
+
+            if (this.User.IsUserInRole("administrator"))
+            {
+                items = _unitOfWork.OrderItems.GetOrderItemsByProject(id);
+            }
+            else
+            {
+                Expression<Func<OrderItem, bool>> expr = p => p.UserId == userId && p.Project.Id == id;
+                items = _unitOfWork.OrderItems.Find(expr);
+            }
+
+            return Ok(_mapper.Map<IEnumerable<OrderItemViewModel>>(items));
+        }
+
+        /// <summary>
         /// Save Order Items
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpPost("saveorder")]
-        [ProducesResponseType(201, Type = typeof(ProjectViewModel))]
+        [ProducesResponseType(201, Type = typeof(List<OrderItemViewModel>))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
-        public IActionResult SaveOrderItems([FromBody] List<OrderItemViewModel> model)
+        public IActionResult SaveOrderItems([FromBody] List<OrderItemViewModel> orderItems)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
             string userId = this.User.GetUserId();
-            model.ForEach(x => x.UserId = userId);
+            orderItems.ForEach(x => x.UserId = userId);
 
 
-            var orderItems = _mapper.Map<IList<OrderItem>>(model);
+            var items = _mapper.Map<IList<OrderItem>>(orderItems);
 
-            var newItems = orderItems.Where(x => x.Id == 0);
-            var editedItems = orderItems.Where(x => x.Id == 0);
+            var newItems = items.Where(x => x.Id == 0);
+            var editedItems = items.Where(x => x.Id == 0);
 
             _unitOfWork.OrderItems.AddRange(newItems);
             _unitOfWork.OrderItems.UpdateRange(editedItems);
