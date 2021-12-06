@@ -4,6 +4,7 @@
 // =============================
 
 using DAL.Models;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 
@@ -12,10 +13,10 @@ namespace BIMair.ViewModels
 {
     public class OrderItemViewModel
     {
-        public int Id { get; set; }
-        public int Position { get; set; }
+        public string Id { get; set; }
+        public string Position { get; set; }
         public string Code { get; set; }
-        public int Number { get; set; }
+        public string Number { get; set; }
         public string A { get; set; }
         public string B { get; set; }
         public string C { get; set; }
@@ -25,26 +26,28 @@ namespace BIMair.ViewModels
         public string G1 { get; set; }
         public string G2 { get; set; }
         public string H1 { get; set; }
+        
         public string H2 { get; set; }
         public string I1 { get; set; }
         public string I2 { get; set; }
         public string K1 { get; set; }
         public string K2 { get; set; }
-        public int L1 { get; set; }
-        public int L2 { get; set; }
-        public int L3 { get; set; }
+        public string L1 { get; set; }
+        public string L2 { get; set; }
+        public string L3 { get; set; }
         public string L4 { get; set; }
         public string Connection1 { get; set; }
         public string Connection2 { get; set; }
         public string Connection3 { get; set; }
         public string Note { get; set; }
-        public decimal Diameter1 { get; set; }
-        public decimal Diameter2 { get; set; }
-        public decimal Length { get; set; }
+        public string Diameter1 { get; set; }
+        public string Diameter2 { get; set; }
+        public string Length { get; set; }
 
+        //public string ProjectId { get; set; }
         public string ProductType { get; set; }
         public string UserId { get; set; }
-        public DateTime DateCreated { get; set; }
+        //*public DateTime DateCreated { get; set; }
         public Project Project { get; set; }
     }
 }

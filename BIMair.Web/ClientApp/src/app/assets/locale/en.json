@@ -228,6 +228,8 @@
     "Delete": "Delete",
     "OrderItems": "Order Items",
     "Download": "Download",
-    "SendByEmail": "Send by email"
+    "SendByEmail": "Send by email",
+    "SearchCustomers": "Search customers",
+    "Customers": "Customers"
   }
 }

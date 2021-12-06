@@ -36,6 +36,8 @@ import { AccountService } from './services/account.service';
 import { AccountEndpoint } from './services/account-endpoint.service';
 import { ProjectService } from './services/project.service';
 import { ProjectEndpoint } from './services/project-endpoint.service';
+import { CustomerService } from './services/customer.service';
+import { CustomerEndpoint } from './services/customer-endpoint.service';
 
 import { EqualValidator } from './directives/equal-validator.directive';
 import { LastElementDirective } from './directives/last-element.directive';
@@ -146,6 +148,8 @@ import { OrderItemsComponent } from './components/orders/order-items.component';
     AccountEndpoint,
     ProjectService,
     ProjectEndpoint,
+    CustomerService,
+    CustomerEndpoint,
     LocalStoreManager,
     OidcHelperService,
     NgbDateFormat,

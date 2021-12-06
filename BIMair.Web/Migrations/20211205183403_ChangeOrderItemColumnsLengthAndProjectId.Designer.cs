@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BIMair.Migrations
+namespace BIMair.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211205183403_ChangeOrderItemColumnsLengthAndProjectId")]
+    partial class ChangeOrderItemColumnsLengthAndProjectId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -264,13 +266,13 @@ namespace BIMair.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Diameter1")
+                    b.Property<decimal>("Diameter1")
                         .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Diameter2")
+                    b.Property<decimal>("Diameter2")
                         .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("E")
                         .HasMaxLength(85)
@@ -328,24 +330,26 @@ namespace BIMair.Migrations
                         .HasMaxLength(85)
                         .HasColumnType("nvarchar(85)");
 
-                    b.Property<string>("Length")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Length")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Number")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Position")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProductType")
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<string>("ProjectId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProjectId1")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -356,8 +360,7 @@ namespace BIMair.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -365,7 +368,7 @@ namespace BIMair.Migrations
 
                     b.HasIndex("Code");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ProjectId1");
 
                     b.ToTable("App_OrderItems");
                 });
@@ -553,11 +556,9 @@ namespace BIMair.Migrations
                         .WithMany("OrderItems")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("DAL.Models.Project", "Project")
+                    b.HasOne("DAL.Models.Project", null)
                         .WithMany("OrderItems")
-                        .HasForeignKey("ProjectId");
-
-                    b.Navigation("Project");
+                        .HasForeignKey("ProjectId1");
                 });
 
             modelBuilder.Entity("DAL.Models.Project", b =>

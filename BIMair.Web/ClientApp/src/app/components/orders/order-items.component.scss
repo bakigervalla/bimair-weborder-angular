@@ -1,7 +1,18 @@
-.container {
-  width : 100% !important;
-  margin: 0 !important;
+.app-component.container {
+  all: unset;
 }
+.container {
+  all: unset;
+}
+
+.jexcel_content {
+  width: 95% !important;
+}
+
+// .container {
+//   width : 100% !important;
+//   margin: 0 !important;
+// }
 
 .action-buttons {
   float: right;

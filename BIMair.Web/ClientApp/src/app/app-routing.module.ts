@@ -62,8 +62,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], data: { title: 'Settings' } },
   { path: 'about', component: AboutComponent, data: { title: 'About Us' } },
   { path: 'home', redirectTo: '/', pathMatch: 'full' },
-  { path: 'orders/:id', component: RectangularComponent, data: { title: 'Orders' } },
-  { path: 'order-items/:id', component: OrderItemsComponent, data: { title: 'Orders' } },
+  { path: 'orders/:id', component: RectangularComponent, canActivate: [AuthGuard], data: { title: 'Orders' } },
+  { path: 'order-items/:id', component: OrderItemsComponent, canActivate: [AuthGuard], data: { title: 'Orders' } },
   { path: '**', component: NotFoundComponent, data: { title: 'Page Not Found' } }
 ];
 

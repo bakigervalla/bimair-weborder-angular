@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BIMair.Migrations
+namespace BIMair.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211205180459_ChangeOrderItemLColumnsDataType")]
+    partial class ChangeOrderItemLColumnsDataType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,36 +221,28 @@ namespace BIMair.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("A")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("B")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("C")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Connection1")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Connection2")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Connection3")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256)
@@ -258,92 +252,73 @@ namespace BIMair.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("D")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Diameter1")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                    b.Property<decimal>("Diameter1")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Diameter2")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                    b.Property<decimal>("Diameter2")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("E")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("F")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("G1")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("G2")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("H1")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("H2")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("I1")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("I2")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("K1")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("K2")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("L1")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("L2")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("L3")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("L4")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
-
-                    b.Property<string>("Length")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Length")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Number")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Position")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProductType")
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
@@ -356,14 +331,11 @@ namespace BIMair.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("Code");
 
                     b.HasIndex("ProjectId");
 

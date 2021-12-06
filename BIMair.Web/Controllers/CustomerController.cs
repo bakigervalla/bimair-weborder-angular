@@ -40,12 +40,16 @@ namespace BIMair.Controllers
         }
 
 
-
         // GET: api/values
-        [HttpGet]
+        [HttpGet("list")]
         public IActionResult Get()
         {
-            var allCustomers = _unitOfWork.Customers.GetAllCustomersData();
+            string userId = this.User.GetUserId();
+
+            if (!this.User.IsUserInRole("administrator"))
+                return BadRequest();
+
+            var allCustomers = _unitOfWork.Customers.GetAllCustomersData().OrderByDescending(x=> x.Id);
             return Ok(_mapper.Map<IEnumerable<CustomerViewModel>>(allCustomers));
         }
 

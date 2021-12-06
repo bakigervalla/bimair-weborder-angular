@@ -184,6 +184,9 @@ namespace BIMair.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
+            if (orderItems.Count == 0)
+                return BadRequest();
+
             string userId = this.User.GetUserId();
             orderItems.ForEach(x => x.UserId = userId);
 
@@ -191,7 +194,7 @@ namespace BIMair.Controllers
             var items = _mapper.Map<IList<OrderItem>>(orderItems);
 
             var newItems = items.Where(x => x.Id == 0);
-            var editedItems = items.Where(x => x.Id == 0);
+            var editedItems = items.Where(x => x.Id > 0);
 
             _unitOfWork.OrderItems.AddRange(newItems);
             _unitOfWork.OrderItems.UpdateRange(editedItems);

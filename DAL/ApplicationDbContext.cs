@@ -47,6 +47,35 @@ namespace DAL
             builder.Entity<Customer>().Property(c => c.City).HasMaxLength(50);
             builder.Entity<Customer>().ToTable($"App_{nameof(this.Customers)}");
 
+            builder.Entity<OrderItem>().Property(c => c.Position).HasMaxLength(10);
+            builder.Entity<OrderItem>().Property(c => c.Code).IsRequired().HasMaxLength(85);
+            builder.Entity<OrderItem>().HasIndex(c => c.Code);
+            builder.Entity<OrderItem>().Property(c => c.A).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.B).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.C).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.D).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.E).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.F).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.G1).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.G2).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.H1).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.H2).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.I1).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.I2).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.K1).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.K2).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.L1).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.L2).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.L3).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.L4).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.Connection1).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.Connection2).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.Connection3).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.Diameter1).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.Diameter2).HasMaxLength(85);
+            builder.Entity<OrderItem>().Property(c => c.ProductType).HasMaxLength(25);
+            //builder.Entity<OrderItem>().Property(c => c.ProjectId).HasMaxLength(10);
+            builder.Entity<OrderItem>().Property(c => c.UserId).HasMaxLength(85);
             builder.Entity<OrderItem>().ToTable($"App_{nameof(this.OrderItems)}");
             
             builder.Entity<Project>().Property(c => c.Name).IsRequired().HasMaxLength(100);

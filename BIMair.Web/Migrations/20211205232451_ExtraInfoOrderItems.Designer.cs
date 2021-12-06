@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BIMair.Migrations
+namespace BIMair.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211205232451_ExtraInfoOrderItems")]
+    partial class ExtraInfoOrderItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -264,13 +266,13 @@ namespace BIMair.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Diameter1")
+                    b.Property<decimal>("Diameter1")
                         .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Diameter2")
+                    b.Property<decimal>("Diameter2")
                         .HasMaxLength(85)
-                        .HasColumnType("nvarchar(85)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("E")
                         .HasMaxLength(85)
@@ -328,8 +330,8 @@ namespace BIMair.Migrations
                         .HasMaxLength(85)
                         .HasColumnType("nvarchar(85)");
 
-                    b.Property<string>("Length")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Length")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");

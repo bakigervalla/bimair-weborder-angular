@@ -15,6 +15,6 @@ namespace DAL.Repositories.Interfaces
     {
         IEnumerable<OrderItem> GetOrderItemsByProject(int projectId);
         IEnumerable<OrderItem> GetOrderItemsByUser(string userId);
-        IEnumerable<OrderItem> GetOrderItemsByCustomer(int customerId);
+        //IEnumerable<OrderItem> GetOrderItemsByCustomer(int customerId);
     }
 }

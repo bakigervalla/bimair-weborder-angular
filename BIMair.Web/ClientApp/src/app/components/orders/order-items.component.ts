@@ -4,6 +4,7 @@ import { AlertService, MessageSeverity } from '../../services/alert.service';
 import { ProjectService } from '../../services/project.service';
 import * as jexcel from "jexcel";
 import { setUncaughtExceptionCaptureCallback } from "process";
+import { JsonPipe } from "@angular/common";
 
 // import 'jexcel/dist/jexcel.css';
 //  require("jexcel/dist/jexcel.css")
@@ -31,7 +32,8 @@ export class OrderItemsComponent {
   @ViewChild("sheetround") sheetround: any;
   @ViewChild("sheetmontagerail") sheetmontagerail: any;
   @ViewChild("sheettotaalblad") sheettotaalblad: any;
-  data = [];
+  projectId;
+  data: [];
   dataRound = [];
   dataMontagerail = [];
   dataTotaalblad = [];
@@ -53,17 +55,25 @@ export class OrderItemsComponent {
   ) { }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.params['id'];
 
-    if (id > 0)
-      this.projectService.getOrderItemsByProjectId(id)
+    this.projectId = this.route.snapshot.params['id'];
+
+    if (this.projectId > 0)
+      this.projectService.getOrderItemsByProjectId(this.projectId)
         .subscribe(data => {
-          console.log(data)
-          this.data = data.map(x => x.ProductType == 'Rectangular');
-          console.log(this.data)
-          this.dataRound = data.map(x => x.ProductType == 'Round');
-          this.dataMontagerail = data.map(x => x.ProductType == 'Montagerail');
-          this.dataTotaalblad = data.map(x => x.ProductType == 'Totaalblad');
+
+          this.data = data.filter(x => x.productType == 'Rectangular');
+          this.rectangularSheet.setData(this.data);
+
+          this.dataRound = data.filter(x => x.productType == 'Round');
+          this.roundSheet.setData(this.dataRound);
+          console.log(this.dataRound)
+
+          this.dataMontagerail = data.filter(x => x.productType == 'Montagerail');
+          this.montagerailSheet.setData(this.dataMontagerail);
+
+          this.dataTotaalblad = data.filter(x => x.productType == 'Totaalblad');
+          this.totaalbladSheet.setData(this.dataTotaalblad);
         });
   }
 
@@ -76,7 +86,6 @@ export class OrderItemsComponent {
 
   ngAfterViewInit() {
     let self = this;
-
     // Rectangular
     this.rectangularSheet = jexcel(this.spreadsheet.nativeElement, {
       data: this.data,
@@ -84,6 +93,7 @@ export class OrderItemsComponent {
       // freezeColumns: 2,
       //colHeaders: [ 'Product', 'Quantity', 'Price', 'Total' ],
       // colWidths: [ 300, 100, 100, 100 ],
+      allowInsertColumn: false,
       csvFileName: 'BIMair-order-items',
       csvHeaders: true,
       csvDelimiter: ',',
@@ -120,31 +130,32 @@ export class OrderItemsComponent {
         Z1: 'text-align:left;',
       },
       columns: [
-        { type: 'numeric', title: 'Pos', name: "Position", width: 80 },
-        { type: 'dropdown', title: 'Code', name: "Code", width: 100, source: ["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"] },
-        { type: 'numeric', title: 'Aantal', name: "Number", width: 100, /* source: ["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"] */ },
-        { type: 'text', title: 'A', name: "A", width: 100 },
-        { type: 'text', title: 'B', name: "B", width: 100 },
-        { type: 'text', title: 'C', name: "C", width: 100 },
-        { type: 'text', title: 'D', name: "D", width: 100 },
-        { type: 'text', title: 'E', name: "E", width: 100 },
-        { type: 'text', title: 'F', name: "F", width: 100 },
-        { type: 'text', title: 'G1', name: "G1", width: 80 },
-        { type: 'text', title: 'G2', name: "G2", width: 80 },
-        { type: 'text', title: 'H1', name: "H1", width: 80 },
-        { type: 'text', title: 'H2', name: "H2", width: 80 },
-        { type: 'text', title: 'I1', name: "I1", width: 80 },
-        { type: 'text', title: 'I2', name: "I2", width: 110 },
-        { type: 'text', title: 'K1', name: "K1", width: 100 },
-        { type: 'text', title: 'K2', name: "K2", width: 100 },
-        { type: 'numeric', title: 'L1', name: "L1", width: 60, mask: '$ #,##.00', decimal: '.' },
-        { type: 'numeric', title: 'L2', name: "L2", width: 60, mask: '$ #,##.00', decimal: '.' },
-        { type: 'numeric', title: 'L3', name: "L3", width: 60, mask: '$ #,##.00', decimal: '.' },
-        { type: 'text', title: 'L4', name: "L4", width: 60 },
-        { type: 'dropdown', title: 'Connection 1', name: "Connection1", width: 60, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
-        { type: 'dropdown', title: 'Connection 2', name: "Connection2", width: 60, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
-        { type: 'dropdown', title: 'Connection 3', name: "Connection3", width: 60, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
-        { type: 'text', title: 'Opmerkingen', name: "Note", width: 100 },
+        { type: 'numeric', title: 'Pos', name: "position", width: 80 },
+        { type: 'dropdown', title: 'Code', name: "code", width: 100, source: ["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"] },
+        { type: 'numeric', title: 'Aantal', name: "number", width: 100, /* source: ["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"] */ },
+        { type: 'text', title: 'A', name: "a", width: 100 },
+        { type: 'text', title: 'B', name: "b", width: 100 },
+        { type: 'text', title: 'C', name: "c", width: 100 },
+        { type: 'text', title: 'D', name: "d", width: 100 },
+        { type: 'text', title: 'E', name: "e", width: 100 },
+        { type: 'text', title: 'F', name: "f", width: 100 },
+        { type: 'text', title: 'G1', name: "g1", width: 80 },
+        { type: 'text', title: 'G2', name: "g2", width: 80 },
+        { type: 'text', title: 'H1', name: "h1", width: 80 },
+        { type: 'text', title: 'H2', name: "h2", width: 80 },
+        { type: 'text', title: 'I1', name: "i1", width: 80 },
+        { type: 'text', title: 'I2', name: "i2", width: 110 },
+        { type: 'text', title: 'K1', name: "k1", width: 100 },
+        { type: 'text', title: 'K2', name: "k2", width: 100 },
+        { type: 'numeric', title: 'L1', name: "l1", width: 60, mask: '#,##.00', decimal: '.' },
+        { type: 'numeric', title: 'L2', name: "l2", width: 60, mask: '#,##.00', decimal: '.' },
+        { type: 'numeric', title: 'L3', name: "l3", width: 60, mask: '#,##.00', decimal: '.' },
+        { type: 'text', title: 'L4', name: "l4", width: 60 },
+        { type: 'dropdown', title: 'Connection 1', name: "connection1", width: 60, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
+        { type: 'dropdown', title: 'Connection 2', name: "connection2", width: 60, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
+        { type: 'dropdown', title: 'Connection 3', name: "connection3", width: 60, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
+        { type: 'text', title: 'Opmerkingen', name: "note", width: 100 },
+        { type: 'hidden', name: "id"},
       ],
       // onselection: function (html, colNumber, rowNumber) {
       //   // console.log(this.currentRowNumber)
@@ -224,9 +235,13 @@ export class OrderItemsComponent {
     this.roundSheet = jexcel(this.sheetround.nativeElement, {
       data: this.dataRound,
       minDimensions: [4, 10],
-      // freezeColumns: 2,
-      // tableOverflow: true,
-      // tableWidth: "600px",
+      allowInsertColumn: false,
+      csvFileName: 'BIMair-order-items-round',
+      csvHeaders: true,
+      csvDelimiter: ',',
+      includeHeadersOnDownload: true,
+      parseFormulas: true,
+      tableOverflow: true,
       style: {
         A1: 'text-align:left;',
         B1: 'text-align: left;',
@@ -234,10 +249,11 @@ export class OrderItemsComponent {
         D1: 'text-align: right;'
       },
       columns: [
-        { type: 'dropdown', title: 'Code', name: "Code", width: 120, source: ["Spirobuis", "lengte 3m.", "B45", "B90", "Spirobocht 45gr", "Spirobocht 90gr", "Verbinding buis", "Verbinding hulpstuk", "Verloop sym", "Verloop A-sym", "Zadel 90gr", "Zadel 45gr", "Deksel t.b.v. buis", "Platte tuit 90gr", "Platte tuit 45gr", "Regelklep", "T-stuk"] },
-        { type: 'text', title: 'Aantal', name: "Number", width: 120 },
-        { type: 'dropdown', title: 'Diameter 1', name: "Diameter1", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
-        { type: 'dropdown', title: 'Diameter 2', name: "Diameter2", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
+        { type: 'dropdown', title: 'Code', name: "code", width: 120, source: ["Spirobuis", "lengte 3m.", "B45", "B90", "Spirobocht 45gr", "Spirobocht 90gr", "Verbinding buis", "Verbinding hulpstuk", "Verloop sym", "Verloop A-sym", "Zadel 90gr", "Zadel 45gr", "Deksel t.b.v. buis", "Platte tuit 90gr", "Platte tuit 45gr", "Regelklep", "T-stuk"] },
+        { type: 'text', title: 'Aantal', name: "number", width: 120 },
+        { type: 'dropdown', title: 'Diameter 1', name: "diameter1", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
+        { type: 'dropdown', title: 'Diameter 2', name: "diameter2", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
+        { type: 'hidden', name: "id"},
       ],
       onselection: function (html, colNumber, rowNumber) {
         // console.log(this.currentRowNumber)
@@ -248,17 +264,22 @@ export class OrderItemsComponent {
     this.montagerailSheet = jexcel(this.sheetmontagerail.nativeElement, {
       data: this.dataMontagerail,
       minDimensions: [3, 10],
-      // freezeColumns: 2,
-      // tableOverflow: true,
-      // tableWidth: "600px",
+      allowInsertColumn: false,
+      csvFileName: 'BIMair-order-items-montagerail',
+      csvHeaders: true,
+      csvDelimiter: ',',
+      includeHeadersOnDownload: true,
+      parseFormulas: true,
+      tableOverflow: true,
       style: {
         A1: 'text-align:left;',
         B1: 'text-align: left;',
         D1: 'text-align: right;'
       },
       columns: [
+        { type: 'hidden', name: "id"},
         {
-          type: 'dropdown', title: 'Code', name: "Code", width: 120, source: ["Montagerail 30x15mm.", "Montagerail 30x20mm.", "Montagerail 30x43mm.", "Beugel met rubber (per stuk)",
+          type: 'dropdown', title: 'Code', name: "code", width: 120, source: ["Montagerail 30x15mm.", "Montagerail 30x20mm.", "Montagerail 30x43mm.", "Beugel met rubber (per stuk)",
             "Balkklem_M8 (200 stuks)", "Bevestigingsanker M8 (100 stuks)", "Boorschroef 42_13 (500 stuks)", "Boorschroef 42_19 (500 stuks)", "Boorschroef 63_19 (500 stuks)",
             "Carrosseriering M8x30 (200 stuks)", "Draadeind M8_2000 (per stuk)", "Expressanker M8x15 (100 stuks)", "Flensmoer M8ZB (200 stuks)", "Inslaganker M8x30 (100 stuks)",
             "Kabelband 7,5 x 540mm (per stuk)", "Siliconenkit Neutraal (1 tube)", "Koppelmoer M8x25 (100 stuks)", "Kozijnplug 5x50 (200 stuks)", "Luchtbev. hoek M8 (100 stuks)",
@@ -266,8 +287,9 @@ export class OrderItemsComponent {
             "Slangenklem 60_215", "Slangenklem 60_270", "Slangenklem 60_325", "Slangklemband", "Slangklembandsluiting", "Slotbout M8x25", "Slotbout M8x30",
             "Snelanker M6x35", "Snelhanger 15-150", "Tapbout M8x25", "TDC Clip", "Tochtband", "Tuimelplug M8", "Zeskantmoer M8"]
         },
-        { type: 'text', title: 'Aantal', name: "Number", width: 120 },
-        { type: 'numeric', title: 'Length', name: "Length", width: 80, mask: '$ #,##.00', decimal: '.' },
+        { type: 'text', title: 'Aantal', name: "number", width: 120 },
+        { type: 'numeric', title: 'Length', name: "length", width: 80, mask: '#,##.00', decimal: '.' },
+        { type: 'hidden', name: "id"},
       ],
       onselection: function (html, colNumber, rowNumber) {
         // console.log(this.currentRowNumber)
@@ -278,7 +300,12 @@ export class OrderItemsComponent {
     this.totaalbladSheet = jexcel(this.sheettotaalblad.nativeElement, {
       data: this.dataTotaalblad,
       minDimensions: [25, 10],
-      // freezeColumns: 2,
+      allowInsertColumn: false,
+      csvFileName: 'BIMair-order-items-round',
+      csvHeaders: true,
+      csvDelimiter: ',',
+      includeHeadersOnDownload: true,
+      parseFormulas: true,
       tableOverflow: true,
       tableWidth: "1200px",
       style: {
@@ -309,31 +336,32 @@ export class OrderItemsComponent {
         Y1: 'text-align:left;',
       },
       columns: [
-        { type: 'text', title: 'Pos', name: "Position", width: 100 },
-        { type: 'text', title: 'Code', name: "Code", width: 100 },
-        { type: 'text', title: 'Aantal', name: "Number", width: 100 },
-        { type: 'text', title: 'A', name: "A", width: 100 },
-        { type: 'text', title: 'B', name: "B", width: 100 },
-        { type: 'text', title: 'C', name: "C", width: 100 },
-        { type: 'text', title: 'D', name: "D", width: 100 },
-        { type: 'text', title: 'E', name: "E", width: 100 },
-        { type: 'text', title: 'F', name: "F", width: 100 },
-        { type: 'text', title: 'G1', name: "G1", width: 80 },
-        { type: 'text', title: 'G2', name: "G2", width: 80 },
-        { type: 'text', title: 'H1', name: "H1", width: 80 },
-        { type: 'text', title: 'H2', name: "H2", width: 80 },
-        { type: 'text', title: 'I1', name: "I1", width: 80 },
-        { type: 'text', title: 'I2', name: "I2", width: 110 },
-        { type: 'text', title: 'K1', name: "K1", width: 100 },
-        { type: 'text', title: 'K2', name: "K2", width: 100 },
-        { type: 'numeric', title: 'L1', name: "L1", width: 60, mask: '$ #,##.00', decimal: '.' },
-        { type: 'numeric', title: 'L2', name: "L2", width: 60, mask: '$ #,##.00', decimal: '.' },
-        { type: 'numeric', title: 'L3', name: "L3", width: 60, mask: '$ #,##.00', decimal: '.' },
-        { type: 'text', title: 'L4', name: "L4", width: 60 },
-        { type: 'text', title: 'Connection 1', name: "Connection1", width: 60 },
-        { type: 'text', title: 'Connection 2', name: "Connection2", width: 60 },
-        { type: 'text', title: 'Connection 3', name: "Connection3", width: 60 },
-        { type: 'text', title: 'Remarks', name: "Note", width: 100 },
+        { type: 'text', title: 'Pos', name: "position", width: 100 },
+        { type: 'text', title: 'Code', name: "code", width: 100 },
+        { type: 'text', title: 'Aantal', name: "number", width: 100 },
+        { type: 'text', title: 'A', name: "a", width: 100 },
+        { type: 'text', title: 'B', name: "b", width: 100 },
+        { type: 'text', title: 'C', name: "c", width: 100 },
+        { type: 'text', title: 'D', name: "d", width: 100 },
+        { type: 'text', title: 'E', name: "e", width: 100 },
+        { type: 'text', title: 'F', name: "f", width: 100 },
+        { type: 'text', title: 'G1', name: "g1", width: 80 },
+        { type: 'text', title: 'G2', name: "g2", width: 80 },
+        { type: 'text', title: 'H1', name: "h1", width: 80 },
+        { type: 'text', title: 'H2', name: "h2", width: 80 },
+        { type: 'text', title: 'I1', name: "i1", width: 80 },
+        { type: 'text', title: 'I2', name: "i2", width: 110 },
+        { type: 'text', title: 'K1', name: "k1", width: 100 },
+        { type: 'text', title: 'K2', name: "k2", width: 100 },
+        { type: 'numeric', title: 'L1', name: "l1", width: 60, mask: '$ #,##.00', decimal: '.' },
+        { type: 'numeric', title: 'L2', name: "l2", width: 60, mask: '$ #,##.00', decimal: '.' },
+        { type: 'numeric', title: 'L3', name: "l3", width: 60, mask: '$ #,##.00', decimal: '.' },
+        { type: 'text', title: 'L4', name: "l4", width: 60 },
+        { type: 'text', title: 'Connection 1', name: "connection1", width: 60 },
+        { type: 'text', title: 'Connection 2', name: "connection2", width: 60 },
+        { type: 'text', title: 'Connection 3', name: "connection3", width: 60 },
+        { type: 'text', title: 'Remarks', name: "note", width: 100 },
+        { type: 'hidden', name: "id"},
       ],
       onselection: function (html, colNumber, rowNumber) {
         // console.log(this.currentRowNumber)
@@ -606,32 +634,47 @@ export class OrderItemsComponent {
   }
 
   save() {
+    let prjId = this.projectId;
     var rectangularData = this.rectangularSheet.getJson();
+
     rectangularData.forEach(function (element) {
       element.ProductType = "Rectangular";
+      element.ProjectId = prjId;
     });
 
     var roundData = this.roundSheet.getJson();
     roundData.forEach(function (element) {
       element.ProductType = "Round";
+      element.ProjectId = prjId;
     });
 
     var montagerailData = this.montagerailSheet.getJson();
     montagerailData.forEach(function (element) {
       element.ProductType = "Montagerail";
+      element.ProjectId = prjId;
     });
 
     var totaalbladData = this.totaalbladSheet.getJson();
     totaalbladData.forEach(function (element) {
       element.ProductType = "Totaalblad";
+      element.ProjectId = prjId;
     });
 
-    var jsonData = [...rectangularData, ...roundData, montagerailData, totaalbladData];
+    rectangularData = rectangularData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
+    roundData = roundData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
+    montagerailData = montagerailData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
+    totaalbladData = totaalbladData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
 
-    jsonData = jsonData.filter(x => x.Code?.trim() != '' && x.Code != null && x.Code != undefined);
-    console.log(jsonData)
+    // var jsonData = [...rectangularData, ...roundData, ...montagerailData, ...totaalbladData];
+    // jsonData = jsonData.filter(x => x.Code?.trim() != '' && x.Code != null && x.Code != undefined);
 
-    this.projectService.saveOrderItems(jsonData)
+    this.projectService.saveOrderItems(rectangularData)
+    .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
+    this.projectService.saveOrderItems(roundData)
+    .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
+    this.projectService.saveOrderItems(montagerailData)
+    .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
+    this.projectService.saveOrderItems(totaalbladData)
       .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
 
   }

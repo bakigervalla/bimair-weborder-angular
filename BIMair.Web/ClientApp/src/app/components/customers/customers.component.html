@@ -1,10 +1,38 @@
-<div class="container">
-  <header class="pageHeader">
-    <h3><i class="fa fa-handshake-o fa-lg page-caption" aria-hidden="true"></i> {{'pageHeader.Customers' | translate}}</h3>
-  </header>
-
-  <div [@fadeInOut]>
-    <!---- Sample Page Content ---->
-    <app-todo-demo verticalScrollbar="true"></app-todo-demo>
+<div class="main-container">
+  <div class="content-container">
+    <div class="content-area">
+      <h2>{{ 'projects.Customers' | translate }}</h2>
+      <div class="row control-box">
+        <div class="col-xl-8">
+          <div class="form-group search-box">
+            <app-search-box (searchChange)="onSearchChanged($event)"
+              placeholder="{{'projects.SearchCustomers' | translate}}"></app-search-box>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12">
+          <ngx-datatable class="material colored-header sm table-hover" [loadingIndicator]="loadingIndicator"
+            [rowHeight]="35" [headerHeight]="35" [footerHeight]="35" [columnMode]="'force'" [footerHeight]="50"
+            [rows]='rows' [count]="totalCount" [limit]="dataParams.page_size">
+            <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+            <ngx-datatable-column name="Email" prop="email"></ngx-datatable-column>
+            <ngx-datatable-column name="Phone" prop="phoneNumber" [cellClass]="'text-right'" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Address" prop="address" [cellClass]="'text-right'" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="City" prop="city"></ngx-datatable-column>
+            <ngx-datatable-column name="Country" prop="country"></ngx-datatable-column>
+            <ngx-datatable-column name="User" prop="user"></ngx-datatable-column>
+            <ngx-datatable-column>
+              <ng-template let-column="createdDate" ngx-datatable-header-template>
+                Created
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.createdDate}}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

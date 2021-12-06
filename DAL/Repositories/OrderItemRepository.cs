@@ -24,7 +24,7 @@ namespace DAL.Repositories
         public IEnumerable<OrderItem> GetOrderItemsByProject(int projectId)
         {
             return _appContext.OrderItems.Where(x => x.Project.Id == projectId)
-            .Include(c => c.Project).ThenInclude(c => c.Customer)
+            //.Include(c => c.Project).ThenInclude(c => c.Customer)
             .OrderByDescending(c => c.DateCreated)
             .ToList();
         }
@@ -32,18 +32,18 @@ namespace DAL.Repositories
         public IEnumerable<OrderItem> GetOrderItemsByUser(string userId)
         {
             return _appContext.OrderItems.Where(x => x.UserId == userId)
-                    .Include(c => c.Project).ThenInclude(c => c.Customer)
+                    //.Include(c => c.Project).ThenInclude(c => c.Customer)
                     .OrderByDescending(c => c.DateCreated)
                     .ToList();
         }
 
-        public IEnumerable<OrderItem> GetOrderItemsByCustomer(int customerId)
-        {
-            return _appContext.OrderItems.Where(x => x.Project.CustomerId == customerId)
-                       .Include(c => c.Project).ThenInclude(c => c.Customer)
-                       .OrderByDescending(c => c.DateCreated)
-                       .ToList();
-        }
+        //public IEnumerable<OrderItem> GetOrderItemsByCustomer(int customerId)
+        //{
+        //    return _appContext.OrderItems.Where(x => x.Project.CustomerId == customerId)
+        //               .Include(c => c.Project).ThenInclude(c => c.Customer)
+        //               .OrderByDescending(c => c.DateCreated)
+        //               .ToList();
+        //}
 
     }
 }
