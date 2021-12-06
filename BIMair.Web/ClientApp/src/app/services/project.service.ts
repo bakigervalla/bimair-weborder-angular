@@ -46,12 +46,12 @@ export class ProjectService {
     return this.projectEndpoint.saveOrderEndpoint<Project>(order);
   }
 
-  getOrderItemsByProjectId(projectId?: string) {
+  getOrderItemsByProjectId(projectId?: number) {
     return this.projectEndpoint.getOrderItemsByProjectId<any>(projectId);
   }
 
   saveOrderItems(orderItems: any) {
-    return this.projectEndpoint.saveOrderItemsEndpoint<string>(orderItems);
+    return this.projectEndpoint.saveOrderItemsEndpoint<any>(orderItems);
   }
 
 }

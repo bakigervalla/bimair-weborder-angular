@@ -163,7 +163,7 @@ namespace BIMair.Controllers
             }
             else
             {
-                Expression<Func<OrderItem, bool>> expr = p => p.UserId == userId && p.Project.Id == id;
+                Expression<Func<OrderItem, bool>> expr = p => p.UserId == userId && p.ProjectId == id;
                 items = _unitOfWork.OrderItems.Find(expr);
             }
 
@@ -176,15 +176,19 @@ namespace BIMair.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpPost("saveorder")]
-        [ProducesResponseType(201, Type = typeof(List<OrderItemViewModel>))]
+        //[ProducesResponseType(201, Type = typeof(List<OrderItemViewModel>))]
+        //[ProducesResponseType(201, Type = typeof(OrderRequest))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
-        public IActionResult SaveOrderItems([FromBody] List<OrderItemViewModel> orderItems)
+        public IActionResult SaveOrderItems([FromBody] List<OrderItemViewModel> orderItems) // IList<RectangularItemViewModel> rectangularItems)
+            //IList<RoundItemViewModel> roundItems,
+            //IList<MontagerailItemViewModel> montagerailItems, 
+            //IList<TotaalbladItemViewModel> totaalbladItems
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            if (orderItems.Count == 0)
+            if (orderItems == null || orderItems.Count() == 0)
                 return BadRequest();
 
             string userId = this.User.GetUserId();

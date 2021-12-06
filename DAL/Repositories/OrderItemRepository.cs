@@ -23,7 +23,7 @@ namespace DAL.Repositories
 
         public IEnumerable<OrderItem> GetOrderItemsByProject(int projectId)
         {
-            return _appContext.OrderItems.Where(x => x.Project.Id == projectId)
+            return _appContext.OrderItems.Where(x => x.ProjectId == projectId)
             //.Include(c => c.Project).ThenInclude(c => c.Customer)
             .OrderByDescending(c => c.DateCreated)
             .ToList();

@@ -11,6 +11,7 @@ import { catchError } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { EndpointBase } from './endpoint-base.service';
 import { ConfigurationService } from './configuration.service';
+import { JSDocTagName } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class ProjectEndpoint extends EndpointBase {
@@ -29,7 +30,7 @@ export class ProjectEndpoint extends EndpointBase {
     super(http, authService);
   }
 
-  getProjectsEndpoint<T>(page?:number, pageSize?:number): Observable<T> {
+  getProjectsEndpoint<T>(page?: number, pageSize?: number): Observable<T> {
     const endpointUrl = `${this.projectsUrl}/${page}/${pageSize}`;
     return this.http.get<T>(this.projectsUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
@@ -97,20 +98,32 @@ export class ProjectEndpoint extends EndpointBase {
       }));
   }
 
-  getOrderItemsByProjectId<T>(projectId?: string): Observable<T> {
+  getOrderItemsByProjectId<T>(projectId?: number): Observable<T> {
     const endpointUrl = `${this.orderItemsByProjectUrl}/${projectId}`;
 
     return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.getProjectsByUserEndpoint(projectId));
+        return this.handleError(error, () => this.getOrderItemsByProjectId(projectId));
       }));
   }
 
   saveOrderItemsEndpoint<T>(orderItems: any): Observable<T> {
-    return this.http.post<T>(this.saveOrderItemsUrl, orderItems, this.requestHeaders).pipe<T>(
+    var items = this.returnNonEmpty(orderItems);
+    return this.http.post<T>(this.saveOrderItemsUrl, items, this.requestHeaders).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.saveOrderEndpoint(orderItems));
+        return this.handleError(error, () => this.saveOrderItemsEndpoint(items));
       }));
+  }
+
+  returnNonEmpty(array: []) {
+    return array.map((obj: any) => {
+      for (var propName in obj) {
+        if (obj[propName] === null || obj[propName] === undefined || obj[propName] == "") {
+          delete obj[propName];
+        }
+      }
+      return obj
+    })
   }
 
 }

@@ -32,7 +32,7 @@ export class OrderItemsComponent {
   @ViewChild("sheetround") sheetround: any;
   @ViewChild("sheetmontagerail") sheetmontagerail: any;
   @ViewChild("sheettotaalblad") sheettotaalblad: any;
-  projectId;
+  projectId: number;
   data: [];
   dataRound = [];
   dataMontagerail = [];
@@ -120,9 +120,9 @@ export class OrderItemsComponent {
         P1: 'text-align:left;',
         Q1: 'text-align: left;',
         R1: 'text-align: left;',
-        S1: 'text-align:right;',
-        T1: 'text-align: right;',
-        U1: 'text-align:right;',
+        S1: 'text-align:center;',
+        T1: 'text-align: center;',
+        U1: 'text-align:center;',
         V1: 'text-align: left;',
         W1: 'text-align: left;',
         X1: 'text-align:left;',
@@ -147,15 +147,15 @@ export class OrderItemsComponent {
         { type: 'text', title: 'I2', name: "i2", width: 110 },
         { type: 'text', title: 'K1', name: "k1", width: 100 },
         { type: 'text', title: 'K2', name: "k2", width: 100 },
-        { type: 'numeric', title: 'L1', name: "l1", width: 60, mask: '#,##.00', decimal: '.' },
-        { type: 'numeric', title: 'L2', name: "l2", width: 60, mask: '#,##.00', decimal: '.' },
-        { type: 'numeric', title: 'L3', name: "l3", width: 60, mask: '#,##.00', decimal: '.' },
+        { type: 'numeric', title: 'L1', name: "l1", width: 60 },
+        { type: 'numeric', title: 'L2', name: "l2", width: 60 },
+        { type: 'numeric', title: 'L3', name: "l3", width: 60 },
         { type: 'text', title: 'L4', name: "l4", width: 60 },
-        { type: 'dropdown', title: 'Connection 1', name: "connection1", width: 60, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
-        { type: 'dropdown', title: 'Connection 2', name: "connection2", width: 60, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
-        { type: 'dropdown', title: 'Connection 3', name: "connection3", width: 60, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
+        { type: 'dropdown', title: 'Connection 1', name: "connection1", width: 70, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
+        { type: 'dropdown', title: 'Connection 2', name: "connection2", width: 70, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
+        { type: 'dropdown', title: 'Connection 3', name: "connection3", width: 70, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
         { type: 'text', title: 'Opmerkingen', name: "note", width: 100 },
-        { type: 'hidden', name: "id"},
+        { type: 'hidden', name: "id" },
       ],
       // onselection: function (html, colNumber, rowNumber) {
       //   // console.log(this.currentRowNumber)
@@ -244,16 +244,16 @@ export class OrderItemsComponent {
       tableOverflow: true,
       style: {
         A1: 'text-align:left;',
-        B1: 'text-align: left;',
-        C1: 'text-align:right;',
-        D1: 'text-align: right;'
+        B1: 'text-align: center;',
+        C1: 'text-align:center;',
+        D1: 'text-align: center;'
       },
       columns: [
         { type: 'dropdown', title: 'Code', name: "code", width: 120, source: ["Spirobuis", "lengte 3m.", "B45", "B90", "Spirobocht 45gr", "Spirobocht 90gr", "Verbinding buis", "Verbinding hulpstuk", "Verloop sym", "Verloop A-sym", "Zadel 90gr", "Zadel 45gr", "Deksel t.b.v. buis", "Platte tuit 90gr", "Platte tuit 45gr", "Regelklep", "T-stuk"] },
-        { type: 'text', title: 'Aantal', name: "number", width: 120 },
+        { type: 'numeric', title: 'Aantal', name: "number", width: 120 },
         { type: 'dropdown', title: 'Diameter 1', name: "diameter1", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
         { type: 'dropdown', title: 'Diameter 2', name: "diameter2", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
-        { type: 'hidden', name: "id"},
+        { type: 'hidden', name: "id" },
       ],
       onselection: function (html, colNumber, rowNumber) {
         // console.log(this.currentRowNumber)
@@ -273,11 +273,11 @@ export class OrderItemsComponent {
       tableOverflow: true,
       style: {
         A1: 'text-align:left;',
-        B1: 'text-align: left;',
-        D1: 'text-align: right;'
+        B1: 'text-align: center;',
+        D1: 'text-align: center;'
       },
       columns: [
-        { type: 'hidden', name: "id"},
+        { type: 'hidden', name: "id" },
         {
           type: 'dropdown', title: 'Code', name: "code", width: 120, source: ["Montagerail 30x15mm.", "Montagerail 30x20mm.", "Montagerail 30x43mm.", "Beugel met rubber (per stuk)",
             "Balkklem_M8 (200 stuks)", "Bevestigingsanker M8 (100 stuks)", "Boorschroef 42_13 (500 stuks)", "Boorschroef 42_19 (500 stuks)", "Boorschroef 63_19 (500 stuks)",
@@ -287,9 +287,9 @@ export class OrderItemsComponent {
             "Slangenklem 60_215", "Slangenklem 60_270", "Slangenklem 60_325", "Slangklemband", "Slangklembandsluiting", "Slotbout M8x25", "Slotbout M8x30",
             "Snelanker M6x35", "Snelhanger 15-150", "Tapbout M8x25", "TDC Clip", "Tochtband", "Tuimelplug M8", "Zeskantmoer M8"]
         },
-        { type: 'text', title: 'Aantal', name: "number", width: 120 },
-        { type: 'numeric', title: 'Length', name: "length", width: 80, mask: '#,##.00', decimal: '.' },
-        { type: 'hidden', name: "id"},
+        { type: 'numeric', title: 'Aantal', name: "number", width: 120 },
+        { type: 'numeric', title: 'Length', name: "length", width: 80 },
+        { type: 'hidden', name: "id" },
       ],
       onselection: function (html, colNumber, rowNumber) {
         // console.log(this.currentRowNumber)
@@ -309,9 +309,9 @@ export class OrderItemsComponent {
       tableOverflow: true,
       tableWidth: "1200px",
       style: {
-        A1: 'text-align:left;',
+        A1: 'text-align:center;',
         B1: 'text-align: left;',
-        C1: 'text-align:left;',
+        C1: 'text-align:center;',
         D1: 'text-align: left;',
         E1: 'text-align:left;',
         F1: 'text-align: left;',
@@ -326,9 +326,9 @@ export class OrderItemsComponent {
         O1: 'text-align:left;',
         P1: 'text-align: left;',
         Q1: 'text-align: left;',
-        R1: 'text-align:right;',
-        S1: 'text-align: right;',
-        T1: 'text-align:right;',
+        R1: 'text-align:center;',
+        S1: 'text-align: center;',
+        T1: 'text-align:center;',
         U1: 'text-align: left;',
         V1: 'text-align: left;',
         W1: 'text-align:left;',
@@ -336,9 +336,9 @@ export class OrderItemsComponent {
         Y1: 'text-align:left;',
       },
       columns: [
-        { type: 'text', title: 'Pos', name: "position", width: 100 },
+        { type: 'numeric', title: 'Pos', name: "position", width: 100 },
         { type: 'text', title: 'Code', name: "code", width: 100 },
-        { type: 'text', title: 'Aantal', name: "number", width: 100 },
+        { type: 'numeric', title: 'Aantal', name: "number", width: 100 },
         { type: 'text', title: 'A', name: "a", width: 100 },
         { type: 'text', title: 'B', name: "b", width: 100 },
         { type: 'text', title: 'C', name: "c", width: 100 },
@@ -353,15 +353,15 @@ export class OrderItemsComponent {
         { type: 'text', title: 'I2', name: "i2", width: 110 },
         { type: 'text', title: 'K1', name: "k1", width: 100 },
         { type: 'text', title: 'K2', name: "k2", width: 100 },
-        { type: 'numeric', title: 'L1', name: "l1", width: 60, mask: '$ #,##.00', decimal: '.' },
-        { type: 'numeric', title: 'L2', name: "l2", width: 60, mask: '$ #,##.00', decimal: '.' },
-        { type: 'numeric', title: 'L3', name: "l3", width: 60, mask: '$ #,##.00', decimal: '.' },
+        { type: 'numeric', title: 'L1', name: "l1", width: 60 },
+        { type: 'numeric', title: 'L2', name: "l2", width: 60 },
+        { type: 'numeric', title: 'L3', name: "l3", width: 60 },
         { type: 'text', title: 'L4', name: "l4", width: 60 },
-        { type: 'text', title: 'Connection 1', name: "connection1", width: 60 },
-        { type: 'text', title: 'Connection 2', name: "connection2", width: 60 },
-        { type: 'text', title: 'Connection 3', name: "connection3", width: 60 },
+        { type: 'text', title: 'Connection 1', name: "connection1", width: 70 },
+        { type: 'text', title: 'Connection 2', name: "connection2", width: 70 },
+        { type: 'text', title: 'Connection 3', name: "connection3", width: 70 },
         { type: 'text', title: 'Remarks', name: "note", width: 100 },
-        { type: 'hidden', name: "id"},
+        { type: 'hidden', name: "id" },
       ],
       onselection: function (html, colNumber, rowNumber) {
         // console.log(this.currentRowNumber)
@@ -665,16 +665,9 @@ export class OrderItemsComponent {
     montagerailData = montagerailData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
     totaalbladData = totaalbladData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
 
-    // var jsonData = [...rectangularData, ...roundData, ...montagerailData, ...totaalbladData];
-    // jsonData = jsonData.filter(x => x.Code?.trim() != '' && x.Code != null && x.Code != undefined);
+    let jsonData = [...rectangularData, ...roundData, ...montagerailData, ...totaalbladData];
 
-    this.projectService.saveOrderItems(rectangularData)
-    .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
-    this.projectService.saveOrderItems(roundData)
-    .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
-    this.projectService.saveOrderItems(montagerailData)
-    .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
-    this.projectService.saveOrderItems(totaalbladData)
+    this.projectService.saveOrderItems(jsonData)
       .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
 
   }
