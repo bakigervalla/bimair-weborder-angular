@@ -67,7 +67,6 @@ export class OrderItemsComponent {
 
           this.dataRound = data.filter(x => x.productType == 'Round');
           this.roundSheet.setData(this.dataRound);
-          console.log(this.dataRound)
 
           this.dataMontagerail = data.filter(x => x.productType == 'Montagerail');
           this.montagerailSheet.setData(this.dataMontagerail);
@@ -147,7 +146,7 @@ export class OrderItemsComponent {
         { type: 'text', title: 'I2', name: "i2", width: 110 },
         { type: 'text', title: 'K1', name: "k1", width: 100 },
         { type: 'text', title: 'K2', name: "k2", width: 100 },
-        { type: 'numeric', title: 'L1', name: "l1", width: 60 },
+        { type: 'numeric', title: 'L1', name: "l1", width: 100 },
         { type: 'numeric', title: 'L2', name: "l2", width: 60 },
         { type: 'numeric', title: 'L3', name: "l3", width: 60 },
         { type: 'text', title: 'L4', name: "l4", width: 60 },
@@ -179,20 +178,29 @@ export class OrderItemsComponent {
 
           self.setCellValuesByCode(instance, value, y);
 
-          let con1 = instance.jexcel.getValue(`R${y}`),
-            con2 = instance.jexcel.getValue(`S${y}`);
+          let con1 = instance.jexcel.getValue(`V${y+1}`),
+            con2 = instance.jexcel.getValue(`W${y+1}`),
+            con3 = instance.jexcel.getValue(`X${y+1}`);
 
-          self.setCellValuesByCodeAndConnection(instance, value, con1, con2, null, y);
+          self.setCellValuesByCodeAndConnection(instance, value, con1, con2, con3, y);
         }
         else if (x == 21) { // Connection 1
-          let code = instance.jexcel.getValue(`B${y}`),
-            con2 = instance.jexcel.getValue(`S${y}`);
-          self.setCellValuesByCodeAndConnection(instance, code, value, con2, null, y);
+          let code = instance.jexcel.getValue(`B${y+1}`),
+            con2 = instance.jexcel.getValue(`W${y+1}`),
+            con3 = instance.jexcel.getValue(`X${y+1}`);
+          self.setCellValuesByCodeAndConnection(instance, code, value, con2, con3, y);
         }
         else if (x == 22) { // Connection 2
-          let code = instance.jexcel.getValue(`B${y}`),
-            con1 = instance.jexcel.getValue(`R${y}`);
-          self.setCellValuesByCodeAndConnection(instance, code, con1, value, null, y);
+          let code = instance.jexcel.getValue(`B${y+1}`),
+            con1 = instance.jexcel.getValue(`V${y+1}`),
+            con3 = instance.jexcel.getValue(`X${y+1}`);
+          self.setCellValuesByCodeAndConnection(instance, code, con1, value, con3, y);
+        }
+        else if (x == 23) { // Connection 2
+          let code = instance.jexcel.getValue(`B${y+1}`),
+            con1 = instance.jexcel.getValue(`V${y+1}`),
+            con2 = instance.jexcel.getValue(`W${y+1}`);
+          self.setCellValuesByCodeAndConnection(instance, code, con1, con2, value, y);
         }
       },
       updateTable: function (instance, cell, col, row, source, value, id) {
@@ -202,31 +210,8 @@ export class OrderItemsComponent {
         // Number formating
         // if (col == 2) {
         //   let _pos = instance.jexcel.getValue(`A${row}`);
-        //   console.log(row)
-        //   console.log(col)
-        //   cell.innerHTML = _pos > 0 && _pos != '' ? 1 : '';
         //   // instance.jexcel.setValue(`C${row}`, 'xxx' + x);
-        // }
-
-        // // Odd row colours
-        // if (row % 2) {
-        //   cell.style.backgroundColor = '#edf3ff';
-        // }
-
-        // // Total row
-        // if (row == 9) {
-        //   if (col < 3) {
-        //     cell.innerHTML = '';
-        //   }
-
-        //   if (col == 2) {
-        //     cell.innerHTML = 'Total';
-        //     cell.style.fontWeight = 'bold';
-        //   }
-
-        //   cell.className = '';
-        //   cell.style.backgroundColor = '#f46e42';
-        //   cell.style.color = '#ffffff';
+        // cell.style.backgroundColor = '#edf3ff';
         // }
       }
     });
@@ -383,9 +368,6 @@ export class OrderItemsComponent {
   // }
 
   setCellValuesByCode = (instance, value, y) => {
-
-    console.log(value)
-    console.log(y)
 
     // Set E
     if (value == '')
@@ -551,9 +533,9 @@ export class OrderItemsComponent {
   setCellValuesByCodeAndConnection = (instance, code, con1, con2, con3, y) => {
 
     // Set R
-    if (code == '' || con1 == '' || con2 == '' || con3 == '')
+    if (code == '')
       instance.jexcel.setValue(`R${y + 1}`, '');
-    else if (code == "RH Verloop" && con1 == "TDC25" && con2 == "TDC25")
+    else if (code == "RH Recht kanaal" && con1 == "TDC25" && con2 == "TDC25")
       instance.jexcel.setValue(`R${y + 1}`, 1410);
     else if ((code == "R" && con1 == "W" && con2 != "W") || (code == "R" && con1 != "W" && con2 == "W"))
       instance.jexcel.setValue(`R${y + 1}`, 1456);
@@ -569,7 +551,7 @@ export class OrderItemsComponent {
       instance.jexcel.setValue(`R${y + 1}`, '');
 
     // SET S
-    if (code == '' || con1 == '' || con2 == '' || con3 == '')
+    if (code == '')
       instance.jexcel.setValue(`S${y + 1}`, '');
     else if (code == "RH Recht kanaal" && con1 == "TDC25" && con2 == "TDC25")
       instance.jexcel.setValue(`S${y + 1}`, 1160);
@@ -587,7 +569,7 @@ export class OrderItemsComponent {
       instance.jexcel.setValue(`S${y + 1}`, '');
 
     // SET T
-    if (code == '' || con1 == '' || con2 == '' || con3 == '')
+    if (code == '')
       instance.jexcel.setValue(`T${y + 1}`, '');
     else if (code == "RH Recht kanaal" && con1 == "TDC25" && con2 == "TDC25")
       instance.jexcel.setValue(`T${y + 1}`, 910);
@@ -666,6 +648,8 @@ export class OrderItemsComponent {
     totaalbladData = totaalbladData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
 
     let jsonData = [...rectangularData, ...roundData, ...montagerailData, ...totaalbladData];
+
+    console.log(jsonData);
 
     this.projectService.saveOrderItems(jsonData)
       .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));

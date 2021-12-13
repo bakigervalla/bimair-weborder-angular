@@ -42,18 +42,31 @@ namespace BIMair.Controllers
 
         // GET: api/values
         [HttpGet("list")]
+        [Authorize(Authorization.Policies.ManageCustomersPolicy)]
         public IActionResult Get()
         {
+            IOrderedEnumerable<Customer> customers;
+
             string userId = this.User.GetUserId();
 
             if (!this.User.IsUserInRole("administrator"))
                 return BadRequest();
 
-            var allCustomers = _unitOfWork.Customers.GetAllCustomersData().OrderByDescending(x=> x.Id);
-            return Ok(_mapper.Map<IEnumerable<CustomerViewModel>>(allCustomers));
+            if (this.User.IsUserInRole("administrator"))
+            {
+                customers = _unitOfWork.Customers.GetAllCustomersData().OrderByDescending(x => x.Id);
+            }
+            else
+            {
+                Expression<Func<Customer, bool>> expr = p => p.UserId == userId;
+                customers = _unitOfWork.Customers.Find(expr).OrderByDescending(x => x.Id);
+            }
+                        
+            return Ok(_mapper.Map<IEnumerable<CustomerViewModel>>(customers));
         }
 
         [HttpGet("byuser")]
+        [Authorize(Authorization.Policies.ManageCustomersPolicy)]
         public IActionResult GetCustomersByUser()
         {
             string userId = this.User.GetUserId();

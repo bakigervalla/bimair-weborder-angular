@@ -137,6 +137,9 @@ namespace BIMair
                 options.AddPolicy(Authorization.Policies.ManageAllRolesPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.ManageRoles));
 
                 options.AddPolicy(Authorization.Policies.AssignAllowedRolesPolicy, policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
+
+                options.AddPolicy(Authorization.Policies.ManageProjectsPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.ManageProjects));
+                options.AddPolicy(Authorization.Policies.ManageCustomersPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.ManageCustomers));
             });
 
 
@@ -192,6 +195,9 @@ namespace BIMair
             services.AddSingleton<IAuthorizationHandler, ManageUserAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, ViewRoleAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, AssignRolesAuthorizationHandler>();
+
+            services.AddSingleton<IAuthorizationHandler, ManageProjectAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, ManageCustomerAuthorizationHandler>();
 
             // DB Creation and Seeding
             services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();

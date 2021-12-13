@@ -107,6 +107,7 @@
 
   <ItemGroup>
     <None Remove="Helpers\Templates\ForgotEmail.template" />
+    <None Remove="Helpers\Templates\NewEditOrder.template" />
     <None Remove="Helpers\Templates\UserRegisteredAdmin.template" />
     <None Remove="Helpers\Templates\UserRegisteredSelf.template" />
   </ItemGroup>

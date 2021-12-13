@@ -26,6 +26,9 @@ namespace DAL.Core
         public static ApplicationPermission ManageRoles = new ApplicationPermission("Manage Roles", "roles.manage", RolesPermissionGroupName, "Permission to create, delete and modify roles");
         public static ApplicationPermission AssignRoles = new ApplicationPermission("Assign Roles", "roles.assign", RolesPermissionGroupName, "Permission to assign roles to users");
 
+        public const string ProjectsPermissionGroupName = "Project Permissions";
+        public static ApplicationPermission ManageProjects = new ApplicationPermission("Manage Projects", "projects.manage", ProjectsPermissionGroupName, "Permission to create, delete and modify projects");
+        public static ApplicationPermission ManageCustomers = new ApplicationPermission("Manage Customers", "customers.manage", ProjectsPermissionGroupName, "Permission to create, delete and modify customers");
 
         static ApplicationPermissions()
         {
@@ -36,7 +39,10 @@ namespace DAL.Core
 
                 ViewRoles,
                 ManageRoles,
-                AssignRoles
+                AssignRoles,
+
+                ManageProjects,
+                ManageCustomers
             };
 
             AllPermissions = allPermissions.AsReadOnly();
@@ -55,6 +61,12 @@ namespace DAL.Core
         public static string[] GetAllPermissionValues()
         {
             return AllPermissions.Select(p => p.Value).ToArray();
+        }
+
+
+        public static string[] GetDefaultPermissionValues()
+        {
+            return AllPermissions.Where(x=> x.GroupName == ProjectsPermissionGroupName).Select(p => p.Value).ToArray();
         }
 
         public static string[] GetAdministrativePermissionValues()

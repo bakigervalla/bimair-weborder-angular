@@ -163,9 +163,9 @@ namespace BIMair.ViewModels
         public string I2 { get; set; }
         public string K1 { get; set; }
         public string K2 { get; set; }
-        public string L1 { get; set; }
-        public string L2 { get; set; }
-        public string L3 { get; set; }
+        public int L1 { get; set; }
+        public int L2 { get; set; }
+        public int L3 { get; set; }
         public string L4 { get; set; }
         public string Connection1 { get; set; }
         public string Connection2 { get; set; }

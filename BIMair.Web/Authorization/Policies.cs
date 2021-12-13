@@ -30,6 +30,12 @@ namespace BIMair.Authorization
 
         /// <summary>Policy to allow assigning roles the user has access to (Requires new and current roles as parameter).</summary>
         public const string AssignAllowedRolesPolicy = "Assign Allowed Roles";
+
+        ///<summary>Policy to allow managing projects.</summary>
+        public const string ManageProjectsPolicy = "Manage Projects";
+
+        ///<summary>Policy to allow managing customers.</summary>
+        public const string ManageCustomersPolicy = "Manage Customers";
     }
 
 

@@ -18,6 +18,7 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Authorization;
 using IdentityServer4.AccessTokenValidation;
 using DAL.Core.Interfaces;
+using BIMair.Services;
 
 namespace BIMair.Controllers
 {
@@ -29,7 +30,7 @@ namespace BIMair.Controllers
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailService;
 
 
         public ProjectsController(
@@ -37,13 +38,13 @@ namespace BIMair.Controllers
             IMapper mapper,
             IUnitOfWork unitOfWork,
             ILogger<ProjectsController> logger,
-            IEmailSender emailSender)
+            IEmailService emailService)
         {
             _accountManager = accountManager;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _logger = logger;
-            _emailSender = emailSender;
+            _emailService = emailService;
         }
 
 
@@ -51,7 +52,7 @@ namespace BIMair.Controllers
         // GET: api/values
         //[HttpGet("{pageNumber:int}/{pageSize:int}")]
         [HttpGet]
-        // [Authorize(Authorization.Policies.ViewAllUsersPolicy)]
+        [Authorize(Authorization.Policies.ManageProjectsPolicy)]
         [ProducesResponseType(200, Type = typeof(List<ProjectViewModel>))]
         public async Task<IActionResult> Get()
         {
@@ -73,7 +74,7 @@ namespace BIMair.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Authorization.Policies.ViewAllUsersPolicy)]
+        [Authorize(Authorization.Policies.ManageProjectsPolicy)]
         [ProducesResponseType(200, Type = typeof(List<ProjectViewModel>))]
         public async Task<IActionResult> GetProjectById(int id)
         {
@@ -100,10 +101,10 @@ namespace BIMair.Controllers
 
 
         [HttpPost("save")]
+        [Authorize(Authorization.Policies.ManageProjectsPolicy)]
         [ProducesResponseType(201, Type = typeof(ProjectViewModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
-
         public IActionResult SaveProject([FromBody] ProjectViewModel model)
         {
             if (!ModelState.IsValid)
@@ -146,6 +147,7 @@ namespace BIMair.Controllers
         /// <param name="projectId"></param>
         /// <returns></returns>
         [HttpGet("projectitems/{id}")]
+        [Authorize(Authorization.Policies.ManageProjectsPolicy)]
         [ProducesResponseType(201, Type = typeof(IEnumerable<OrderItemViewModel>))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
@@ -176,14 +178,11 @@ namespace BIMair.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpPost("saveorder")]
-        //[ProducesResponseType(201, Type = typeof(List<OrderItemViewModel>))]
-        //[ProducesResponseType(201, Type = typeof(OrderRequest))]
+        [Authorize(Authorization.Policies.ManageProjectsPolicy)]
+        [ProducesResponseType(201, Type = typeof(List<OrderItemViewModel>))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
-        public IActionResult SaveOrderItems([FromBody] List<OrderItemViewModel> orderItems) // IList<RectangularItemViewModel> rectangularItems)
-            //IList<RoundItemViewModel> roundItems,
-            //IList<MontagerailItemViewModel> montagerailItems, 
-            //IList<TotaalbladItemViewModel> totaalbladItems
+        public async Task<IActionResult> SaveOrderItems([FromBody] List<OrderItemViewModel> orderItems)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -193,7 +192,6 @@ namespace BIMair.Controllers
 
             string userId = this.User.GetUserId();
             orderItems.ForEach(x => x.UserId = userId);
-
 
             var items = _mapper.Map<IList<OrderItem>>(orderItems);
 
@@ -205,10 +203,49 @@ namespace BIMair.Controllers
 
             _unitOfWork.SaveChanges();
 
+
+            // deleted items
+            IEnumerable<OrderItem> deletedItems = new List<OrderItem>();
+
+            // get deleted items
+            if (editedItems != null && editedItems.Count() > 0)
+            {
+                var projectId = editedItems.First().ProjectId;
+
+                Expression<Func<OrderItem, bool>> expr = p => p.UserId == userId && p.ProjectId == projectId;
+                var allUserAndProjectItems = _unitOfWork.OrderItems.Find(expr);
+
+                var editedIds = editedItems.Select(x => x.Id);
+                deletedItems = allUserAndProjectItems.Where(x => !editedIds.Contains(x.Id));
+
+                if (deletedItems != null && deletedItems.Count() > 0)
+                {
+                    _unitOfWork.OrderItems.RemoveRange(deletedItems);
+                    _unitOfWork.SaveChanges();
+                }
+            }
+
+            // Notify by email
+            int prjId = newItems != null && newItems.Count() > 0 ? newItems.First().ProjectId : editedItems.First().ProjectId;
+
+            Expression<Func<Project, bool>> prodicate = p => p.Id == prjId;
+            var project = _unitOfWork.Projects.GetSingleOrDefault(prodicate);
+
+            // send email to admin to notify for new user created
+            var adminEmailed = await _emailService.SendEmailAsync(null, "NewEditOrderAdminEmailTemplate",
+                new Dictionary<string, string>
+                    {
+                        { "projectName", project?.Name },
+                        { "description", project?.Description },
+                        { "deliveryDate", project?.DeliveryDate.ToShortDateString() },
+                        { "client", this.User.Identity.Name }
+                    });
+
             return Ok();
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Authorization.Policies.ManageProjectsPolicy)]
         public IActionResult Delete([FromRoute] int Id)
         {
             if (!IsMyProject(Id))
@@ -227,6 +264,7 @@ namespace BIMair.Controllers
         }
 
         [HttpGet("customer/{id}")]
+        [Authorize(Authorization.Policies.ManageProjectsPolicy)]
         [ProducesResponseType(200, Type = typeof(ProjectViewModel))]
         public IActionResult GetByCustomer(int customerId)
         {
@@ -240,6 +278,7 @@ namespace BIMair.Controllers
 
 
         [HttpGet("user/{id}")]
+        [Authorize(Authorization.Policies.ManageProjectsPolicy)]
         [ProducesResponseType(200, Type = typeof(ProjectViewModel))]
         public IActionResult GetByUser(string userId)
         {

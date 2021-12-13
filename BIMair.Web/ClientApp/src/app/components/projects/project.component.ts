@@ -84,8 +84,8 @@ export class ProjectComponent implements OnInit {
     this.projectService.getProject(id)
       .subscribe(data => {
         this.projectEdit = data;
-        var ddFormated = new Date(this.projectEdit.deliveryDate.toString());
-        this.projectEdit.deliveryDate = { year: ddFormated.getFullYear(), month: ddFormated.getMonth() +1, day: ddFormated.getDate() }; // July, 14 1789;
+        // var ddFormated = new Date(this.projectEdit.deliveryDate.toString());
+        // this.projectEdit.deliveryDate = { year: ddFormated.getFullYear(), month: ddFormated.getMonth() +1, day: ddFormated.getDate() }; // July, 14 1789;
       });
   }
 

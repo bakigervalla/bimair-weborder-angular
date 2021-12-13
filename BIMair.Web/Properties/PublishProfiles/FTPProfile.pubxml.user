@@ -8,17 +8,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAb/bq+QGrpEedlxlcY9iB/gAAAAACAAAAAAAQZgAAAAEAACAAAACKH+g37YmDTa1oWYjxe67IOvhMbEUO+ltUzeAHjJKq8gAAAAAOgAAAAAIAACAAAADFYj1ZF6Q/62vZ7nN0Bup7o5h77OHel0XGE/5wgkHHNSAAAABiK9mAcVzjwvD43nZE7w5qc7q8Togt3fDglNkoUElCMUAAAAAZV9AbUqn2IedCb5IKjGh4KAxH1WAS4CXyl4Q47yJOaNjuK5CEDMfDClTDmDyoum7DOLc6TaiC/t3E71NbEhGb</EncryptedPassword>
     <_PublishTargetUrl>ftp://198.37.116.38/www.bimair.somee.com/</_PublishTargetUrl>
-    <History>True|2021-12-06T00:46:00.8411341Z;False|2021-12-06T01:31:19.1910836+01:00;True|2021-12-02T23:41:10.3704315+01:00;True|2021-10-14T20:58:43.8188176+02:00;True|2021-10-14T20:39:34.6100605+02:00;True|2021-10-12T00:31:49.7370395+02:00;True|2021-10-11T22:50:38.9043473+02:00;</History>
+    <History>True|2021-12-13T20:20:10.0302954Z;True|2021-12-13T20:57:31.4282929+01:00;True|2021-12-07T20:36:46.0353548+01:00;True|2021-12-07T00:26:45.4466747+01:00;True|2021-12-06T01:46:00.8411341+01:00;False|2021-12-06T01:31:19.1910836+01:00;True|2021-12-02T23:41:10.3704315+01:00;True|2021-10-14T20:58:43.8188176+02:00;True|2021-10-14T20:39:34.6100605+02:00;True|2021-10-12T00:31:49.7370395+02:00;True|2021-10-11T22:50:38.9043473+02:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="appsettings.Development.json">
-      <publishTime>10/29/2021 01:38:16</publishTime>
+      <publishTime>12/07/2021 19:58:44</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>12/06/2021 01:28:29</publishTime>
+      <publishTime>12/13/2021 22:01:49</publishTime>
     </File>
     <File Include="appsettings.production.json">
-      <publishTime>12/06/2021 01:39:19</publishTime>
+      <publishTime>12/13/2021 22:07:06</publishTime>
     </File>
     <File Include="AutoMapper.dll">
       <publishTime>10/14/2021 20:48:48</publishTime>
@@ -27,31 +27,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/14/2021 20:48:48</publishTime>
     </File>
     <File Include="BIMair.Web.deps.json">
-      <publishTime>12/06/2021 01:35:21</publishTime>
+      <publishTime>12/13/2021 22:03:32</publishTime>
     </File>
     <File Include="BIMair.Web.dll">
-      <publishTime>12/06/2021 01:35:21</publishTime>
+      <publishTime>12/13/2021 22:03:32</publishTime>
     </File>
     <File Include="BIMair.Web.exe">
-      <publishTime>12/06/2021 01:34:52</publishTime>
+      <publishTime>12/13/2021 22:03:04</publishTime>
     </File>
     <File Include="BIMair.Web.pdb">
-      <publishTime>12/06/2021 01:34:52</publishTime>
+      <publishTime>12/13/2021 22:03:04</publishTime>
     </File>
     <File Include="BIMair.Web.runtimeconfig.json">
       <publishTime>12/02/2021 23:28:56</publishTime>
     </File>
     <File Include="BIMair.Web.Views.dll">
-      <publishTime>12/06/2021 01:35:20</publishTime>
+      <publishTime>12/13/2021 22:03:31</publishTime>
     </File>
     <File Include="BIMair.Web.Views.pdb">
-      <publishTime>12/06/2021 01:34:52</publishTime>
+      <publishTime>12/13/2021 22:03:05</publishTime>
     </File>
     <File Include="BouncyCastle.Crypto.dll">
       <publishTime>10/14/2021 20:49:26</publishTime>
     </File>
     <File Include="ClientApp/dist/3rdpartylicenses.txt">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/assets/images/bimair-logo-blue.png">
       <publishTime>09/29/2021 21:49:15</publishTime>
@@ -243,34 +243,37 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2021 00:21:21</publishTime>
     </File>
     <File Include="ClientApp/dist/data-table.40742b4faed98d0250a5.eot">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/data-table.53c319729491b7686d65.woff">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/data-table.7eda0c04830dac128c76.svg">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/data-table.93be7e0fc94594d266a2.ttf">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/fontawesome-webfont.20fd1704ea223900efa9.woff2">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/fontawesome-webfont.8b43027f47b20503057d.eot">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/fontawesome-webfont.f691f37e57f04c152e23.woff">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/index.html">
-      <publishTime>12/06/2021 01:39:18</publishTime>
+      <publishTime>12/13/2021 22:07:04</publishTime>
+    </File>
+    <File Include="ClientApp/dist/main-es2015.42e8e71234b3d9c578c6.js">
+      <publishTime>12/13/2021 22:07:04</publishTime>
     </File>
     <File Include="ClientApp/dist/main-es2015.44ede8d6b3e2178ff434.js">
       <publishTime>02/12/2021 23:33:27</publishTime>
@@ -278,14 +281,35 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="ClientApp/dist/main-es2015.6ab5131084bb2a3ee472.js">
       <publishTime>12/06/2021 01:39:17</publishTime>
     </File>
+    <File Include="ClientApp/dist/main-es2015.8bf0a31de378493be96a.js">
+      <publishTime>12/07/2021 00:19:08</publishTime>
+    </File>
+    <File Include="ClientApp/dist/main-es2015.a9c346e15401839c0fb9.js">
+      <publishTime>12/13/2021 20:49:19</publishTime>
+    </File>
+    <File Include="ClientApp/dist/main-es2015.ee8b773aa309bcba60d2.js">
+      <publishTime>12/07/2021 20:29:09</publishTime>
+    </File>
     <File Include="ClientApp/dist/main-es2015.f0d937e8a66fbbe1eff1.js">
       <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="ClientApp/dist/main-es5.42e8e71234b3d9c578c6.js">
+      <publishTime>12/13/2021 22:06:56</publishTime>
     </File>
     <File Include="ClientApp/dist/main-es5.44ede8d6b3e2178ff434.js">
       <publishTime>02/12/2021 23:33:18</publishTime>
     </File>
     <File Include="ClientApp/dist/main-es5.6ab5131084bb2a3ee472.js">
       <publishTime>12/06/2021 01:39:09</publishTime>
+    </File>
+    <File Include="ClientApp/dist/main-es5.8bf0a31de378493be96a.js">
+      <publishTime>12/07/2021 00:18:59</publishTime>
+    </File>
+    <File Include="ClientApp/dist/main-es5.a9c346e15401839c0fb9.js">
+      <publishTime>12/13/2021 20:49:06</publishTime>
+    </File>
+    <File Include="ClientApp/dist/main-es5.ee8b773aa309bcba60d2.js">
+      <publishTime>12/07/2021 20:29:00</publishTime>
     </File>
     <File Include="ClientApp/dist/main-es5.f0d937e8a66fbbe1eff1.js">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -318,22 +342,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/10/2021 22:43:03</publishTime>
     </File>
     <File Include="ClientApp/dist/scripts.5098fbbce9be37502594.js">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/styles.38ba696f9ba7dce76b38.css">
       <publishTime>11/10/2021 22:43:03</publishTime>
     </File>
     <File Include="ClientApp/dist/styles.39e522fc2479e10d3846.css">
-      <publishTime>12/06/2021 01:38:05</publishTime>
+      <publishTime>12/13/2021 22:05:57</publishTime>
     </File>
     <File Include="ClientApp/dist/styles.7b971bd92e13b22b062b.css">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="DAL.dll">
-      <publishTime>12/06/2021 01:35:20</publishTime>
+      <publishTime>12/13/2021 20:45:04</publishTime>
     </File>
     <File Include="DAL.pdb">
-      <publishTime>12/06/2021 01:28:54</publishTime>
+      <publishTime>12/13/2021 20:44:03</publishTime>
     </File>
     <File Include="FluentValidation.AspNetCore.dll">
       <publishTime>10/14/2021 20:48:48</publishTime>
@@ -346,6 +370,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Helpers/Templates/ForgotEmail.template">
       <publishTime>10/09/2021 15:04:30</publishTime>
+    </File>
+    <File Include="Helpers/Templates/NewEditOrder.template">
+      <publishTime>12/07/2021 19:57:26</publishTime>
     </File>
     <File Include="Helpers/Templates/PlainTextTestEmail.template">
       <publishTime>10/06/2021 22:02:42</publishTime>
@@ -549,7 +576,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/14/2021 20:49:35</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>12/06/2021 01:39:19</publishTime>
+      <publishTime>12/13/2021 22:07:05</publishTime>
     </File>
     <File Include="wwwroot/favicon.ico">
       <publishTime>10/10/2021 15:28:38</publishTime>

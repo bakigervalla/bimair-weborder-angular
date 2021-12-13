@@ -1,0 +1,16 @@
+﻿<p>Hello Admin,</p>
+<p>Just for your information, there is an activity at BIMair WebOrder portal. A new order is added/updated</p>
+<p>
+	<h3>Project details</h3>
+	<ul>
+		<li>Client: <b>[client]</b></li>
+		<li>Project Name: <b>[projectName]</b></li>
+		<li>Project Description: <b>[description]</b></li>
+		<li>Project Delivery Date: <b>[deliveryDate]</b></li>
+	</ul>
+</p>
+<p>
+	<br />
+</p>
+<p>Enjoy your day!</p>
+<p>--The BIMair team</p>

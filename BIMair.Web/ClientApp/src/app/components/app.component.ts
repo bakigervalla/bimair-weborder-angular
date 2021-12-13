@@ -338,16 +338,16 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.authService.currentUser ? this.authService.currentUser.fullName : '';
   }
 
-  get canViewProjects() {
-    return this.accountService.userHasPermission(Permission.viewUsersPermission); // eg. viewProductsPermission
+  get canManageProjects() {
+    return this.accountService.userHasPermission(Permission.manageProjectsPermission);
   }
 
-  get canViewCustomers() {
-    return this.accountService.userHasPermission(Permission.viewUsersPermission); // eg. viewCustomersPermission
+  get canManageCustomers() {
+    return this.accountService.userHasPermission(Permission.manageCustomersPermission);
   }
 
   get canViewProducts() {
-    return this.accountService.userHasPermission(Permission.viewUsersPermission); // eg. viewProductsPermission
+    return this.accountService.userHasPermission(Permission.viewUsersPermission);
   }
 
   get canViewOrders() {
