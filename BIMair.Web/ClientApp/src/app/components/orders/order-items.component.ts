@@ -5,6 +5,10 @@ import { ProjectService } from '../../services/project.service';
 import * as jexcel from "jexcel";
 import { setUncaughtExceptionCaptureCallback } from "process";
 import { JsonPipe } from "@angular/common";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Product } from "src/app/models/product.model";
+import ProductsJson from '../../assets/data/products.json';
 
 // import 'jexcel/dist/jexcel.css';
 //  require("jexcel/dist/jexcel.css")
@@ -23,6 +27,8 @@ export class OrderItemsComponent {
   isSaving = false;
   submitted = false;
   savedSuccessfully = false;
+  products: Product[] = ProductsJson;
+  product: any = {};
 
   // Lookups
   lookupBreedte = ["RH Recht kanaal", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"];
@@ -51,11 +57,11 @@ export class OrderItemsComponent {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
-
     this.projectId = this.route.snapshot.params['id'];
 
     if (this.projectId > 0)
@@ -167,6 +173,7 @@ export class OrderItemsComponent {
           instance.jexcel.setValue(`C${y + 1}`, value > 0 && value != '' ? 1 : '');
         }
         else if (x == 1) { // Code
+          self.product = self.products.filter(x => x.name == value)[0];
 
           // D
           if (value == '')
@@ -178,28 +185,28 @@ export class OrderItemsComponent {
 
           self.setCellValuesByCode(instance, value, y);
 
-          let con1 = instance.jexcel.getValue(`V${y+1}`),
-            con2 = instance.jexcel.getValue(`W${y+1}`),
-            con3 = instance.jexcel.getValue(`X${y+1}`);
+          let con1 = instance.jexcel.getValue(`V${y + 1}`),
+            con2 = instance.jexcel.getValue(`W${y + 1}`),
+            con3 = instance.jexcel.getValue(`X${y + 1}`);
 
           self.setCellValuesByCodeAndConnection(instance, value, con1, con2, con3, y);
         }
         else if (x == 21) { // Connection 1
-          let code = instance.jexcel.getValue(`B${y+1}`),
-            con2 = instance.jexcel.getValue(`W${y+1}`),
-            con3 = instance.jexcel.getValue(`X${y+1}`);
+          let code = instance.jexcel.getValue(`B${y + 1}`),
+            con2 = instance.jexcel.getValue(`W${y + 1}`),
+            con3 = instance.jexcel.getValue(`X${y + 1}`);
           self.setCellValuesByCodeAndConnection(instance, code, value, con2, con3, y);
         }
         else if (x == 22) { // Connection 2
-          let code = instance.jexcel.getValue(`B${y+1}`),
-            con1 = instance.jexcel.getValue(`V${y+1}`),
-            con3 = instance.jexcel.getValue(`X${y+1}`);
+          let code = instance.jexcel.getValue(`B${y + 1}`),
+            con1 = instance.jexcel.getValue(`V${y + 1}`),
+            con3 = instance.jexcel.getValue(`X${y + 1}`);
           self.setCellValuesByCodeAndConnection(instance, code, con1, value, con3, y);
         }
         else if (x == 23) { // Connection 2
-          let code = instance.jexcel.getValue(`B${y+1}`),
-            con1 = instance.jexcel.getValue(`V${y+1}`),
-            con2 = instance.jexcel.getValue(`W${y+1}`);
+          let code = instance.jexcel.getValue(`B${y + 1}`),
+            con1 = instance.jexcel.getValue(`V${y + 1}`),
+            con2 = instance.jexcel.getValue(`W${y + 1}`);
           self.setCellValuesByCodeAndConnection(instance, code, con1, con2, value, y);
         }
       },
@@ -213,6 +220,12 @@ export class OrderItemsComponent {
         //   // instance.jexcel.setValue(`C${row}`, 'xxx' + x);
         // cell.style.backgroundColor = '#edf3ff';
         // }
+      },
+      onselection(instance, x1, y1) {
+        if (x1 == 1) {
+          let val = instance.jexcel.getValueFromCoords(x1, y1);
+          self.product = self.products.filter(x => x.name == val)[0];
+        }
       }
     });
 
@@ -234,14 +247,22 @@ export class OrderItemsComponent {
         D1: 'text-align: center;'
       },
       columns: [
-        { type: 'dropdown', title: 'Code', name: "code", width: 120, source: ["Spirobuis", "lengte 3m.", "B45", "B90", "Spirobocht 45gr", "Spirobocht 90gr", "Verbinding buis", "Verbinding hulpstuk", "Verloop sym", "Verloop A-sym", "Zadel 90gr", "Zadel 45gr", "Deksel t.b.v. buis", "Platte tuit 90gr", "Platte tuit 45gr", "Regelklep", "T-stuk"] },
+        { type: 'dropdown', title: 'Code', name: "code", width: 120, source: ["Spirobuis lengte 3m.", "B45", "B90", "Spirobocht 45gr", "Spirobocht 90gr", "Verbinding buis", "Verbinding hulpstuk", "Verloop sym", "Verloop A-sym", "Zadel 90gr", "Zadel 45gr", "Deksel t.b.v. buis", "Platte tuit 90gr", "Platte tuit 45gr", "Regelklep", "T-stuk"] },
         { type: 'numeric', title: 'Aantal', name: "number", width: 120 },
         { type: 'dropdown', title: 'Diameter 1', name: "diameter1", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
         { type: 'dropdown', title: 'Diameter 2', name: "diameter2", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
         { type: 'hidden', name: "id" },
       ],
-      onselection: function (html, colNumber, rowNumber) {
-        // console.log(this.currentRowNumber)
+      oneditionend(instance, cell, x, y, value, save) {
+        if (x == 0) { // Code
+          self.product = self.products.filter(x => x.name == value)[0];
+        }
+      },
+      onselection(instance, x1, y1) {
+        if (x1 == 0) {
+          let val = instance.jexcel.getValueFromCoords(x1, y1);
+          self.product = self.products.filter(x => x.name == val)[0];
+        }
       }
     });
 
@@ -276,8 +297,16 @@ export class OrderItemsComponent {
         { type: 'numeric', title: 'Length', name: "length", width: 80 },
         { type: 'hidden', name: "id" },
       ],
-      onselection: function (html, colNumber, rowNumber) {
-        // console.log(this.currentRowNumber)
+      oneditionend(instance, cell, x, y, value, save) {
+        if (x == 0) { // Code
+          self.product = self.products.filter(x => x.name == value)[0];
+        }
+      },
+      onselection(instance, x1, y1) {
+        if (x1 == 0) {
+          let val = instance.jexcel.getValueFromCoords(x1, y1);
+          self.product = self.products.filter(x => x.name == val)[0];
+        }
       }
     });
 
@@ -321,35 +350,43 @@ export class OrderItemsComponent {
         Y1: 'text-align:left;',
       },
       columns: [
-        { type: 'numeric', title: 'Pos', name: "position", width: 100 },
-        { type: 'text', title: 'Code', name: "code", width: 100 },
-        { type: 'numeric', title: 'Aantal', name: "number", width: 100 },
-        { type: 'text', title: 'A', name: "a", width: 100 },
-        { type: 'text', title: 'B', name: "b", width: 100 },
-        { type: 'text', title: 'C', name: "c", width: 100 },
-        { type: 'text', title: 'D', name: "d", width: 100 },
-        { type: 'text', title: 'E', name: "e", width: 100 },
-        { type: 'text', title: 'F', name: "f", width: 100 },
-        { type: 'text', title: 'G1', name: "g1", width: 80 },
-        { type: 'text', title: 'G2', name: "g2", width: 80 },
-        { type: 'text', title: 'H1', name: "h1", width: 80 },
-        { type: 'text', title: 'H2', name: "h2", width: 80 },
-        { type: 'text', title: 'I1', name: "i1", width: 80 },
-        { type: 'text', title: 'I2', name: "i2", width: 110 },
-        { type: 'text', title: 'K1', name: "k1", width: 100 },
-        { type: 'text', title: 'K2', name: "k2", width: 100 },
-        { type: 'numeric', title: 'L1', name: "l1", width: 60 },
-        { type: 'numeric', title: 'L2', name: "l2", width: 60 },
-        { type: 'numeric', title: 'L3', name: "l3", width: 60 },
-        { type: 'text', title: 'L4', name: "l4", width: 60 },
-        { type: 'text', title: 'Connection 1', name: "connection1", width: 70 },
-        { type: 'text', title: 'Connection 2', name: "connection2", width: 70 },
-        { type: 'text', title: 'Connection 3', name: "connection3", width: 70 },
-        { type: 'text', title: 'Remarks', name: "note", width: 100 },
+        { type: 'numeric', title: 'Pos', name: "position", width: 100, readOnly:true },
+        { type: 'text', title: 'Code', name: "code", width: 100, readOnly:true },
+        { type: 'numeric', title: 'Aantal', name: "number", width: 100, readOnly:true },
+        { type: 'text', title: 'A', name: "a", width: 100, readOnly:true },
+        { type: 'text', title: 'B', name: "b", width: 100, readOnly:true },
+        { type: 'text', title: 'C', name: "c", width: 100, readOnly:true },
+        { type: 'text', title: 'D', name: "d", width: 100, readOnly:true },
+        { type: 'text', title: 'E', name: "e", width: 100, readOnly:true },
+        { type: 'text', title: 'F', name: "f", width: 100, readOnly:true },
+        { type: 'text', title: 'G1', name: "g1", width: 80, readOnly:true },
+        { type: 'text', title: 'G2', name: "g2", width: 80, readOnly:true},
+        { type: 'text', title: 'H1', name: "h1", width: 80, readOnly:true },
+        { type: 'text', title: 'H2', name: "h2", width: 80, readOnly:true },
+        { type: 'text', title: 'I1', name: "i1", width: 80, readOnly:true },
+        { type: 'text', title: 'I2', name: "i2", width: 110, readOnly:true },
+        { type: 'text', title: 'K1', name: "k1", width: 100, readOnly:true },
+        { type: 'text', title: 'K2', name: "k2", width: 100, readOnly:true },
+        { type: 'numeric', title: 'L1', name: "l1", width: 60, readOnly:true },
+        { type: 'numeric', title: 'L2', name: "l2", width: 60, readOnly:true },
+        { type: 'numeric', title: 'L3', name: "l3", width: 60, readOnly:true },
+        { type: 'text', title: 'L4', name: "l4", width: 60, readOnly:true },
+        { type: 'text', title: 'Connection 1', name: "connection1", width: 70, readOnly:true },
+        { type: 'text', title: 'Connection 2', name: "connection2", width: 70, readOnly:true },
+        { type: 'text', title: 'Connection 3', name: "connection3", width: 70, readOnly:true },
+        { type: 'text', title: 'Remarks', name: "note", width: 100, readOnly:true },
         { type: 'hidden', name: "id" },
       ],
-      onselection: function (html, colNumber, rowNumber) {
-        // console.log(this.currentRowNumber)
+      oneditionend(instance, cell, x, y, value, save) {
+        if (x == 1) { // Code
+          self.product = self.products.filter(x => x.name == value)[0];
+        }
+      },
+      onselection(instance, x1, y1) {
+        if (x1 == 1) {
+          let val = instance.jexcel.getValueFromCoords(x1, y1);
+          self.product = self.products.filter(x => x.name == val)[0];
+        }
       }
     });
   }

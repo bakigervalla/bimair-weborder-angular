@@ -77,6 +77,7 @@ import { NgbModal, NgbModule, NgbDatepicker, NgbDateParserFormatter } from '@ng-
 import { NgbDateFormat } from "./pipes/ngb-date-format.pipe";
 import { RectangularComponent } from './components/rectangular/rectangular.component';
 import { OrderItemsComponent } from './components/orders/order-items.component';
+import { ProductImageComponent } from './components/orders/product-image.component';
 
 @NgModule({
   imports: [
@@ -134,6 +135,7 @@ import { OrderItemsComponent } from './components/orders/order-items.component';
     DatePipe,
     RectangularComponent,
     OrderItemsComponent,
+    ProductImageComponent,
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
