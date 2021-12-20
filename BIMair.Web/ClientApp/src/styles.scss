@@ -430,6 +430,7 @@ i.page-caption {
     font-size: 11px;
     position: absolute;
     z-index: 100;
+    bottom: unset !important;
 }
 
 .jdropdown-item{

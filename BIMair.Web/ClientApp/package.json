@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "homepage": "https://www.bimair.com/BIMair",
-  "repository": "https://github.com/emonney/BIMair.git",
+  "repository": "https://github.com/bimair/BIMair.git",
   "scripts": {
     "ng": "ng",
     "start": "run-p theme \"serve -- {@}\" --",

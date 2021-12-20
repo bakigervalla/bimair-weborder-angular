@@ -1,66 +1,130 @@
 [
   {
     "name": "RH Recht kanaal",
-    "image": "assets/images/products/RH Recht.png"
+    "image": "../../../../assets/images/products/RH Recht.PNG"
   },
   {
     "name": "RH T-Stuk",
-    "image": "assets/images/products/RH T-Stuk.png"
+    "image": "../../../../assets/images/products/RH T-Stuk.png"
   },
   {
     "name": "RH Bocht",
-    "image": "assets/images/products/RH Bocht.png"
+    "image": "../../../../assets/images/products/RH Bocht.png"
   },
   {
     "name": "RH Verloop",
-    "image": "assets/images/products/RH Verloop.png"
+    "image": "../../../../assets/images/products/RH Verloop.png"
   },
   {
     "name": "RH Sprong",
-    "image": "assets/images/products/RH Sprong.png"
+    "image": "../../../../assets/images/products/RH Sprong.png"
   },
   {
     "name": "RH Aftakking",
-    "image": "assets/images/products/RH Aftakking.png"
+    "image": "../../../../assets/images/products/RH Aftakking.png"
   },
   {
     "name": "RH Vierkant-Rond",
-    "image": "assets/images/products/RH Vierkant-Rond.png"
+    "image": "../../../../assets/images/products/RH Vierkant-Rond.png"
   },
   {
     "name": "RH-S Bocht 2x",
-    "image": "assets/images/products/RH-S Bocht 2x.png"
+    "image": "../../../../assets/images/products/RH-S Bocht 2x.png"
   },
   {
     "name": "RH-S Bocht en Verloop",
-    "image": "assets/images/products/RH-S Bocht en Verloop.png"
+    "image": "../../../../assets/images/products/RH-S Bocht en Verloop.png"
   },
   {
     "name": "RH-S Bocht + Vierkant-rond",
-    "image": "assets/images/products/RH-S Bocht + Vierkant-rond.png"
+    "image": "../../../../assets/images/products/RH-S Bocht + Vierkant-rond.png"
   },
   {
     "name": "RH Deksel",
-    "image": "assets/images/products/RH Deksel.png"
+    "image": "../../../../assets/images/products/RH Deksel.png"
   },
   {
     "name": "RH Afgesch. Kanaal",
-    "image": "assets/images/products/RH Afgesch. Kanaal.png"
+    "image": "../../../../assets/images/products/RH Afgesch. Kanaal.png"
   },
   {
     "name": "RH Plenum",
-    "image": "assets/images/products/RH Plenum.png"
+    "image": "../../../../assets/images/products/RH Plenum.png"
   },
   {
     "name": "RH VP Raam",
-    "image": "assets/images/products/none.png"
+    "image": "../../../../assets/images/products/none.png"
   },
   {
     "name": "RH Vlakke Plaat",
-    "image": "assets/images/products/RH Vlakke Plaat.png"
+    "image": "../../../../assets/images/products/RH Vlakke Plaat.png"
   },
   {
     "name": "RH Flexibel",
-    "image": "assets/images/products/RH Flexibel.png"
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Spirobuis lengte 3m.",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "B45",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "B90",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Spirobocht 45gr",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Spirobocht 90gr",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Verbinding buis",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Verloop sym",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Verbinding hulpstuk",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Verloop A-sym",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Zadel 90gr",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Zadel 45gr",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Deksel t.b.v. buis",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Platte tuit 90grl",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Platte tuit 45gr",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "Regelklep",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
+  },
+  {
+    "name": "T-stuk",
+    "image": "../../../../assets/images/products/RH Flexibel.png"
   }
 ]

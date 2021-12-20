@@ -135,13 +135,13 @@ export class OrderItemsComponent {
         Z1: 'text-align:left;',
       },
       columns: [
-        { type: 'numeric', title: 'Pos', name: "position", width: 80 },
-        { type: 'dropdown', title: 'Code', name: "code", width: 100, source: ["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"] },
-        { type: 'numeric', title: 'Aantal', name: "number", width: 100, /* source: ["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"] */ },
-        { type: 'text', title: 'A', name: "a", width: 100 },
+        { type: 'numeric', title: 'Pos', name: "position", width: 50 },
+        { type: 'dropdown', title: 'Code', name: "code", width: 170, source: ["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"] },
+        { type: 'numeric', title: 'Aantal', name: "number", width: 50, /* source: ["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"] */ },
+        { type: 'text', title: 'A', name: "a", width: 100, },
         { type: 'text', title: 'B', name: "b", width: 100 },
-        { type: 'text', title: 'C', name: "c", width: 100 },
-        { type: 'text', title: 'D', name: "d", width: 100 },
+        { type: 'text', title: 'C', name: "c", width: 140 },
+        { type: 'text', title: 'D', name: "d", width: 140 },
         { type: 'text', title: 'E', name: "e", width: 100 },
         { type: 'text', title: 'F', name: "f", width: 100 },
         { type: 'text', title: 'G1', name: "g1", width: 80 },
@@ -222,10 +222,16 @@ export class OrderItemsComponent {
         // }
       },
       onselection(instance, x1, y1) {
-        if (x1 == 1) {
-          let val = instance.jexcel.getValueFromCoords(x1, y1);
-          self.product = self.products.filter(x => x.name == val)[0];
+        if (x1 == 1 || x1 == 21 || x1 == 22 || x1 == 23) {
+          var columnName = jexcel.getColumnNameFromId([x1, y1]);
+          var cell = instance.jexcel.getCell(columnName);
+          instance.jexcel.openEditor(cell);
+          cell.children[0].dropdown.close(true);
         }
+        //if (x1 == 1) {
+        let val = instance.jexcel.getValueFromCoords(1, y1);
+        self.product = self.products.filter(x => x.name == val)[0];
+        //}
       }
     });
 
@@ -247,8 +253,8 @@ export class OrderItemsComponent {
         D1: 'text-align: center;'
       },
       columns: [
-        { type: 'dropdown', title: 'Code', name: "code", width: 120, source: ["Spirobuis lengte 3m.", "B45", "B90", "Spirobocht 45gr", "Spirobocht 90gr", "Verbinding buis", "Verbinding hulpstuk", "Verloop sym", "Verloop A-sym", "Zadel 90gr", "Zadel 45gr", "Deksel t.b.v. buis", "Platte tuit 90gr", "Platte tuit 45gr", "Regelklep", "T-stuk"] },
-        { type: 'numeric', title: 'Aantal', name: "number", width: 120 },
+        { type: 'dropdown', title: 'Code', name: "code", width: 150, source: ["Spirobuis lengte 3m.", "B45", "B90", "Spirobocht 45gr", "Spirobocht 90gr", "Verbinding buis", "Verbinding hulpstuk", "Verloop sym", "Verloop A-sym", "Zadel 90gr", "Zadel 45gr", "Deksel t.b.v. buis", "Platte tuit 90gr", "Platte tuit 45gr", "Regelklep", "T-stuk"] },
+        { type: 'numeric', title: 'Aantal', name: "number", width: 80 },
         { type: 'dropdown', title: 'Diameter 1', name: "diameter1", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
         { type: 'dropdown', title: 'Diameter 2', name: "diameter2", width: 80, source: ["100", "125", "160", "200", "250", "315", "355", "400", "450", "500", "560", "630", "710", "800", "900", "1000", "1120", "1250"] },
         { type: 'hidden', name: "id" },
@@ -259,10 +265,17 @@ export class OrderItemsComponent {
         }
       },
       onselection(instance, x1, y1) {
-        if (x1 == 0) {
-          let val = instance.jexcel.getValueFromCoords(x1, y1);
-          self.product = self.products.filter(x => x.name == val)[0];
+        if (x1 == 0 || x1 == 2 || x1 == 3) {
+          var columnName = jexcel.getColumnNameFromId([x1, y1]);
+          var cell = instance.jexcel.getCell(columnName);
+          instance.jexcel.openEditor(cell);
+          cell.children[0].dropdown.close(true);
         }
+
+        //if (x1 == 0) {
+        let val = instance.jexcel.getValueFromCoords(0, y1);
+        self.product = self.products.filter(x => x.name == val)[0];
+        //}
       }
     });
 
@@ -285,7 +298,7 @@ export class OrderItemsComponent {
       columns: [
         { type: 'hidden', name: "id" },
         {
-          type: 'dropdown', title: 'Code', name: "code", width: 120, source: ["Montagerail 30x15mm.", "Montagerail 30x20mm.", "Montagerail 30x43mm.", "Beugel met rubber (per stuk)",
+          type: 'dropdown', title: 'Code', name: "code", width: 210, source: ["Montagerail 30x15mm.", "Montagerail 30x20mm.", "Montagerail 30x43mm.", "Beugel met rubber (per stuk)",
             "Balkklem_M8 (200 stuks)", "Bevestigingsanker M8 (100 stuks)", "Boorschroef 42_13 (500 stuks)", "Boorschroef 42_19 (500 stuks)", "Boorschroef 63_19 (500 stuks)",
             "Carrosseriering M8x30 (200 stuks)", "Draadeind M8_2000 (per stuk)", "Expressanker M8x15 (100 stuks)", "Flensmoer M8ZB (200 stuks)", "Inslaganker M8x30 (100 stuks)",
             "Kabelband 7,5 x 540mm (per stuk)", "Siliconenkit Neutraal (1 tube)", "Koppelmoer M8x25 (100 stuks)", "Kozijnplug 5x50 (200 stuks)", "Luchtbev. hoek M8 (100 stuks)",
@@ -293,7 +306,7 @@ export class OrderItemsComponent {
             "Slangenklem 60_215", "Slangenklem 60_270", "Slangenklem 60_325", "Slangklemband", "Slangklembandsluiting", "Slotbout M8x25", "Slotbout M8x30",
             "Snelanker M6x35", "Snelhanger 15-150", "Tapbout M8x25", "TDC Clip", "Tochtband", "Tuimelplug M8", "Zeskantmoer M8"]
         },
-        { type: 'numeric', title: 'Aantal', name: "number", width: 120 },
+        { type: 'numeric', title: 'Aantal', name: "number", width: 80 },
         { type: 'numeric', title: 'Length', name: "length", width: 80 },
         { type: 'hidden', name: "id" },
       ],
@@ -303,10 +316,17 @@ export class OrderItemsComponent {
         }
       },
       onselection(instance, x1, y1) {
-        if (x1 == 0) {
-          let val = instance.jexcel.getValueFromCoords(x1, y1);
-          self.product = self.products.filter(x => x.name == val)[0];
+        if (x1 == 1) {
+          var columnName = jexcel.getColumnNameFromId([x1, y1]);
+          var cell = instance.jexcel.getCell(columnName);
+          instance.jexcel.openEditor(cell);
+          cell.children[0].dropdown.close(true);
         }
+
+        //if (x1 == 0) {
+        let val = instance.jexcel.getValueFromCoords(1, y1);
+        self.product = self.products.filter(x => x.name == val)[0];
+        //}
       }
     });
 
@@ -350,31 +370,31 @@ export class OrderItemsComponent {
         Y1: 'text-align:left;',
       },
       columns: [
-        { type: 'numeric', title: 'Pos', name: "position", width: 100, readOnly:true },
-        { type: 'text', title: 'Code', name: "code", width: 100, readOnly:true },
-        { type: 'numeric', title: 'Aantal', name: "number", width: 100, readOnly:true },
-        { type: 'text', title: 'A', name: "a", width: 100, readOnly:true },
-        { type: 'text', title: 'B', name: "b", width: 100, readOnly:true },
-        { type: 'text', title: 'C', name: "c", width: 100, readOnly:true },
-        { type: 'text', title: 'D', name: "d", width: 100, readOnly:true },
-        { type: 'text', title: 'E', name: "e", width: 100, readOnly:true },
-        { type: 'text', title: 'F', name: "f", width: 100, readOnly:true },
-        { type: 'text', title: 'G1', name: "g1", width: 80, readOnly:true },
-        { type: 'text', title: 'G2', name: "g2", width: 80, readOnly:true},
-        { type: 'text', title: 'H1', name: "h1", width: 80, readOnly:true },
-        { type: 'text', title: 'H2', name: "h2", width: 80, readOnly:true },
-        { type: 'text', title: 'I1', name: "i1", width: 80, readOnly:true },
-        { type: 'text', title: 'I2', name: "i2", width: 110, readOnly:true },
-        { type: 'text', title: 'K1', name: "k1", width: 100, readOnly:true },
-        { type: 'text', title: 'K2', name: "k2", width: 100, readOnly:true },
-        { type: 'numeric', title: 'L1', name: "l1", width: 60, readOnly:true },
-        { type: 'numeric', title: 'L2', name: "l2", width: 60, readOnly:true },
-        { type: 'numeric', title: 'L3', name: "l3", width: 60, readOnly:true },
-        { type: 'text', title: 'L4', name: "l4", width: 60, readOnly:true },
-        { type: 'text', title: 'Connection 1', name: "connection1", width: 70, readOnly:true },
-        { type: 'text', title: 'Connection 2', name: "connection2", width: 70, readOnly:true },
-        { type: 'text', title: 'Connection 3', name: "connection3", width: 70, readOnly:true },
-        { type: 'text', title: 'Remarks', name: "note", width: 100, readOnly:true },
+        { type: 'numeric', title: 'Pos', name: "position", width: 100, readOnly: true },
+        { type: 'text', title: 'Code', name: "code", width: 100, readOnly: true },
+        { type: 'numeric', title: 'Aantal', name: "number", width: 100, readOnly: true },
+        { type: 'text', title: 'A', name: "a", width: 100, readOnly: true },
+        { type: 'text', title: 'B', name: "b", width: 100, readOnly: true },
+        { type: 'text', title: 'C', name: "c", width: 100, readOnly: true },
+        { type: 'text', title: 'D', name: "d", width: 100, readOnly: true },
+        { type: 'text', title: 'E', name: "e", width: 100, readOnly: true },
+        { type: 'text', title: 'F', name: "f", width: 100, readOnly: true },
+        { type: 'text', title: 'G1', name: "g1", width: 80, readOnly: true },
+        { type: 'text', title: 'G2', name: "g2", width: 80, readOnly: true },
+        { type: 'text', title: 'H1', name: "h1", width: 80, readOnly: true },
+        { type: 'text', title: 'H2', name: "h2", width: 80, readOnly: true },
+        { type: 'text', title: 'I1', name: "i1", width: 80, readOnly: true },
+        { type: 'text', title: 'I2', name: "i2", width: 110, readOnly: true },
+        { type: 'text', title: 'K1', name: "k1", width: 100, readOnly: true },
+        { type: 'text', title: 'K2', name: "k2", width: 100, readOnly: true },
+        { type: 'numeric', title: 'L1', name: "l1", width: 60, readOnly: true },
+        { type: 'numeric', title: 'L2', name: "l2", width: 60, readOnly: true },
+        { type: 'numeric', title: 'L3', name: "l3", width: 60, readOnly: true },
+        { type: 'text', title: 'L4', name: "l4", width: 60, readOnly: true },
+        { type: 'text', title: 'Connection 1', name: "connection1", width: 70, readOnly: true },
+        { type: 'text', title: 'Connection 2', name: "connection2", width: 70, readOnly: true },
+        { type: 'text', title: 'Connection 3', name: "connection3", width: 70, readOnly: true },
+        { type: 'text', title: 'Remarks', name: "note", width: 100, readOnly: true },
         { type: 'hidden', name: "id" },
       ],
       oneditionend(instance, cell, x, y, value, save) {
