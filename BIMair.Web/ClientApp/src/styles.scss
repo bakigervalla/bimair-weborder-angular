@@ -442,11 +442,8 @@ i.page-caption {
   font-weight: 600;
 }
 
-.jexcel > tbody > tr > td:first-child {
-  text-align: center !important;
-}
-.jexcel tbody td {
-  text-align: left !important;
+.jexcel tbody tr td {
+  text-align: left;
 }
 
 // Spreadsheet Scrollbars

@@ -84,9 +84,10 @@ export class OrderItemsComponent {
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
-    let contextMenu = document.querySelector('.jcontextmenu') as HTMLElement;
-    if (contextMenu)
-      contextMenu.style.left = '-400px';
+    let contextMenu = document.querySelectorAll('.jcontextmenu');
+    contextMenu.forEach(item => {
+      (item as HTMLElement).style.left = '-400px';
+    })
   }
 
   ngAfterViewInit() {
@@ -156,9 +157,9 @@ export class OrderItemsComponent {
         { type: 'numeric', title: 'L2', name: "l2", width: 60 },
         { type: 'numeric', title: 'L3', name: "l3", width: 60 },
         { type: 'text', title: 'L4', name: "l4", width: 60 },
-        { type: 'dropdown', title: 'Connection 1', name: "connection1", width: 70, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
-        { type: 'dropdown', title: 'Connection 2', name: "connection2", width: 70, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
-        { type: 'dropdown', title: 'Connection 3', name: "connection3", width: 70, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
+        { type: 'dropdown', title: 'Connection 1', name: "connection1", width: 90, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
+        { type: 'dropdown', title: 'Connection 2', name: "connection2", width: 90, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
+        { type: 'dropdown', title: 'Connection 3', name: "connection3", width: 90, source: ["TDC25", "TDC35", "P25", "P35", "P25 Los", "P35 Los", "P20", "P30", "P20 Los", "P30 Los"] },
         { type: 'text', title: 'Opmerkingen', name: "note", width: 100 },
         { type: 'hidden', name: "id" },
       ],
@@ -333,8 +334,11 @@ export class OrderItemsComponent {
     // Totaalblad
     this.totaalbladSheet = jexcel(this.sheettotaalblad.nativeElement, {
       data: this.dataTotaalblad,
-      minDimensions: [25, 10],
+      minDimensions: [25, 1],
       allowInsertColumn: false,
+      allowInsertRow: false,
+      allowDeleteRow: false,
+      contextMenu: false,
       csvFileName: 'BIMair-order-items-round',
       csvHeaders: true,
       csvDelimiter: ',',
@@ -367,16 +371,19 @@ export class OrderItemsComponent {
         V1: 'text-align: left;',
         W1: 'text-align:left;',
         X1: 'text-align: left;',
-        Y1: 'text-align:left;',
+        Y1: 'text-align: left;',
+        Y2: 'text-align: left;',
+        Y3: 'text-align: left;',
+        Z1: 'text-align:left;',
       },
       columns: [
-        { type: 'numeric', title: 'Pos', name: "position", width: 100, readOnly: true },
-        { type: 'text', title: 'Code', name: "code", width: 100, readOnly: true },
-        { type: 'numeric', title: 'Aantal', name: "number", width: 100, readOnly: true },
+        { type: 'autonumber', title: 'Pos', name: "position", width: 50, readOnly: true },
+        { type: 'text', title: 'Code', name: "code", width: 170, readOnly: true },
+        { type: 'numeric', title: 'Aantal', name: "number", width: 50, readOnly: true },
         { type: 'text', title: 'A', name: "a", width: 100, readOnly: true },
         { type: 'text', title: 'B', name: "b", width: 100, readOnly: true },
         { type: 'text', title: 'C', name: "c", width: 100, readOnly: true },
-        { type: 'text', title: 'D', name: "d", width: 100, readOnly: true },
+        { type: 'text', title: 'D', name: "d", width: 140, readOnly: true },
         { type: 'text', title: 'E', name: "e", width: 100, readOnly: true },
         { type: 'text', title: 'F', name: "f", width: 100, readOnly: true },
         { type: 'text', title: 'G1', name: "g1", width: 80, readOnly: true },
@@ -387,13 +394,16 @@ export class OrderItemsComponent {
         { type: 'text', title: 'I2', name: "i2", width: 110, readOnly: true },
         { type: 'text', title: 'K1', name: "k1", width: 100, readOnly: true },
         { type: 'text', title: 'K2', name: "k2", width: 100, readOnly: true },
-        { type: 'numeric', title: 'L1', name: "l1", width: 60, readOnly: true },
+        { type: 'numeric', title: 'L1', name: "l1", width: 100, readOnly: true },
         { type: 'numeric', title: 'L2', name: "l2", width: 60, readOnly: true },
         { type: 'numeric', title: 'L3', name: "l3", width: 60, readOnly: true },
         { type: 'text', title: 'L4', name: "l4", width: 60, readOnly: true },
-        { type: 'text', title: 'Connection 1', name: "connection1", width: 70, readOnly: true },
-        { type: 'text', title: 'Connection 2', name: "connection2", width: 70, readOnly: true },
-        { type: 'text', title: 'Connection 3', name: "connection3", width: 70, readOnly: true },
+        { type: 'text', title: 'Connection 1', name: "connection1", width: 90, readOnly: true },
+        { type: 'text', title: 'Connection 2', name: "connection2", width: 90, readOnly: true },
+        { type: 'text', title: 'Connection 3', name: "connection3", width: 90, readOnly: true },
+        { type: 'numeric', title: 'Diameter 1', name: "diameter1", width: 80, readOnly: true },
+        { type: 'numeric', title: 'Diameter 2', name: "diameter2", width: 80, readOnly: true },
+        { type: 'numeric', title: 'Length', name: "length", width: 80, readOnly: true },
         { type: 'text', title: 'Remarks', name: "note", width: 100, readOnly: true },
         { type: 'hidden', name: "id" },
       ],
@@ -648,6 +658,10 @@ export class OrderItemsComponent {
 
   toggelTab(activeTab) {
     this.activeTab = activeTab;
+    if (activeTab == "totaalblad") {
+      this.dataTotaalblad = this.getJsonDataSheet();
+      this.totaalbladSheet.setData(this.dataTotaalblad);
+    }
   }
 
   download() {
@@ -673,6 +687,15 @@ export class OrderItemsComponent {
   }
 
   save() {
+
+    let jsonData = this.getJsonDataSheet();
+
+    this.projectService.saveOrderItems(jsonData)
+      .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
+
+  }
+
+  getJsonDataSheet() {
     let prjId = this.projectId;
     var rectangularData = this.rectangularSheet.getJson();
 
@@ -693,24 +716,19 @@ export class OrderItemsComponent {
       element.ProjectId = prjId;
     });
 
-    var totaalbladData = this.totaalbladSheet.getJson();
-    totaalbladData.forEach(function (element) {
-      element.ProductType = "Totaalblad";
-      element.ProjectId = prjId;
-    });
+    // var totaalbladData = this.totaalbladSheet.getJson();
+    // totaalbladData.forEach(function (element) {
+    //   element.ProductType = "Totaalblad";
+    //   element.ProjectId = prjId;
+    // });
 
     rectangularData = rectangularData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
     roundData = roundData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
     montagerailData = montagerailData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
-    totaalbladData = totaalbladData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
+    // totaalbladData = totaalbladData.filter(x => x.code?.trim() != '' && x.code != null && x.code != undefined);
 
-    let jsonData = [...rectangularData, ...roundData, ...montagerailData, ...totaalbladData];
-
-    console.log(jsonData);
-
-    this.projectService.saveOrderItems(jsonData)
-      .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
-
+    let jsonData = [...rectangularData, ...roundData, ...montagerailData]; // , ...totaalbladData
+    return jsonData;
   }
 
   private saveSuccessHelper() {
@@ -727,5 +745,4 @@ export class OrderItemsComponent {
     this.alertService.showStickyMessage('Save Error', 'The below errors occurred whilst saving your changes:', MessageSeverity.error, error);
     this.alertService.showStickyMessage(error, null, MessageSeverity.error);
   }
-
 }
