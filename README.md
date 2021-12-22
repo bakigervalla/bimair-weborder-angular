@@ -1,5 +1,5 @@
 # E-Commerce - web shop application
-A shop web application build with __Bootstrap4__, __Bootswatch__, __Angular Cli__, **ASP.NET Core**, **IdentityServer4**, etc.
+A shop web application build with __Bootstrap4__, __Bootswatch__, __Angular Cli__, **ASP.NET Core**, **IdentityServer4**, **Jspreadsheet**, etc.
 
 ## Technologies
 * Template pages with Angular 11 and TypeScript
@@ -26,3 +26,6 @@ A shop web application build with __Bootstrap4__, __Bootswatch__, __Angular Cli_
 * Handling Access and Refresh Tokens with WebStorage (Bearer authentication) - No Cookies
 * CRUD APIs
 * etc.
+
+# Sample Screenshot
+![alt add issue](https://github.com/bakigervalla/BIMair.WebOrder/blob/main/bimair.png?raw=true)
