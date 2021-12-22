@@ -26,4 +26,3 @@ A shop web application build with __Bootstrap4__, __Bootswatch__, __Angular Cli_
 * Handling Access and Refresh Tokens with WebStorage (Bearer authentication) - No Cookies
 * CRUD APIs
 * etc.
-* 
