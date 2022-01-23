@@ -213,7 +213,8 @@
       "EditOrder": "Edit order",
       "EditItems": "Edit items",
       "DeleteProject": "Delete project",
-      "SearchProjects": "Search projects"
+      "SearchProjects": "Search projects",
+      "ConfirmOrder": "Confirm Order"
     }
   }
 }

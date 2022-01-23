@@ -31,5 +31,7 @@ namespace DAL.Models
 
         public Customer Customer { get; set; }
         public IEnumerable<OrderItem> OrderItems { get; set; }
+
+        public int Status { get; set; }
     }
 }

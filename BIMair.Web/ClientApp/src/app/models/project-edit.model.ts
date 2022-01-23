@@ -9,7 +9,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export class ProjectEdit extends Project {
   constructor(id?: number, name?: string, description?: string, customerName?: string, customerId?: number, number?: number, reference?: string,
-    deliveryAddress?: string, deliveryDate?: NgbDateStruct, dateCreated?: Date, dateModified?: Date) { //, customer?: Customer) {
+    deliveryAddress?: string, deliveryDate?: NgbDateStruct, dateCreated?: Date, dateModified?: Date, status?: number) { //, customer?: Customer) {
     super();
     this.id = id;
     this.name = name;
@@ -22,6 +22,7 @@ export class ProjectEdit extends Project {
     this.dateCreated = dateCreated;
     this.dateModified = dateModified;
     this.customerId = customerId
+    this.status = status;
     //this.customer = customer;
   }
 
@@ -36,6 +37,14 @@ export class ProjectEdit extends Project {
   public dateCreated: Date;
   public dateModified: Date;
   customerId: number;
+  status: number;
   // customer: Customer;
   // orders: any[];
+
 }
+
+export enum ProjectStatus {
+  Created = 1,
+  OrderConfirmed = 3,
+}
+

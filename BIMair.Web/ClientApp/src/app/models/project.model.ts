@@ -4,7 +4,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 export class Project {
 
   constructor(id?: number, name?:string, description?: string, customerName?: string, customerId?: number, number?: number, reference?: string,
-              deliveryAddress?: string, deliveryDate?: NgbDateStruct, dateCreated?: Date, dateModified?: Date) { //, customer?: Customer) {
+              deliveryAddress?: string, deliveryDate?: NgbDateStruct, dateCreated?: Date, dateModified?: Date, status?: number) { //, customer?: Customer) {
       this.id = id;
       this.name = name;
       this.description = description;
@@ -16,6 +16,7 @@ export class Project {
       this.dateCreated = dateCreated;
       this.dateModified = dateModified;
       this.customerId = customerId
+      this.status = status;
       //this.customer = customer;
   }
 
@@ -33,6 +34,7 @@ export class Project {
   dateCreated: Date;
   dateModified: Date;
   customerId: number;
+  status: number;
   // customer: Customer;
   // orders: any[];
 };

@@ -177,12 +177,12 @@ namespace BIMair.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpPost("saveorder")]
+        [HttpPost("saveorder/{confirmorder}")]
         [Authorize(Authorization.Policies.ManageProjectsPolicy)]
         [ProducesResponseType(201, Type = typeof(List<OrderItemViewModel>))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
-        public async Task<IActionResult> SaveOrderItems([FromBody] List<OrderItemViewModel> orderItems)
+        public async Task<IActionResult> SaveOrderItems([FromBody] List<OrderItemViewModel> orderItems, bool confirmorder)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -231,6 +231,13 @@ namespace BIMair.Controllers
             Expression<Func<Project, bool>> prodicate = p => p.Id == prjId;
             var project = _unitOfWork.Projects.GetSingleOrDefault(prodicate);
 
+            // Is Order Confiremd Update Project Status
+            if (confirmorder)
+            {
+                project.Status = 3; // Order Confirmed
+                _unitOfWork.Projects.Update(project);
+            }
+
             // send email to admin to notify for new user created
             var adminEmailed = await _emailService.SendEmailAsync(null, "NewEditOrderAdminEmailTemplate",
                 new Dictionary<string, string>
@@ -240,6 +247,7 @@ namespace BIMair.Controllers
                         { "deliveryDate", project?.DeliveryDate.ToShortDateString() },
                         { "client", this.User.Identity.Name }
                     });
+
 
             return Ok();
         }

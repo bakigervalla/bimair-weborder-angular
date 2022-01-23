@@ -19,7 +19,8 @@
           <input type="text" class="form-control" attr.id="customerName-{{uniqueId}}" name="customerName"
             placeholder="Customer name" [ngbTypeahead]="search"
             [ngClass]="{'is-valid': f.submitted && customerName.valid, 'is-invalid' : f.submitted && !customerName.valid}"
-            [(ngModel)]="projectEdit.customerName" #customerName="ngModel" required />
+            [(ngModel)]="projectEdit.customerName" #customerName="ngModel" required
+            [disabled]="!isStatusEditable" />
           <span *ngIf="f.submitted && customerName.errors?.required" class="invalid-feedback">
             {{'projects.CustomerNameRequired' | translate}}
           </span>
@@ -28,7 +29,8 @@
           <label for="name">Project</label>
           <input type="text" class="form-control" attr.id="name-{{uniqueId}}" name="name" placeholder="Project name"
             [ngClass]="{'is-valid': f.submitted && name.valid, 'is-invalid' : f.submitted && !name.valid}"
-            [(ngModel)]="projectEdit.name" #name="ngModel" required />
+            [(ngModel)]="projectEdit.name" #name="ngModel" required
+            [disabled]="!isStatusEditable"/>
           <span *ngIf="f.submitted && name.errors?.required" class="invalid-feedback">
             {{'projects.NameRequired' | translate}}
           </span>
@@ -38,7 +40,8 @@
           <input type="text" class="form-control" attr.id="number-{{uniqueId}}" name="number"
             placeholder="Project number"
             [ngClass]="{'is-valid': f.submitted && number.valid, 'is-invalid' : f.submitted && !number.valid}"
-            [(ngModel)]="projectEdit.number" #number="ngModel" required />
+            [(ngModel)]="projectEdit.number" #number="ngModel" required
+            [disabled]="!isStatusEditable"/>
           <span *ngIf="f.submitted && number.errors?.required" class="invalid-feedback">
             {{'projects.NumberRequired' | translate}}
           </span>
@@ -48,7 +51,8 @@
           <input type="text" class="form-control" attr.id="reference-{{uniqueId}}" name="reference"
             placeholder="Project reference"
             [ngClass]="{'is-valid': f.submitted && reference.valid, 'is-invalid' : f.submitted && !reference.valid}"
-            [(ngModel)]="projectEdit.reference" #reference="ngModel" required />
+            [(ngModel)]="projectEdit.reference" #reference="ngModel" required
+            [disabled]="!isStatusEditable"/>
           <span *ngIf="f.submitted && reference.errors?.required" class="invalid-feedback">
             {{'projects.ReferenceRequired' | translate}}
           </span>
@@ -64,7 +68,8 @@
           <textarea rows="4" type="text" class="form-control" attr.id="deliveryAddress-{{uniqueId}}"
             name="deliveryAddress" placeholder="Delivery address"
             [ngClass]="{'is-valid': f.submitted && deliveryAddress.valid, 'is-invalid' : f.submitted && !deliveryAddress.valid}"
-            [(ngModel)]="projectEdit.deliveryAddress" #deliveryAddress="ngModel" required></textarea>
+            [(ngModel)]="projectEdit.deliveryAddress" #deliveryAddress="ngModel" required
+            [disabled]="!isStatusEditable"></textarea>
           <span *ngIf="f.submitted && deliveryAddress.errors?.required" class="invalid-feedback">
             {{'projects.DeliveryAddressRequired' | translate}}
           </span>
@@ -74,13 +79,11 @@
           <div class="col-xs-9">
             <label for="deliveryDate">Date</label>
 
-
-            <input class="form-control" attr.id="deliveryDate-{{uniqueId}}" name="deliveryDate"
-              placeholder="dd/mm/yyyy"
+            <input class="form-control" attr.id="deliveryDate-{{uniqueId}}" name="deliveryDate" placeholder="dd/mm/yyyy"
               [ngClass]="{'is-valid': f.submitted && deliveryDate.valid, 'is-invalid' : f.submitted && !deliveryDate.valid}"
-              [(ngModel)]="projectEdit.deliveryDate" #deliveryDate="ngModel" #dd="ngbDatepicker" ngbDatepicker
-              required (focus)="dd.open()"
-             outsideDays="hidden" />
+              [(ngModel)]="projectEdit.deliveryDate" #deliveryDate="ngModel" #dd="ngbDatepicker" ngbDatepicker required
+              (focus)="dd.open()" outsideDays="hidden"
+              [disabled]="!isStatusEditable"/>
             <span *ngIf="f.submitted && deliveryDate.errors?.required" class="invalid-feedback">
               {{'projects.DeliveryDateRequired' | translate}}
             </span>
@@ -94,20 +97,21 @@
 
       </div>
 
-      <div class="card-footer col-9">
+      <div class="card-footer row col-9">
 
-        <button type="submit" class="btn btn-primary px-4 btn-block btn-save" [disabled]="isSaving">
-          <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
-          {{isSaving ? ('projects.Saving' | translate) :
-          projectEdit.id > 0 ? ('projects.Save' | translate) : ('projects.SaveAndContinue' | translate) }}
-        </button>
+        <div class="col-6">
+          <a [routerLink]="['/order-items', projectEdit.id]" *ngIf="projectEdit.id > 0" title="Edit order"
+            class="btn btn-link btn-sm">{{'projects.OrderItems' | translate }}</a>
+        </div>
 
-        <a [routerLink]="['/order-items', projectEdit.id]" *ngIf="projectEdit.id > 0" title="Edit order"
-          class="btn btn-link btn-sm">{{'projects.OrderItems' | translate }}</a>
-
-        <div class="float-right">
-          <button type="button" *ngIf="projectEdit.id > 0" (click)="delete()"
-            class="btn btn-warning px-4 btn-block btn-delete" [disabled]="isDeleting">
+        <div class="col" style="text-align: right;">
+          <button type="submit" *ngIf="isStatusEditable" class="btn btn-primary px-4 btn-save" [disabled]="isSaving" style="margin-right: 20px;">
+            <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
+            {{isSaving ? ('projects.Saving' | translate) :
+            projectEdit.id > 0 ? ('projects.Save' | translate) : ('projects.SaveAndContinue' | translate) }}
+          </button>
+          <button type="button" *ngIf="projectEdit.id > 0 && isStatusEditable" (click)="delete()"
+            class="btn btn-warning px-4 btn-delete" [disabled]="isDeleting">
             <i *ngIf="isDeleting" class='fa fa-circle-o-notch fa-spin'></i>
             {{isDeleting ? ('projects.Deleting' | translate) :
             ('projects.Delete' | translate)}}

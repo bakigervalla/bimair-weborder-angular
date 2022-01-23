@@ -397,6 +397,8 @@ i.page-caption {
 .jexcel_content {
   font-family: sans-serif !important;
   font-size: 11px !important;
+  height: auto !important;
+  padding-bottom: 10px !important;
 }
 .jcontextmenu {
   position: absolute !important;
@@ -456,4 +458,21 @@ i.page-caption {
 }
 .jexcel_content::-webkit-scrollbar-track {
   background: #eee;
+}
+
+#totaalblad .jexcel > tbody > tr > td:not(:first-child) {
+  color: #888;
+}
+
+.tab-pane {
+  margin-top: 1rem;
+}
+
+/* STYLE TABLES */
+#spreadsheet .jexcel_content table tbody tr td.dropdown,
+#spreadsheet .jexcel_content table tbody tr td:nth-child(26),
+#round .jexcel_content table tbody tr td.dropdown,
+#montagerail .jexcel_content table tbody tr td.dropdown,
+#totaalblad .jexcel_content table tbody tr td.dropdown {
+  text-align: left !important;
 }

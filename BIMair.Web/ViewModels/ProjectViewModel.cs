@@ -27,6 +27,8 @@ namespace BIMair.ViewModels
         public string DeliveryAddress { get; set; }
         public DateTime DeliveryDate { get; set; }
 
+        public int Status { get; set; }
+
         //public string RectangularDuctwork { get; set; }
         //public string RoundDuctwork { get; set; }
         //public string TotalList { get; set; }

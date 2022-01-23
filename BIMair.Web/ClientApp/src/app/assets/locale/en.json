@@ -230,6 +230,7 @@
     "Download": "Download",
     "SendByEmail": "Send by email",
     "SearchCustomers": "Search customers",
-    "Customers": "Customers"
+    "Customers": "Customers",
+    "ConfirmOrder": "Confirm Order"
   }
 }

@@ -9,7 +9,7 @@ import { AlertService, MessageSeverity, DialogType } from '../../services/alert.
 import { Utilities } from '../../services/utilities';
 
 import { Project } from '../../models/project.model';
-import { ProjectEdit } from '../../models/project-edit.model';
+import { ProjectEdit, ProjectStatus } from '../../models/project-edit.model';
 import { Customer } from '../../models/customer.model';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -28,6 +28,7 @@ export class ProjectComponent implements OnInit {
   submitted = false;
   savedSuccessfully = false;
   showValidationErrors = true;
+  isStatusEditable = true;
   uniqueId: string = Utilities.uniqueId();
   project: Project = new Project();
   projectEdit: ProjectEdit = new ProjectEdit();
@@ -84,6 +85,8 @@ export class ProjectComponent implements OnInit {
     this.projectService.getProject(id)
       .subscribe(data => {
         this.projectEdit = data;
+        console.log(data?.status)
+        this.isStatusEditable = data?.status < 3; // Order Confirmed
         // var ddFormated = new Date(this.projectEdit.deliveryDate.toString());
         // this.projectEdit.deliveryDate = { year: ddFormated.getFullYear(), month: ddFormated.getMonth() +1, day: ddFormated.getDate() }; // July, 14 1789;
       });
