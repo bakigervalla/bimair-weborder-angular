@@ -214,7 +214,14 @@
       "EditItems": "Edit items",
       "DeleteProject": "Delete project",
       "SearchProjects": "Search projects",
-      "ConfirmOrder": "Confirm Order"
+      "ConfirmOrder": "Confirm Order",
+      "projectStatusPending": "Not Confirmed",
+      "projectStatusConfirmed": "Confirmed",
+      "projectStatusProcessing": "Processing",
+      "projectStatusShipping": "Shipped",
+      "projectStatusComplete": "Complete",
+      "projectDisableEditSubtitle": "Project cannot be edited when project status is ",
+      "orderDisableEditSubtitle": "Order cannot be edited when order status is "
     }
   }
 }

@@ -237,6 +237,8 @@
     "projectStatusConfirmed": "Confirmed",
     "projectStatusProcessing": "Processing",
     "projectStatusShipping": "Shipped",
-    "projectStatusComplete": "Complete"
+    "projectStatusComplete": "Complete",
+    "projectDisableEditSubtitle": "Project cannot be edited when project status is ",
+    "orderDisableEditSubtitle": "Order cannot be edited when order status is "
   }
 }

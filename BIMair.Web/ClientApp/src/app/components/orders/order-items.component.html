@@ -4,9 +4,14 @@
       <h3><i class="fa fa-shopping-cart fa-lg page-caption" aria-hidden="true"></i> {{'projects.OrderItems' |
         translate}}</h3>
     </div>
-    <div *ngIf="projectStatus > 0" class="col-12 col-md-3 d-flex justify-content-center project-status">
-      <span>{{ 'projects.projectStatusTitle' | translate }}</span>
-      <h6 class="text-warning project-title">{{ getProjectStatus(projectStatus ) | translate }}</h6>
+    <div *ngIf="projectStatus >= 3" class="col-12 col-md-8 justify-content-center project-status">
+      <div>
+        <span>{{ 'projects.projectStatusTitle' | translate }}</span>
+        <h6 class="text-warning project-title d-inline-block">{{ getProjectStatus(projectStatus ) | translate }}</h6>
+      </div>
+      <small class="text-muted">{{ 'projects.orderDisableEditSubtitle' | translate}} {{ getProjectStatus(projectStatus )
+        | translate }}</small>
+
     </div>
   </header>
 
@@ -19,12 +24,12 @@
       <i class="fa fa-envelope" aria-hidden="true" style="margin-right: 8px;"></i>
       <span>{{ 'projects.SendByEmail' | translate }}</span>
     </button> -->
-    <button class="btn btn-primary btn-add" (click)="save(0)" type="button" [disabled]="!isStatusEditable">
+    <button class="btn btn-primary btn-add" (click)="save(0)" type="button" *ngIf="isStatusEditable">
       <i class="fa fa-floppy-o" aria-hidden="true" style="margin-right: 10px;"></i>
       <span>{{ 'projects.Save' | translate }}</span>
     </button>
 
-    <button *ngIf="isConfirmOrderEnabled" class="btn btn-warning" (click)="save(1)" type="button" style='width:140px'
+    <button *ngIf="isStatusEditable" class="btn btn-warning" (click)="save(1)" type="button" style='width:140px'
       [disabled]="!isStatusEditable">
       <i class="fa fa-paper-plane" aria-hidden="true" style="margin-right: 10px;"></i>
       <span>{{ 'projects.ConfirmOrder' | translate }}</span>

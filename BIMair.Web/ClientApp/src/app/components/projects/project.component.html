@@ -3,9 +3,10 @@
   <div style="display: flex;">
     <h2 class="col-md-2 col-sm-12" style=padding:0>Project</h2>
 
-    <div *ngIf="projectEdit.status > 0" class="row col-md-4 col-sm-12 d-flex justify-content-center project-status">
+    <div *ngIf="!isStatusEditable" class="row col-md-4 col-sm-12 d-flex justify-content-center project-status">
       <span>{{ 'projects.projectStatusTitle' | translate }}</span>
       <h6 class="text-warning project-title">{{ projectStatus(projectEdit.status) | translate }}</h6>
+      <small class="text-muted">{{ 'projects.projectDisableEditSubtitle' | translate }} {{ projectStatus(projectEdit.status) | translate}}</small>
     </div>
   </div>
 
@@ -110,14 +111,14 @@
             class="btn btn-link btn-sm">{{'projects.OrderItems' | translate }}</a>
         </div>
 
-        <div class="col" style="text-align: right;">
-          <button type="submit" *ngIf="isStatusEditable" class="btn btn-primary px-4 btn-save" [disabled]="isSaving"
+        <div class="col" style="text-align: right;" *ngIf="isStatusEditable">
+          <button type="submit" class="btn btn-primary px-4 btn-save" [disabled]="isSaving"
             style="margin-right: 20px;">
             <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
             {{isSaving ? ('projects.Saving' | translate) :
             projectEdit.id > 0 ? ('projects.Save' | translate) : ('projects.SaveAndContinue' | translate) }}
           </button>
-          <button type="button" *ngIf="projectEdit.id > 0 && isStatusEditable" (click)="delete()"
+          <button type="button" (click)="delete()"
             class="btn btn-warning px-4 btn-delete" [disabled]="isDeleting">
             <i *ngIf="isDeleting" class='fa fa-circle-o-notch fa-spin'></i>
             {{isDeleting ? ('projects.Deleting' | translate) :

@@ -20,6 +20,7 @@
     "esModuleInterop": true,
   },
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false
+    "enableI18nLegacyMessageIdFormat": false,
+    "resolveJsonModule": true
   }
 }

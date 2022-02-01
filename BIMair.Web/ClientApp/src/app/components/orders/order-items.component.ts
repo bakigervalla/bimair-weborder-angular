@@ -7,8 +7,10 @@ import { setUncaughtExceptionCaptureCallback } from "process";
 import { JsonPipe } from "@angular/common";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from "src/app/models/product.model";
 import ProductsJson from '../../assets/data/products.json';
+import ItemsJson from '../../assets/data/items-data.json';
+import { Product } from "src/app/models/product.model";
+import { Item } from "src/app/models/item.model";
 import { reduceEachTrailingCommentRange } from "typescript";
 import { ThrowStmt } from "@angular/compiler";
 
@@ -28,10 +30,10 @@ export class OrderItemsComponent {
   activeTab = 'rectangular';
   isSaving = false;
   submitted = false;
-  isConfirmOrderEnabled = false;
   isStatusEditable = true;
   savedSuccessfully = false;
   products: Product[] = ProductsJson;
+  items: Item[] = ItemsJson;
   product: any = {};
 
   // Lookups
@@ -113,7 +115,6 @@ export class OrderItemsComponent {
         this.dataMontagerail = data.filter(x => x.productType == 'Montagerail');
         this.montagerailSheet.setData(this.dataMontagerail);
 
-        this.isConfirmOrderEnabled = true; //this.projectStatus == 1;
         // this.dataTotaalblad = data.filter(x => x.productType == 'Totaalblad');
         // this.totaalbladSheet.setData(this.dataTotaalblad);
       })
@@ -163,20 +164,20 @@ export class OrderItemsComponent {
             "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"]
         },
         { type: 'numeric', title: 'Aantal', name: "number", width: 40, /* source: ["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Verloop", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en Verloop", "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"] */ },
-        { type: 'text', title: 'A', name: "a", width: 32, readOnly: true },
-        { type: 'text', title: 'B', name: "b", width: 32, readOnly: true },
-        { type: 'text', title: 'C', name: "c", width: 32, readOnly: true },
-        { type: 'text', title: 'D', name: "d", width: 32, readOnly: true },
-        { type: 'text', title: 'E', name: "e", width: 32, readOnly: true },
-        { type: 'text', title: 'F', name: "f", width: 32, readOnly: true },
-        { type: 'text', title: 'G1', name: "g1", width: 32, readOnly: true },
-        { type: 'text', title: 'G2', name: "g2", width: 32, readOnly: true },
-        { type: 'text', title: 'H1', name: "h1", width: 32, readOnly: true },
-        { type: 'text', title: 'H2', name: "h2", width: 32, readOnly: true },
-        { type: 'text', title: 'I1', name: "i1", width: 32, readOnly: true },
-        { type: 'text', title: 'I2', name: "i2", width: 32, readOnly: true },
-        { type: 'text', title: 'K1', name: "k1", width: 32, readOnly: true },
-        { type: 'text', title: 'K2', name: "k2", width: 32, readOnly: true },
+        { type: 'text', title: 'A', name: "a", width: 32 },
+        { type: 'text', title: 'B', name: "b", width: 32 },
+        { type: 'text', title: 'C', name: "c", width: 32 },
+        { type: 'text', title: 'D', name: "d", width: 32 },
+        { type: 'text', title: 'E', name: "e", width: 32 },
+        { type: 'text', title: 'F', name: "f", width: 32 },
+        { type: 'text', title: 'G1', name: "g1", width: 32 },
+        { type: 'text', title: 'G2', name: "g2", width: 32 },
+        { type: 'text', title: 'H1', name: "h1", width: 32 },
+        { type: 'text', title: 'H2', name: "h2", width: 32 },
+        { type: 'text', title: 'I1', name: "i1", width: 32 },
+        { type: 'text', title: 'I2', name: "i2", width: 32 },
+        { type: 'text', title: 'K1', name: "k1", width: 32 },
+        { type: 'text', title: 'K2', name: "k2", width: 32 },
         { type: 'numeric', title: 'L1', name: "l1", width: 40, mask: '#,##0.00' },
         { type: 'numeric', title: 'L2', name: "l2", width: 40, mask: '#,##0.00' },
         { type: 'numeric', title: 'L3', name: "l3", width: 40, mask: '#,##0.00' },
@@ -207,17 +208,13 @@ export class OrderItemsComponent {
           instance.jexcel.setValue(`C${y + 1}`, value > 0 && value != '' ? 1 : '');
         }
         else if (x == 1) { // Code
-          self.product = self.products.filter(x => x.name == value)[0];
+          // self.setReadOnly(value, x, y + 1);
 
-          self.setReadOnly(false, y + 1);
+          self.enableAllCells(y + 1);
 
-          // D
-          if (value == '')
-            instance.jexcel.setValue(`D${y + 1}`, '');
-          else if (self.lookupBreedte.indexOf(value) >= 0)
-            instance.jexcel.setValue(`D${y + 1}`, 'A'); //'Breedte');
-          else if (self.lookupBreedteOnder.indexOf(value) >= 0)
-            instance.jexcel.setValue(`D${y + 1}`, 'A'); //'Breedte Onder');
+          let product = self.products.filter(x => x.name == value);
+          if (product != null)
+            self.product = product;
 
           self.setCellValuesByCode(instance, value, y);
 
@@ -227,7 +224,9 @@ export class OrderItemsComponent {
 
           self.setCellValuesByCodeAndConnection(instance, value, con1, con2, con3, y);
 
-          self.setReadOnly(true, y + 1);
+          self.setReadOnly(value, y + 1);
+          // self.setReadOnly("", x, y + 1);
+
         }
         else if (x == 21) { // Connection 1
           let code = instance.jexcel.getValue(`B${y + 1}`),
@@ -522,14 +521,49 @@ export class OrderItemsComponent {
 
   setCellValuesByCode = (instance, value, y) => {
 
+    if (value == '')
+      return;
+
+    let item = this.items.filter(i => i.name == value)[0];
+
+    instance.jexcel.setValue(`D${y + 1}`, item.D);
+    instance.jexcel.setValue(`E${y + 1}`, item.E);
+    instance.jexcel.setValue(`F${y + 1}`, item.F);
+    instance.jexcel.setValue(`G${y + 1}`, item.G);
+    instance.jexcel.setValue(`H${y + 1}`, item.H);
+    instance.jexcel.setValue(`I${y + 1}`, item.I);
+    instance.jexcel.setValue(`J${y + 1}`, item.J);
+    instance.jexcel.setValue(`K${y + 1}`, item.K);
+    instance.jexcel.setValue(`L${y + 1}`, item.L);
+    instance.jexcel.setValue(`M${y + 1}`, item.M);
+    instance.jexcel.setValue(`N${y + 1}`, item.N);
+    instance.jexcel.setValue(`O${y + 1}`, item.O);
+    instance.jexcel.setValue(`P${y + 1}`, item.P);
+    instance.jexcel.setValue(`Q${y + 1}`, item.Q);
+  }
+
+  setCellValuesByCode_Obsolete = (instance, value, y) => {
+
+    let item = this.items.filter(i => i.name = value)[0];
+
+    // D
+    if (value == '')
+      instance.jexcel.setValue(`D${y + 1}`, '');
+    else if (["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en verloop",
+      "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
+      // else if (this.lookupBreedte.indexOf(value) >= 0)
+      instance.jexcel.setValue(`D${y + 1}`, item.D); //'Breedte');
+    else if (this.lookupBreedteOnder.indexOf(value) >= 0)
+      instance.jexcel.setValue(`D${y + 1}`, 250); //'Breedte Onder');
+
     // Set E
     if (value == '')
       instance.jexcel.setValue(`E${y + 1}`, '');
     else if (["RH Recht kanaal", "RH T-Stuk", "RH Bocht", "RH Sprong", "RH Aftakking", "RH Vierkant-Rond", "RH-S Bocht 2x", "RH-S Bocht en verloop",
       "RH-S Bocht + Vierkant-rond", "RH Deksel", "RH Afgesch. Kanaal", "RH Plenum", "RH VP Raam", "RH Vlakke Plaat", "RH Flexibel"].indexOf(value) >= 0)
-      instance.jexcel.setValue(`E${y + 1}`, 'B'); //'Diepte');
+      instance.jexcel.setValue(`E${y + 1}`, 250); //'Diepte');
     else if ("RH Verloop" == value)
-      instance.jexcel.setValue(`E${y + 1}`, 'B'); //'Diepte Onder');
+      instance.jexcel.setValue(`E${y + 1}`, 250); //'Diepte Onder');
 
     // SET F
     if (value == '')
@@ -913,7 +947,7 @@ export class OrderItemsComponent {
   }
 
   public getProjectStatus(status: number) {
-    switch(status) {
+    switch (status) {
       case 1:
         return "projects.projectStatusPending";
       case 3:
@@ -927,40 +961,100 @@ export class OrderItemsComponent {
     }
   }
 
-  setReadOnly = (readonly: boolean, y: number) => {
-    if (readonly) {
-      this.rectangularSheet.getCell(`D${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`E${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`F${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`G${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`H${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`I${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`J${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`K${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`L${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`M${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`N${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`O${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`P${y}`).classList.add('readonly');
-      this.rectangularSheet.getCell(`Q${y}`).classList.add('readonly');
-    }
-    else {
-      this.rectangularSheet.getCell(`D${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`E${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`F${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`G${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`H${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`I${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`J${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`K${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`L${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`M${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`N${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`O${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`P${y}`).classList.remove('readonly');
-      this.rectangularSheet.getCell(`Q${y}`).classList.remove('readonly');
-    }
+  enableAllCells = (y: number) => {
+    this.rectangularSheet.getCell(`D${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`E${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`F${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`G${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`H${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`I${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`J${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`K${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`L${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`M${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`N${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`O${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`P${y}`).classList.remove('readonly');
+    this.rectangularSheet.getCell(`Q${y}`).classList.remove('readonly');
   }
+
+  setReadOnly = (productName: string, y: number) => {
+
+    let item = this.items.filter(i => i.name == productName)[0];
+    if (item == null) {
+      this.enableAllCells(y);
+      return;
+    }
+
+    if (item.D == null)
+      this.rectangularSheet.getCell(`D${y}`).classList.add('readonly');
+    if (item.E == null)
+      this.rectangularSheet.getCell(`E${y}`).classList.add('readonly');
+    if (item.F == null)
+      this.rectangularSheet.getCell(`F${y}`).classList.add('readonly');
+    if (item.G == null)
+      this.rectangularSheet.getCell(`G${y}`).classList.add('readonly');
+    if (item.H == null)
+      this.rectangularSheet.getCell(`H${y}`).classList.add('readonly');
+    if (item.I == null)
+      this.rectangularSheet.getCell(`I${y}`).classList.add('readonly');
+    if (item.J == null)
+      this.rectangularSheet.getCell(`J${y}`).classList.add('readonly');
+    if (item.K == null)
+      this.rectangularSheet.getCell(`K${y}`).classList.add('readonly');
+    if (item.L == null)
+      this.rectangularSheet.getCell(`L${y}`).classList.add('readonly');
+    if (item.M == null)
+      this.rectangularSheet.getCell(`M${y}`).classList.add('readonly');
+    if (item.N == null)
+      this.rectangularSheet.getCell(`N${y}`).classList.add('readonly');
+    if (item.O == null)
+      this.rectangularSheet.getCell(`O${y}`).classList.add('readonly');
+    if (item.P == null)
+      this.rectangularSheet.getCell(`P${y}`).classList.add('readonly');
+    if (item.Q == null)
+      this.rectangularSheet.getCell(`Q${y}`).classList.add('readonly');
+
+    // switch (true) {
+    //   case x == 1 && productName == "RH Recht kanaal":
+    //     // this.rectangularSheet.getCell(`D${y}`).classList.add('readonly'); // A
+    //     // this.rectangularSheet.getCell(`E${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`F${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`G${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`H${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`I${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`J${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`K${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`L${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`M${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`N${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`O${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`P${y}`).classList.add('readonly');
+    //     this.rectangularSheet.getCell(`Q${y}`).classList.add('readonly');
+    //     break;
+    //   default:
+    //     this.rectangularSheet.getCell(`D${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`E${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`F${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`G${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`H${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`I${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`J${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`K${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`L${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`M${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`N${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`O${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`P${y}`).classList.remove('readonly');
+    //     this.rectangularSheet.getCell(`Q${y}`).classList.remove('readonly');
+    //     break;
+    // }
+  }
+
+
+
+
+
   zeroPad = (num, places) => String(num).padStart(places, '0')
 
 }

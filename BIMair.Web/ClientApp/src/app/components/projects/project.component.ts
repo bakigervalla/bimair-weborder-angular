@@ -86,7 +86,7 @@ export class ProjectComponent implements OnInit {
       .subscribe(data => {
         this.projectEdit = data;
         console.log(data?.status)
-        this.isStatusEditable = data?.status < 3; // Order Confirmed
+        this.isStatusEditable = data?.status < 3; // Order not confirmed
         // var ddFormated = new Date(this.projectEdit.deliveryDate.toString());
         // this.projectEdit.deliveryDate = { year: ddFormated.getFullYear(), month: ddFormated.getMonth() +1, day: ddFormated.getDate() }; // July, 14 1789;
       });
