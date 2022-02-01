@@ -1,17 +1,28 @@
-<h2>Project</h2>
 <div class="container py-5">
-  <!-- <form *ngIf="!savedSuccessfully" name="projectForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
+
+  <div style="display: flex;">
+    <h2 class="col-md-2 col-sm-12" style=padding:0>Project</h2>
+
+    <div *ngIf="projectEdit.status > 0" class="row col-md-4 col-sm-12 d-flex justify-content-center project-status">
+      <span>{{ 'projects.projectStatusTitle' | translate }}</span>
+      <h6 class="text-warning project-title">{{ projectStatus(projectEdit.status) | translate }}</h6>
+    </div>
+  </div>
+
+  <!--
+    <form *ngIf="!savedSuccessfully" name="projectForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
     (name.errors?.required && showErrorAlert('Name is required', 'Please enter project name'));
 
     (!customerName.valid && showErrorAlert('Customer is required', 'Please enter customer'));
 
     (number.valid && number.errors?.required && showErrorAlert('Number field is required', 'Please enter project number'));
     (reference.valid && reference.errors?.required && showErrorAlert('Reference is required', 'Please enter project reference'));
-    "> -->
-  <form name="projectForm" #f="ngForm" novalidate (ngSubmit)="save()">
+    ">
+  -->
+  <form class="form-project" name="projectForm" #f="ngForm" novalidate (ngSubmit)="save()">
     <div class="row">
 
-      <div class="col-4">
+      <div class="col-md-4 col-sm-12">
         <input type="hidden" [(ngModel)]="projectEdit.id" attr.id="id-{{uniqueId}}" name="id" />
         <!--left side -->
         <div class="form-group row">
@@ -19,8 +30,7 @@
           <input type="text" class="form-control" attr.id="customerName-{{uniqueId}}" name="customerName"
             placeholder="Customer name" [ngbTypeahead]="search"
             [ngClass]="{'is-valid': f.submitted && customerName.valid, 'is-invalid' : f.submitted && !customerName.valid}"
-            [(ngModel)]="projectEdit.customerName" #customerName="ngModel" required
-            [disabled]="!isStatusEditable" />
+            [(ngModel)]="projectEdit.customerName" #customerName="ngModel" required [disabled]="!isStatusEditable" />
           <span *ngIf="f.submitted && customerName.errors?.required" class="invalid-feedback">
             {{'projects.CustomerNameRequired' | translate}}
           </span>
@@ -29,8 +39,7 @@
           <label for="name">Project</label>
           <input type="text" class="form-control" attr.id="name-{{uniqueId}}" name="name" placeholder="Project name"
             [ngClass]="{'is-valid': f.submitted && name.valid, 'is-invalid' : f.submitted && !name.valid}"
-            [(ngModel)]="projectEdit.name" #name="ngModel" required
-            [disabled]="!isStatusEditable"/>
+            [(ngModel)]="projectEdit.name" #name="ngModel" required [disabled]="!isStatusEditable" />
           <span *ngIf="f.submitted && name.errors?.required" class="invalid-feedback">
             {{'projects.NameRequired' | translate}}
           </span>
@@ -40,8 +49,7 @@
           <input type="text" class="form-control" attr.id="number-{{uniqueId}}" name="number"
             placeholder="Project number"
             [ngClass]="{'is-valid': f.submitted && number.valid, 'is-invalid' : f.submitted && !number.valid}"
-            [(ngModel)]="projectEdit.number" #number="ngModel" required
-            [disabled]="!isStatusEditable"/>
+            [(ngModel)]="projectEdit.number" #number="ngModel" required [disabled]="!isStatusEditable" />
           <span *ngIf="f.submitted && number.errors?.required" class="invalid-feedback">
             {{'projects.NumberRequired' | translate}}
           </span>
@@ -51,8 +59,7 @@
           <input type="text" class="form-control" attr.id="reference-{{uniqueId}}" name="reference"
             placeholder="Project reference"
             [ngClass]="{'is-valid': f.submitted && reference.valid, 'is-invalid' : f.submitted && !reference.valid}"
-            [(ngModel)]="projectEdit.reference" #reference="ngModel" required
-            [disabled]="!isStatusEditable"/>
+            [(ngModel)]="projectEdit.reference" #reference="ngModel" required [disabled]="!isStatusEditable" />
           <span *ngIf="f.submitted && reference.errors?.required" class="invalid-feedback">
             {{'projects.ReferenceRequired' | translate}}
           </span>
@@ -61,7 +68,7 @@
 
       <div class="col-sm-1"></div>
 
-      <div class="col-4">
+      <div class="col-md-4 col-sm-12">
 
         <div class="form-group">
           <label for="deliveryAddress">Address</label>
@@ -82,8 +89,7 @@
             <input class="form-control" attr.id="deliveryDate-{{uniqueId}}" name="deliveryDate" placeholder="dd/mm/yyyy"
               [ngClass]="{'is-valid': f.submitted && deliveryDate.valid, 'is-invalid' : f.submitted && !deliveryDate.valid}"
               [(ngModel)]="projectEdit.deliveryDate" #deliveryDate="ngModel" #dd="ngbDatepicker" ngbDatepicker required
-              (focus)="dd.open()" outsideDays="hidden"
-              [disabled]="!isStatusEditable"/>
+              (focus)="dd.open()" outsideDays="hidden" [disabled]="!isStatusEditable" />
             <span *ngIf="f.submitted && deliveryDate.errors?.required" class="invalid-feedback">
               {{'projects.DeliveryDateRequired' | translate}}
             </span>
@@ -97,7 +103,7 @@
 
       </div>
 
-      <div class="card-footer row col-9">
+      <div class="card-footer row col-md-9 col-sm-12">
 
         <div class="col-6">
           <a [routerLink]="['/order-items', projectEdit.id]" *ngIf="projectEdit.id > 0" title="Edit order"
@@ -105,7 +111,8 @@
         </div>
 
         <div class="col" style="text-align: right;">
-          <button type="submit" *ngIf="isStatusEditable" class="btn btn-primary px-4 btn-save" [disabled]="isSaving" style="margin-right: 20px;">
+          <button type="submit" *ngIf="isStatusEditable" class="btn btn-primary px-4 btn-save" [disabled]="isSaving"
+            style="margin-right: 20px;">
             <i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i>
             {{isSaving ? ('projects.Saving' | translate) :
             projectEdit.id > 0 ? ('projects.Save' | translate) : ('projects.SaveAndContinue' | translate) }}

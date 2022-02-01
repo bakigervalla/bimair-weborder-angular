@@ -227,11 +227,11 @@ chngL(row, field, value) {
   this.fieldArray[row][field] = value;
 }
 
-savebtn(data) {
-  // console.log(this.fieldArray);
-  this.projectService.saveOrder(this.fieldArray).subscribe(order => this.fieldArray, error => console.log(error));
+// savebtn(data) {
+//   // console.log(this.fieldArray);
+//   this.projectService.saveOrder(this.fieldArray).subscribe(order => this.fieldArray, error => console.log(error));
 
-}
+// }
 
 // Delete row
 delete(row, rowIndex){

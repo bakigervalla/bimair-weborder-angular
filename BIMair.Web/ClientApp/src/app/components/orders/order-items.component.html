@@ -1,7 +1,13 @@
 <div class="container">
   <header class="pageHeader">
-    <h3><i class="fa fa-shopping-cart fa-lg page-caption" aria-hidden="true"></i> {{'projects.OrderItems' | translate}}
-    </h3>
+    <div class="col-12 col-md-3">
+      <h3><i class="fa fa-shopping-cart fa-lg page-caption" aria-hidden="true"></i> {{'projects.OrderItems' |
+        translate}}</h3>
+    </div>
+    <div *ngIf="projectStatus > 0" class="col-12 col-md-3 d-flex justify-content-center project-status">
+      <span>{{ 'projects.projectStatusTitle' | translate }}</span>
+      <h6 class="text-warning project-title">{{ getProjectStatus(projectStatus ) | translate }}</h6>
+    </div>
   </header>
 
   <div class="row action-buttons">
@@ -13,14 +19,13 @@
       <i class="fa fa-envelope" aria-hidden="true" style="margin-right: 8px;"></i>
       <span>{{ 'projects.SendByEmail' | translate }}</span>
     </button> -->
-    <button class="btn btn-primary btn-add" (click)="save(false)" type="button"
-    [disabled]="!isStatusEditable">
+    <button class="btn btn-primary btn-add" (click)="save(0)" type="button" [disabled]="!isStatusEditable">
       <i class="fa fa-floppy-o" aria-hidden="true" style="margin-right: 10px;"></i>
       <span>{{ 'projects.Save' | translate }}</span>
     </button>
 
-    <button *ngIf="isConfirmOrderEnabled" class="btn btn-warning" (click)="save(true)" type="button"
-    style='width:140px' [disabled]="!isStatusEditable">
+    <button *ngIf="isConfirmOrderEnabled" class="btn btn-warning" (click)="save(1)" type="button" style='width:140px'
+      [disabled]="!isStatusEditable">
       <i class="fa fa-paper-plane" aria-hidden="true" style="margin-right: 10px;"></i>
       <span>{{ 'projects.ConfirmOrder' | translate }}</span>
     </button>

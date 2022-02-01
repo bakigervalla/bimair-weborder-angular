@@ -25,11 +25,25 @@ input {
 .dtpicker {
   margin-left: 0 !important;
 }
+
 .button-dtpicker {
   margin-top: 35px;
 }
 
 .btn-save {
   display: inline;
-  width: auto;
+  width  : auto;
+}
+
+.project-title {
+  padding       : 3px 0 0 10px;
+  vertical-align: middle;
+}
+
+.form-project {
+  padding-top: 40px;
+}
+
+.project-status {
+  padding-top: 10px;
 }

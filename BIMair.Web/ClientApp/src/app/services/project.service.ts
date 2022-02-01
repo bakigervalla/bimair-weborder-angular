@@ -42,16 +42,16 @@ export class ProjectService {
     return this.projectEndpoint.deleteProjectEndpoint<Project>(projectId);
   }
 
-  saveOrder(order: any) {
-    return this.projectEndpoint.saveOrderEndpoint<Project>(order);
+  saveOrder(orderItems: any, confirmOrder: number) {
+    return this.projectEndpoint.saveOrderEndpoint<Project>(orderItems, confirmOrder);
   }
 
   getOrderItemsByProjectId(projectId?: number) {
     return this.projectEndpoint.getOrderItemsByProjectId<any>(projectId);
   }
 
-  saveOrderItems(orderItems: any, confirmOrder: boolean) {
-    return this.projectEndpoint.saveOrderItemsEndpoint<any>(orderItems, confirmOrder);
-  }
+  // saveOrderItems(orderItems: any, confirmOrder: boolean) {
+  //   return this.projectEndpoint.saveOrderItemsEndpoint<any>(orderItems, confirmOrder);
+  // }
 
 }

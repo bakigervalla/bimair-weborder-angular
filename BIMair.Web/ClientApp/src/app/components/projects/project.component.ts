@@ -160,12 +160,27 @@ export class ProjectComponent implements OnInit {
     this.alertService.showStickyMessage(error, null, MessageSeverity.error);
   }
 
-
   search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
         : this.customers.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+  )
+
+  public projectStatus(status: number) {
+    switch(status) {
+      case 1:
+        return "projects.projectStatusPending";
+      case 3:
+        return "projects.projectStatusConfirmed";
+      case 6:
+        return "projects.projectStatusProcessing";
+      case 9:
+        return "projects.projectStatusShipping";
+      case 12:
+        return "projects.StatusComplete";
+    }
+  }
+
 }

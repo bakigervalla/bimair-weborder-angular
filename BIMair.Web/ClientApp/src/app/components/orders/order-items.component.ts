@@ -74,14 +74,15 @@ export class OrderItemsComponent {
 
   ngOnInit(): void {
     this.projectId = this.route.snapshot.params['id'];
-    this.projectStatus = this.route.snapshot.params['status'];
 
     if (this.projectId > 0)
 
       this.projectService.getProject(this.projectId)
         .subscribe(data => {
           this.isStatusEditable = data?.status < 3; // Order Confirmed
-          console.log(this.isStatusEditable)
+
+          this.projectStatus = data?.status;
+
           // enable/disable input by ProjectStatus
           this.rectangularSheet.options.editable = this.isStatusEditable;
           this.roundSheet.options.editable = this.isStatusEditable;
@@ -851,12 +852,9 @@ export class OrderItemsComponent {
     this.alertService.showMessage('Success', `Order sent successfully`, MessageSeverity.success);
   }
 
-  save(confirmOrder: boolean) {
-
+  save(confirmOrder: number) {
     let jsonData = this.getJsonDataSheet();
-
-    console.log(confirmOrder)
-    this.projectService.saveOrderItems(jsonData, confirmOrder)
+    this.projectService.saveOrder(jsonData, confirmOrder)
       .subscribe(x => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
 
   }
@@ -914,6 +912,21 @@ export class OrderItemsComponent {
     this.alertService.showStickyMessage(error, null, MessageSeverity.error);
   }
 
+  public getProjectStatus(status: number) {
+    switch(status) {
+      case 1:
+        return "projects.projectStatusPending";
+      case 3:
+        return "projects.projectStatusConfirmed";
+      case 6:
+        return "projects.projectStatusProcessing";
+      case 9:
+        return "projects.projectStatusShipping";
+      case 12:
+        return "projects.StatusComplete";
+    }
+  }
+
   setReadOnly = (readonly: boolean, y: number) => {
     if (readonly) {
       this.rectangularSheet.getCell(`D${y}`).classList.add('readonly');
@@ -949,4 +962,5 @@ export class OrderItemsComponent {
     }
   }
   zeroPad = (num, places) => String(num).padStart(places, '0')
+
 }

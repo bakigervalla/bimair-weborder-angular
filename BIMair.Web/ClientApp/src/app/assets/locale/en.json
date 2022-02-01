@@ -231,6 +231,12 @@
     "SendByEmail": "Send by email",
     "SearchCustomers": "Search customers",
     "Customers": "Customers",
-    "ConfirmOrder": "Confirm Order"
+    "projectStatusTitle": "Project status: ",
+    "ConfirmOrder": "Confirm Order",
+    "projectStatusPending": "Not Confirmed",
+    "projectStatusConfirmed": "Confirmed",
+    "projectStatusProcessing": "Processing",
+    "projectStatusShipping": "Shipped",
+    "projectStatusComplete": "Complete"
   }
 }

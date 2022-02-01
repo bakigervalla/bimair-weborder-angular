@@ -24,7 +24,7 @@ export class ProjectEndpoint extends EndpointBase {
   get deteProjectUrl() { return this.configurations.baseUrl + '/api/projects'; }
   get saveOrderUrl() { return this.configurations.baseUrl + '/api/projects/saveorder'; }
   get orderItemsByProjectUrl() { return this.configurations.baseUrl + '/api/projects/projectitems'; }
-  get saveOrderItemsUrl() { return this.configurations.baseUrl + '/api/projects/saveorder/confirmorder'; }
+  // get saveOrderItemsUrl() { return this.configurations.baseUrl + '/api/projects/saveorder'; }
 
   constructor(private configurations: ConfigurationService, http: HttpClient, authService: AuthService) {
     super(http, authService);
@@ -91,10 +91,14 @@ export class ProjectEndpoint extends EndpointBase {
       }));
   }
 
-  saveOrderEndpoint<T>(orderObject: any): Observable<T> {
-    return this.http.post<T>(this.saveOrderUrl, orderObject, this.requestHeaders).pipe<T>(
+  saveOrderEndpoint<T>(orderItems: any, confirmOrder: number): Observable<T> {
+    const endpointUrl = `${this.saveOrderUrl}/${confirmOrder}`;
+    console.log(confirmOrder);
+    var items = this.returnNonEmpty(orderItems);
+
+    return this.http.post<T>(endpointUrl, items, this.requestHeaders).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.saveOrderEndpoint(orderObject));
+        return this.handleError(error, () => this.saveOrderEndpoint(orderItems, confirmOrder));
       }));
   }
 
@@ -107,14 +111,14 @@ export class ProjectEndpoint extends EndpointBase {
       }));
   }
 
-  saveOrderItemsEndpoint<T>(orderItems: any, confirmOrder: boolean): Observable<T> {
-    var items = this.returnNonEmpty(orderItems);
-    var _url = `${this.saveOrderItemsUrl}/${confirmOrder}`;
-    return this.http.post<T>(_url, items, this.requestHeaders).pipe<T>(
-      catchError(error => {
-        return this.handleError(error, () => this.saveOrderItemsEndpoint(items, confirmOrder));
-      }));
-  }
+  // saveOrderItemsEndpoint<T>(orderItems: any, confirmOrder: boolean): Observable<T> {
+  //   var items = this.returnNonEmpty(orderItems);
+  //   var _url = `${this.saveOrderItemsUrl}/${confirmOrder}`;
+  //   return this.http.post<T>(_url, items, this.requestHeaders).pipe<T>(
+  //     catchError(error => {
+  //       return this.handleError(error, () => this.saveOrderItemsEndpoint(items, confirmOrder));
+  //     }));
+  // }
 
   returnNonEmpty(array: []) {
     return array.map((obj: any) => {

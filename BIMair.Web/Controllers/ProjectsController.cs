@@ -182,7 +182,7 @@ namespace BIMair.Controllers
         [ProducesResponseType(201, Type = typeof(List<OrderItemViewModel>))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
-        public async Task<IActionResult> SaveOrderItems([FromBody] List<OrderItemViewModel> orderItems, bool confirmorder)
+        public async Task<IActionResult> SaveOrderItems(int confirmorder, [FromBody] List<OrderItemViewModel> orderItems)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -231,10 +231,9 @@ namespace BIMair.Controllers
             Expression<Func<Project, bool>> prodicate = p => p.Id == prjId;
             var project = _unitOfWork.Projects.GetSingleOrDefault(prodicate);
 
-            // Is Order Confiremd Update Project Status
-            if (confirmorder)
+            if (confirmorder == 1) // Order confirmed
             {
-                project.Status = 3; // Order Confirmed
+                project.Status = 3; // Confirm order
                 _unitOfWork.Projects.Update(project);
             }
 

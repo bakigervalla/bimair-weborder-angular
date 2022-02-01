@@ -57,4 +57,19 @@ export class ProjectListComponent implements OnInit {
         );
   }
 
+  public projectStatus(status: number) {
+    switch(status) {
+      case 1:
+        return "projects.projectStatusPending";
+      case 3:
+        return "projects.projectStatusConfirmed";
+      case 6:
+        return "projects.projectStatusProcessing";
+      case 9:
+        return "projects.projectStatusShipping";
+      case 12:
+        return "projects.StatusComplete";
+    }
+  }
+
 }

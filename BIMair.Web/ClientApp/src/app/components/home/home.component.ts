@@ -9,7 +9,6 @@ import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
 import { Utilities } from '../../services/utilities';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,8 +22,21 @@ export class HomeComponent {
 
   ngOnInit(): void {
     this.getProjects();
+  }
 
-
+  private projectStatus(status: number) {
+    switch(status) {
+      case 1:
+        return "projects.projectStatusPending";
+      case 3:
+        return "projects.projectStatusConfirmed";
+      case 6:
+        return "projects.projectStatusProcessing";
+      case 9:
+        return "projects.projectStatusShipping";
+      case 12:
+        return "projects.StatusComplete";
+    }
   }
 
   private getProjects() {
@@ -37,7 +49,5 @@ export class HomeComponent {
         // this.rowsCache = [...projects];
         // this.isLoading = false;
       });
-      console.log(this.rows);
   }
-
 }
