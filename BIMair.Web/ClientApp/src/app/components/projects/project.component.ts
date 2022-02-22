@@ -1,19 +1,18 @@
-import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Injectable, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbDatepicker, NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import {NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { Observable, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-
 import { AppTranslationService } from '../../services/app-translation.service';
 import { AlertService, MessageSeverity, DialogType } from '../../services/alert.service';
 import { Utilities } from '../../services/utilities';
 
 import { Project } from '../../models/project.model';
-import { ProjectEdit, ProjectStatus } from '../../models/project-edit.model';
-import { Customer } from '../../models/customer.model';
+import { ProjectEdit } from '../../models/project-edit.model';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { ProjectService } from '../../services/project.service';
+import moment from 'moment';
+
 
 @Component({
   selector: 'app-project',
@@ -61,11 +60,11 @@ export class ProjectComponent implements OnInit {
   public deliveryAddress;
 
   @ViewChild('deliveryDate')
-  public deliveryDate; //: NgbDatepicker
+  deliveryDate: Date;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private alertService: AlertService, private projectService: ProjectService) { }
+    private alertService: AlertService, private projectService: ProjectService) {}
 
   ngOnInit() {
     this.getCustomers();
@@ -85,10 +84,7 @@ export class ProjectComponent implements OnInit {
     this.projectService.getProject(id)
       .subscribe(data => {
         this.projectEdit = data;
-        console.log(data?.status)
         this.isStatusEditable = data?.status < 3; // Order not confirmed
-        // var ddFormated = new Date(this.projectEdit.deliveryDate.toString());
-        // this.projectEdit.deliveryDate = { year: ddFormated.getFullYear(), month: ddFormated.getMonth() +1, day: ddFormated.getDate() }; // July, 14 1789;
       });
   }
 

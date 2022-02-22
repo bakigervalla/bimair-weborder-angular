@@ -74,9 +74,6 @@ export class ProjectEndpoint extends EndpointBase {
   }
 
   saveProjectEndpoint<T>(projectObject: any): Observable<T> {
-
-    let dd = new Date(projectObject.deliveryDate['year'], projectObject.deliveryDate['month'] - 1, projectObject.deliveryDate['day'] + 1)
-    projectObject.deliveryDate = dd;
     return this.http.post<T>(this.saveProjectUrl, JSON.stringify(projectObject), this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.saveProjectEndpoint(projectObject));

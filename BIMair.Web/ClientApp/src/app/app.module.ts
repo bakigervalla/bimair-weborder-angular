@@ -73,7 +73,8 @@ import { RoleEditorComponent } from './components/controls/role-editor.component
 import { ProjectListComponent } from './components/projects/project-list.component';
 import { ProjectComponent } from './components/projects/project.component';
 import { DatePipe } from './helpers/format-date.pipe';
-import { NgbModal, NgbModule, NgbDatepicker, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDateAdapter, NgbModule, NgbDateNativeUTCAdapter, NgbDatepicker, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbStringAdapter, CustomDateParserFormatter } from './helpers/datepicker-adapter';
 import { NgbDateFormat } from "./pipes/ngb-date-format.pipe";
 import { RectangularComponent } from './components/rectangular/rectangular.component';
 import { OrderItemsComponent } from './components/orders/order-items.component';
@@ -135,7 +136,7 @@ import { ProductImageComponent } from './components/orders/product-image.compone
     DatePipe,
     RectangularComponent,
     OrderItemsComponent,
-    ProductImageComponent,
+    ProductImageComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
@@ -155,7 +156,8 @@ import { ProductImageComponent } from './components/orders/product-image.compone
     LocalStoreManager,
     OidcHelperService,
     NgbDateFormat,
-    { provide: NgbDateParserFormatter, useClass: NgbDateFormat }
+    {provide: NgbDateAdapter, useClass: NgbStringAdapter},
+    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
   ],
   bootstrap: [AppComponent]
 })
