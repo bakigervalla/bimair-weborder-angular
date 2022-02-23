@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Authorization;
 using IdentityServer4.AccessTokenValidation;
 using DAL.Core.Interfaces;
 using BIMair.Services;
+using Sentry;
+using Newtonsoft.Json;
 
 namespace BIMair.Controllers
 {
@@ -32,19 +34,23 @@ namespace BIMair.Controllers
         private readonly ILogger _logger;
         private readonly IEmailService _emailService;
 
+        private readonly IHub _sentryHub;
 
         public ProjectsController(
             IAccountManager accountManager,
             IMapper mapper,
             IUnitOfWork unitOfWork,
             ILogger<ProjectsController> logger,
-            IEmailService emailService)
+            IEmailService emailService,
+            IHub sentryHub)
         {
             _accountManager = accountManager;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _logger = logger;
             _emailService = emailService;
+
+            _sentryHub = sentryHub;
         }
 
 
@@ -107,38 +113,46 @@ namespace BIMair.Controllers
         [ProducesResponseType(403)]
         public IActionResult SaveProject([FromBody] ProjectViewModel model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
-            string userId = this.User.GetUserId();
-
-            model.UserId = userId;
-
-            Expression<Func<Customer, bool>> expr = p => p.Name == model.CustomerName && p.UserId == userId;
-            var customer = _unitOfWork.Customers.GetSingleOrDefault(expr);
-
-            if (customer == null)
+            try
             {
-                customer = _unitOfWork.Customers.Add(new Customer { Name = model.CustomerName, UserId = userId });
-                _unitOfWork.SaveChanges();
-            }
-
-            var project = _mapper.Map<Project>(model);
-            project.Customer = customer;
-
-            if (model.Id == 0)
-                _unitOfWork.Projects.Add(project);
-            else
-            {
-                if (!IsMyProject(project.Id))
+                if (!ModelState.IsValid)
                     return BadRequest();
 
-                _unitOfWork.Projects.Update(project);
+                string userId = this.User.GetUserId();
+
+                model.UserId = userId;
+
+                Expression<Func<Customer, bool>> expr = p => p.Name == model.CustomerName && p.UserId == userId;
+                var customer = _unitOfWork.Customers.GetSingleOrDefault(expr);
+
+                if (customer == null)
+                {
+                    customer = _unitOfWork.Customers.Add(new Customer { Name = model.CustomerName, UserId = userId });
+                    _unitOfWork.SaveChanges();
+                }
+
+                var project = _mapper.Map<Project>(model);
+                project.Customer = customer;
+
+                if (model.Id == 0)
+                    _unitOfWork.Projects.Add(project);
+                else
+                {
+                    if (!IsProjectOwner(project, userId))
+                        return BadRequest();
+
+                    _unitOfWork.Projects.Update(project);
+                }
+
+                _unitOfWork.SaveChanges();
+
+                return Ok();
             }
-
-            _unitOfWork.SaveChanges();
-
-            return Ok();
+            catch(Exception ex)
+            {
+                SentrySdk.CaptureMessage("Exception: " + ex.Message + " Inner exception: " + ex.InnerException?.Message);
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -255,13 +269,15 @@ namespace BIMair.Controllers
         [Authorize(Authorization.Policies.ManageProjectsPolicy)]
         public IActionResult Delete([FromRoute] int Id)
         {
-            if (!IsMyProject(Id))
-                return BadRequest();
-
             Expression<Func<Project, bool>> expr = p => p.Id == Id;
             var project = _unitOfWork.Projects.GetSingleOrDefault(expr);
 
             if (project == null)
+                return BadRequest();
+
+            string userId = this.User.GetUserId();
+
+            if (!IsProjectOwner(project, userId))
                 return BadRequest();
 
             _unitOfWork.Projects.Remove(project);
@@ -295,18 +311,12 @@ namespace BIMair.Controllers
             return Ok(_mapper.Map<IEnumerable<ProjectViewModel>>(result));
         }
 
-        private bool IsMyProject(int projectId)
+        private bool IsProjectOwner(Project project, string userId)
         {
-            string userId = this.User.GetUserId();
-
             if (this.User.IsUserInRole("administrator"))
                 return true;
             else
-            {
-                Expression<Func<Project, bool>> expr = p => p.Id == projectId && p.UserId == userId;
-                return _unitOfWork.Projects.GetSingleOrDefault(expr) != null;
-            }
-
+                return project.UserId == userId;
         }
     }
 }

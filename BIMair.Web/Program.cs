@@ -51,6 +51,16 @@ namespace BIMair
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseSentry(o =>
+                    {
+                        o.Dsn = "https://c22fec4a565f4d6280d9d0c1fde4aab4@o553108.ingest.sentry.io/6228459";
+                        // When configuring for the first time, to see what the SDK is doing:
+                        o.Debug = true;
+                        // Set TracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+                        // We recommend adjusting this value in production.
+                        o.TracesSampleRate = 1.0;
+                    });
+
                     webBuilder.UseStartup<Startup>();
                 })
                 .ConfigureLogging((hostingContext, logging) =>
